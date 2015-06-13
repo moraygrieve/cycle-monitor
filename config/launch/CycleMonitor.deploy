@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><configuration>
+<intAttribute key="com.apama.text.CONFIG_VERSION" value="3"/>
+<listAttribute key="com.apama.text.COMPONENTS">
+<listEntry>
+<component clear="true" correlatorLog="false" correlatorLogLocation="${LAUNCH_CONFIG_NAME}_${CORRELATOR_NAME}.output.log" dataLocationDir="${project_loc:CycleMonitor}/database/Default Correlator" distMemoryStoreEnabled="false" enabled="true" extraArguments="" hostname="localhost" inputLog="true" inputLogLocation="Default_Correlator_${START_TIME}_${ID}.input.log" isAutomaticOrdering="true" isPeristanceEnabled="false" javaEnabled="true" jmsResiliencyEnabled="false" logLevel="INFO" maxMBLocalHeap="512" maxMBLocalHeapEnabled="false" maxMBLocalOffHeap="16384" maxMBLocalOffHeapEnabled="false" name="Default Correlator" persistenceStartupOption="CLEAR_REINJECT" port="15903" reuse="false" type="CORRELATOR" umConfigurationEnabled="false" workingDir="/CycleMonitor">
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/adapters/monitors/ADBCAdapterEvents.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="ADBC Adapter common"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="ADBC-Common.bnd"/>
+<attribute name="bundle-display-name" value="ADBC Adapter common"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/adapters/monitors/ADBCEvents.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="ADBC Adapter common"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="ADBC-Common.bnd"/>
+<attribute name="bundle-display-name" value="ADBC Adapter common"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/StatusSupport.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="Status Support"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="ADBC-Common.bnd"/>
+<attribute name="bundle-display-name" value="Status Support"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/adapters/monitors/ADBCHelper.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="ADBC Adapter common"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="ADBC-Common.bnd"/>
+<attribute name="bundle-display-name" value="ADBC Adapter common"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/adapters/monitors/ADBCAdapterService.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="ADBC Adapter common"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="ADBC-Common.bnd"/>
+<attribute name="bundle-display-name" value="ADBC Adapter common"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="../../monitors/IAFStatusManager.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="IAF Status Manager"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="ADBC-Common.bnd"/>
+<attribute name="bundle-display-name" value="IAF Status Manager"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/adapters/monitors/ADBCStatusManager.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="ADBC Adapter common"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="ADBC-Common.bnd"/>
+<attribute name="bundle-display-name" value="ADBC Adapter common"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/scenario_support/ScenarioDeleterSupport.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="Scenario Service"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="ScenarioService.bnd"/>
+<attribute name="bundle-display-name" value="Scenario Service"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/ScenarioService.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="Scenario Service"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="ScenarioService.bnd"/>
+<attribute name="bundle-display-name" value="Scenario Service"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="/CycleMonitor/monitors/utils/InitialisationManager.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/CycleMonitor/monitors/configuration/DBDefinition.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/CycleMonitor/monitors/strategy/AlertDefinition.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/CycleMonitor/monitors/source/StationManager.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/CycleMonitor/monitors/configuration/DBManager.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/CycleMonitor/monitors/strategy/RateAlert.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/CycleMonitor/monitors/strategy/BoundaryAlert.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/CycleMonitor/monitors/source/StationDefinition.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/CycleMonitor/monitors/configuration/DBLoader.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/CycleMonitor/monitors/utils/DataViewKeyFields.mon" type="PROJECT_MON_FILE"/>
+</component>
+</listEntry>
+</listAttribute>
+<booleanAttribute key="com.apama.text.OPEN_DASHBOARD_ATTR" value="true"/>
+<booleanAttribute key="com.apama.text.OPEN_DEFAULT_DASHBOARD_ATTR" value="true"/>
+<booleanAttribute key="com.apama.text.OPEN_ENABLE_DATAPLAYER_MODE_ATTR" value="false"/>
+<booleanAttribute key="com.apama.text.GENERATE_TIME_EVENTS_ATTR" value="true"/>
+</configuration>

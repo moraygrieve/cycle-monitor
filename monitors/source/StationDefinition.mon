@@ -1,0 +1,9 @@
+package com.jtech.source;
+
+event StationUpdate {
+	string city;
+	integer id;
+	integer docked;
+	integer empty;
+	boolean active;
+}

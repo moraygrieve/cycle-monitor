@@ -1,0 +1,7 @@
+package com.jtech.utils;
+
+monitor InitialisationManager {
+	action onload {
+		
+	}
+}

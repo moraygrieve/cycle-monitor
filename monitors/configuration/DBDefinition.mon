@@ -1,0 +1,10 @@
+package com.jtech.config;
+
+//entry in db, and dataview
+event StationEntry {
+	string city;
+	integer stationId;
+	float lowerBound;
+	float upperBound;
+	float rateLimit;
+}

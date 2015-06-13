@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="" default="all" basedir=".">
+  <description>Auto-generated build file by Apama Export Wizard.</description>
+  <import file="apama-macros.xml" />
+  <!-- set global properties for this build -->
+  <property name="version" value="2.1.0" />
+  <property environment="env" />
+  <property file="environment.properties" />
+  <tempfile property="project.tmpdir" destDir="${java.io.tmpdir}" prefix="generate-init-${PROJECT_NAME}" />
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp />
+    <!-- Create required directories -->
+    <mkdir dir="${log.dir}" />
+    <mkdir dir="${project.tmpdir}" />
+    <generate-event-modeler-config projectPath="${PROJECT_DIR}" properties="environment.properties" outputFile="${project.tmpdir}${file.separator}${event_modeler.xml}" />
+  </target>
+  <!-- Framework -->
+  <target name="framework" depends="start-correlator-Default Correlator ,engine-connect-correlators ,inject-correlator-Default Correlator" />
+  <!-- Start -->
+  <target name="start" depends="init, framework">
+    <delete includeEmptyDirs="true" failonerror="false">
+      <fileset dir="${project.tmpdir}" includes="**/*" />
+    </delete>
+  </target>
+  <!-- engine connect -->
+  <target name="engine-connect-correlators">
+    <load-engine-connect configPath="${CONFIG_PATH}" failonerror="false" />
+  </target>
+  <!-- Stop -->
+  <target name="stop" depends="stop-correlator-Default Correlator" />
+  <!-- Dashboards -->
+  <target name="dashboards" />
+  <!-- Adapters -->
+  <target name="adapters" />
+  <!-- All -->
+  <target name="all" depends="start, adapters, dashboards" />
+  <!-- Clean -->
+  <target name="clean">
+    <delete includeemptydirs="true">
+      <fileset dir="${log.dir}" includes="**/*" />
+    </delete>
+  </target>
+  <target name="start-correlator-Default Correlator">
+    <start-correlator port="${Default Correlator.port}" console="false" java="true" />
+  </target>
+  <target name="stop-correlator-Default Correlator">
+    <kill-correlator port="${Default Correlator.port}" />
+  </target>
+  <target name="inject-correlator-Default Correlator">
+    <generate-project-init-list projectPath="${PROJECT_DIR}" configPath="${CONFIG_PATH}" outputproperty="init.list.prop.0" correlatorName="Default Correlator" properties="environment.properties" />
+    <inject-project-init-list port="${Default Correlator.port}" scenario-config="${project.tmpdir}${file.separator}${event_modeler.xml}" initlist="${init.list.prop.0}" temp-location="${project.tmpdir}" project-dir="${PROJECT_DIR}" />
+  </target>
+</project>
+

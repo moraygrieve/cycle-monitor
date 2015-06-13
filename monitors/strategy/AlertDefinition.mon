@@ -1,0 +1,11 @@
+package com.jtech.alert;
+
+event Alert {
+	integer id;
+	string city;
+	string stationId;
+	string stationName;
+	integer alertLevel;
+	string alertType;
+	string message;
+}
