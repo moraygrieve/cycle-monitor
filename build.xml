@@ -6,6 +6,7 @@
 	<property file="default.properties" />
 
 	<target name="init">
+		<init/>
 		<tstamp />
 		<mkdir dir="${log.dir}" />
 	</target>
@@ -21,6 +22,7 @@
 	<target name="all" depends="start, adapters" />
 	
 	<target name="clean">
+		<delete dir="${build.dir}" />
 		<delete includeemptydirs="true">
 			<fileset dir="${log.dir}" includes="**/*" />
 		</delete>

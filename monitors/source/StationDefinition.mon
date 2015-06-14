@@ -10,4 +10,5 @@ event StationUpdate {
 	integer docked;
 	integer empty;
 	boolean active;
+	dictionary<string,string> __payload;
 }
