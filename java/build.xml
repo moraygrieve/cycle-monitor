@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="City bikes adapter build file" default="all" basedir=".">
+
+	<!-- Global properties for the build -->
+	<property environment="env"/>
+	<property name="apama-home" value="${env.APAMA_DEV_HOME}"/>
+	<property name="lib-dir" value="${apama-home}/lib"/>
+	<property name="jar.name" value="city-bikes-transport.jar"/>
+	
+	<patternset id="libs">
+		<include name="jplugin_public${env.APAMA_LIBRARY_VERSION}.jar"/>
+		<include name="util${env.APAMA_LIBRARY_VERSION}.jar"/>
+		<include name="engine_client${env.APAMA_LIBRARY_VERSION}.jar" />
+		<include name="wstx-asl-3.2.4.jar" />
+	</patternset>
+		
+	<patternset id="jar.contents">
+		<include name="com/jtech/iaf/*.class" />
+	</patternset>
+		
+	<!-- produce the  jar file -->
+	<target name="jar" depends="compile">
+		<jar jarfile="lib/${jar.name}">
+			<fileset dir="./src">
+				<patternset refid="jar.contents"/>
+			</fileset>
+		</jar>
+	</target>
+	
+	<target name="compile" depends="prepare" unless="uptodate">
+		<javac srcdir="./src" destdir="./src">
+			<classpath>
+				<fileset dir="${lib-dir}">
+					<patternset refid="libs"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="prepare">	
+		<uptodate targetfile="${jar-file}" property="uptodate">
+			<srcfiles dir="./src" includes="**.java"/>
+			<srcfiles dir="./src">
+				<patternset refid="jar-contents"/>
+			</srcfiles>
+			<srcfiles dir="${lib-dir}">
+				<patternset refid="libs"/>
+			</srcfiles>
+		</uptodate>
+	</target>
+		
+	<!-- target to build everything -->
+	<target name="all" depends="jar" >
+	</target>
+	
+	<!-- target to clean everything -->
+	<target name="clean">
+		<delete>
+			<fileset dir=".">
+				<include name="**/*.class"/>
+				<include name="lib/${jar.name}"/>
+			</fileset>
+		</delete>			
+	</target>
+</project>
+

@@ -2,12 +2,20 @@ package com.jtech.iaf;
 
 import com.apama.iaf.plugin.AbstractEventTransport;
 import com.apama.iaf.plugin.EventDecoder;
+import com.apama.iaf.plugin.EventTransportProperty;
+import com.apama.iaf.plugin.TimestampConfig;
 import com.apama.iaf.plugin.TransportException;
 import com.apama.iaf.plugin.TransportStatus;
 import com.apama.util.TimestampSet;
 
 
 public class CityBikes extends AbstractEventTransport {
+
+	public CityBikes(String name, EventTransportProperty[] properties,
+			TimestampConfig timestampConfig) throws TransportException {
+		super(name, properties, timestampConfig);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void addEventDecoder(String arg0, EventDecoder arg1)
@@ -58,6 +66,4 @@ public class CityBikes extends AbstractEventTransport {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 }
