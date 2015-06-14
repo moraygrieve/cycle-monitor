@@ -1,41 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Cycle Monitor application build file" default="all" basedir=".">
+
+	<!-- Import the apama macros, this will also set some standard properties -->
 	<import file="apama-macros.xml" />
-	
+
+	<!-- Get a reference to the environemnt, and import default properties -->
 	<property environment="env" />
 	<property file="default.properties" />
+
+	<!-- Import the filelist for correlator injection -->
+	<import file="build-filelists.xml" />
 
 	<target name="init">
 		<init/>
 		<tstamp />
 		<mkdir dir="${log.dir}" />
 	</target>
-	
+
 	<target name="framework" depends="start-correlator, inject-correlator" />
-	
+
 	<target name="start" depends="init, framework" />
-	
+
 	<target name="stop" depends="stop-correlator" />
-	
+
 	<target name="adapters" />
 
 	<target name="all" depends="start, adapters" />
-	
+
 	<target name="clean">
 		<delete dir="${build.dir}" />
 		<delete includeemptydirs="true">
 			<fileset dir="${log.dir}" includes="**/*" />
 		</delete>
 	</target>
-	
+
 	<target name="start-correlator">
 		<start-correlator port="${correlator.port}" console="false" java="true" />
 	</target>
-	
+
 	<target name="stop-correlator">
 		<kill-correlator port="${correlator.port}" />
 	</target>
-	
-	<target name="inject-correlator" />
+
+	<target name="inject-correlator" >
+		<engine-inject-filelistid filelistid="utils" />
+		<engine-inject-filelistid filelistid="configuration" />
+		<engine-inject-filelistid filelistid="source" />
+		<engine-inject-filelistid filelistid="strategy" />
+	</target>
 </project>
 
