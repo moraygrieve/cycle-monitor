@@ -1,8 +1,12 @@
 package com.jtech.source;
 
+//full snapshot update of all station details
 event StationUpdate {
 	string city;
 	integer id;
+	string name;
+	float lat;
+	float lng;
 	integer docked;
 	integer empty;
 	boolean active;
