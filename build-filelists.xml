@@ -1,0 +1,25 @@
+<project name="Cycle Monitor filelists">
+
+	<filelist id="utils">
+		<file name="monitors/utils/DataViewKeyFields.mon" />
+		<file name="monitors/utils/InitialisationManager.mon" />
+	</filelist>
+
+	<filelist id="configuration">
+		<file name="monitors/configuration/DBDefinition.mon" />
+		<file name="monitors/configuration/DBLoader.mon" />
+		<file name="monitors/configuration/DBManager.mon" />
+	</filelist>
+	
+	<filelist id="source">
+		<file name="monitors/source/StationDefinition.mon" />
+		<file name="monitors/source/StationManager.mon" />
+	</filelist>
+	
+	<filelist id="strategy">
+		<file name="monitors/strategy/AlertDefinition.mon" />
+		<file name="monitors/strategy/BoundaryAlert.mon" />
+		<file name="monitors/strategy/RateAlert.mon" />
+	</filelist>
+
+</project>
