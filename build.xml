@@ -11,29 +11,25 @@
 	<!-- Import the filelist for correlator injection -->
 	<import file="build-filelists.xml" />
 
+	<!-- Initialise, including file tailoring into the build directory -->
 	<target name="init">
 		<init/>
 		<tstamp />
 		<mkdir dir="${log.dir}" />
 	</target>
 
-	<target name="framework" depends="start-correlator, inject-correlator" />
-
+	<!-- Top level start and stop tasks -->
+	<target name="all" depends="start, adapters" />
+	
 	<target name="start" depends="init, framework" />
-
-	<target name="stop" depends="stop-correlator" />
+	
+	<target name="framework" depends="start-correlator, inject-correlator" />
 
 	<target name="adapters" />
 
-	<target name="all" depends="start, adapters" />
+	<target name="stop" depends="stop-correlator" />
 
-	<target name="clean">
-		<delete dir="${build.dir}" />
-		<delete includeemptydirs="true">
-			<fileset dir="${log.dir}" includes="**/*" />
-		</delete>
-	</target>
-
+	<!-- Correlator start, stop and load tasks -->
 	<target name="start-correlator">
 		<start-correlator port="${correlator.port}" console="false" java="true" />
 	</target>
@@ -47,6 +43,14 @@
 		<engine-inject-filelistid filelistid="configuration" />
 		<engine-inject-filelistid filelistid="source" />
 		<engine-inject-filelistid filelistid="strategy" />
+	</target>
+
+	<!-- Clean tasks -->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete includeemptydirs="true">
+			<fileset dir="${log.dir}" includes="**/*" />
+		</delete>
 	</target>
 </project>
 
