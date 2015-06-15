@@ -2,16 +2,22 @@
 
 <project name="City bikes transport" default="jar" basedir=".">
 	<property environment="env"/>
-	<property name="jar-file"     value="${basedir}/lib/city-bikes-adapter.jar"/>
-	<property name="apama-home"   value="${env.APAMA_HOME}"/>
-	<property name="lib-dir"      value="${apama-home}/lib"/>
-	<property name="jar-version"  value="${env.APAMA_LIBRARY_VERSION}"/>
+	<property name="jar-file"      value="${basedir}/lib/city-bikes-adapter.jar"/>
+	<property name="lib-dir"       value="./lib"/>
+	<property name="apama-home"    value="${env.APAMA_HOME}"/>
+	<property name="apama-lib-dir" value="${apama-home}/lib"/>
+	<property name="apama-version" value="${env.APAMA_LIBRARY_VERSION}"/>
 	
 	<fail unless="env.APAMA_LIBRARY_VERSION" message="Please run the bin/apama_env script before attempting to build this sample."/>
 	
 	<patternset id="libs">
-		<include name="jplugin_public${jar-version}.jar"/>
-		<include name="util${env.APAMA_LIBRARY_VERSION}.jar"/>
+		<include name="json-simple-1.1.jar"/>
+		<include name="cron4j-2.2.5.jar"/>
+	</patternset>
+	
+	<patternset id="apama-libs">
+		<include name="jplugin_public${apama-version}.jar"/>
+		<include name="util${apama-version}.jar"/>
 	</patternset>
 		
 	<patternset id="jar-contents">
@@ -27,6 +33,9 @@
 			<srcfiles dir="${lib-dir}">
 				<patternset refid="libs"/>
 			</srcfiles>
+			<srcfiles dir="${apama-lib-dir}">
+				<patternset refid="apama-libs"/>
+			</srcfiles>
 		</uptodate>
 	</target>
 
@@ -35,6 +44,9 @@
 			<classpath>
 				<fileset dir="${lib-dir}">
 					<patternset refid="libs"/>
+				</fileset>
+				<fileset dir="${apama-lib-dir}">
+					<patternset refid="apama-libs"/>
 				</fileset>
 			</classpath>
 		</javac>
@@ -49,10 +61,10 @@
 	</target>
 
 	<target name="clean">
+		<delete file="${jar-file}" />
 		<delete>
 			<fileset dir=".">
 				<include name="**/*.class"/>
-				<include name="**/*.jar"/>
 			</fileset>
 		</delete>
 	</target>

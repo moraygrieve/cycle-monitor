@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <adapter-config xmlns:xi="http://www.w3.org/2001/XInclude">
+	<java>
+		<classpath path="./java/lib/cron4j-2.2.5.jar" />
+		<classpath path="./java/lib/json-simple-1.1.jar" />
+	</java>
 
 	<transports>
 		<transport name="CityBikesTransport" jarName="./java/lib/city-bikes-adapter.jar"

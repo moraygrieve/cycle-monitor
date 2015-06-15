@@ -3,5 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/ApamaJavaLibrary"/>
 	<classpathentry kind="src" path="java/src"/>
+	<classpathentry kind="lib" path="C:/Users/moray/Development/cycle-monitor/java/lib/json-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/moray/Development/cycle-monitor/java/lib/cron4j-2.2.5.jar"/>
 	<classpathentry kind="output" path="java/bin"/>
 </classpath>
