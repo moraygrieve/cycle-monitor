@@ -1,7 +1,5 @@
 package com.jtech.iaf;
 
-import it.sauronsoftware.cron4j.Scheduler;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -17,15 +15,18 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import it.sauronsoftware.cron4j.Scheduler;
+
 import com.apama.util.Logger;
+import com.apama.util.TimestampSet;
 import com.apama.iaf.plugin.AbstractEventTransport;
 import com.apama.iaf.plugin.EventDecoder;
 import com.apama.iaf.plugin.EventTransport;
 import com.apama.iaf.plugin.EventTransportProperty;
+import com.apama.iaf.plugin.NormalisedEvent;
 import com.apama.iaf.plugin.TimestampConfig;
 import com.apama.iaf.plugin.TransportException;
 import com.apama.iaf.plugin.TransportStatus;
-import com.apama.util.TimestampSet;
 
 public class CityBikesTransport extends AbstractEventTransport {
 	private static final String PROPERTY_CITY_NAME = "cityName";
@@ -45,9 +46,9 @@ public class CityBikesTransport extends AbstractEventTransport {
 	private volatile long totalSent;
 	private volatile long totalReceived;
 
-
 	public CityBikesTransport(String name, EventTransportProperty[] properties,
-			TimestampConfig timestampConfig) throws TransportException {
+			TimestampConfig timestampConfig) throws TransportException 
+	{
 		super(name, properties, timestampConfig);
 		transportName = name;
 		logger = Logger.getLogger(CityBikesTransport.class);
@@ -61,8 +62,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 	{
 		super.updateProperties(properties, timestampConfig);
 
-		for (EventTransportProperty property : properties)
-		{
+		for (EventTransportProperty property : properties) {
 			String name = property.getName();
 			String value = property.getValue();
 
@@ -95,7 +95,8 @@ public class CityBikesTransport extends AbstractEventTransport {
 
 	@Override
 	public synchronized void addEventDecoder(String name, EventDecoder decoder)
-			throws TransportException {
+			throws TransportException 
+	{
 		this.decoder = decoder;
 	}
 
@@ -170,7 +171,23 @@ public class CityBikesTransport extends AbstractEventTransport {
 				Long avail = (Long) entry.get("bikes");
 				Long empty = (Long) entry.get("free");
 				
-				logger.info(name + ", bikes="+avail+", empty="+empty);
+				NormalisedEvent normalisedEvent = new NormalisedEvent(); 
+				normalisedEvent.addQuick("__type", "__station_update");
+				normalisedEvent.addQuick("city", cityName);
+				normalisedEvent.addQuick("id", id.toString());
+				normalisedEvent.addQuick("name", name);
+				normalisedEvent.addQuick("lat", lat.toString());
+				normalisedEvent.addQuick("lng", lng.toString());
+				normalisedEvent.addQuick("updated", time);
+				normalisedEvent.addQuick("docked", avail.toString());
+				normalisedEvent.addQuick("empty", empty.toString());
+				normalisedEvent.addQuick("active", "true");
+				
+				logger.info("Sending downstream transport event to data codec: "+normalisedEvent);
+
+				TimestampSet timestampSet = new TimestampSet();
+				decoder.sendTransportEvent(normalisedEvent, timestampSet);
+				totalReceived++;
 			}
 		}
 		catch (Exception e) {

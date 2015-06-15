@@ -26,7 +26,7 @@
 			copyUnmappedToDictionaryPayload="true">
 			<id-rules>
 				<downstream>
-					<id fields="__station_update" test="exists" />
+					<id fields="__type" test="==" value="__station_update" />
 				</downstream>
 			</id-rules>
 			<mapping-rules>
