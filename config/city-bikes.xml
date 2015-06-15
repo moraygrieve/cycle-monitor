@@ -3,11 +3,11 @@
 <adapter-config xmlns:xi="http://www.w3.org/2001/XInclude">
 
 	<transports>
-		<transport name="CityBikesTransport" jarName="${libs.dir}/city-bikes-adapter.jar"
+		<transport name="CityBikesTransport" jarName="./java/lib/city-bikes-adapter.jar"
 			className="com.jtech.iaf.CityBikesTransport">
-			<property name="city-name" value="${city-name}" />
-			<property name="data-url" value="${data-url}" />
-			<property name="polling-frequency" value="${polling-frequency}" />
+			<property name="cityName" value="${city-name}" />
+			<property name="dataURL" value="${data-url}" />
+			<property name="pollingInterval" value="${polling-frequency}" />
 		</transport>
 	</transports>
 

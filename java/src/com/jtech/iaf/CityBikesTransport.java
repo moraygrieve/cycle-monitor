@@ -29,9 +29,10 @@ public class CityBikesTransport extends AbstractEventTransport {
 	public CityBikesTransport(String name, EventTransportProperty[] properties,
 			TimestampConfig timestampConfig) throws TransportException {
 		super(name, properties, timestampConfig);
-		updateProperties(properties, timestampConfig);
 		transportName = name;
 		logger = Logger.getLogger(CityBikesTransport.class);
+		updateProperties(properties, timestampConfig);
+		logger.info("Created the city bikes transport");
 	}
 
 	public synchronized void updateProperties(EventTransportProperty[] properties,
@@ -46,7 +47,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 			String value = property.getValue();
 
 			if (PROPERTY_CITY_NAME.equals(name)) {
-				cityName = value;
+				cityName = value!=null?value:"";
 				logger.info("Set city name to " + cityName);
 			} 
 			else if (PROPERTY_DATA_URL.equals(name)) {
