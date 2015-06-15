@@ -2,7 +2,7 @@
 
 <project name="City bikes transport" default="jar" basedir=".">
 	<property environment="env"/>
-	<property name="jar-file"     value="city-bikes-adapter.jar"/>
+	<property name="jar-file"     value="../libs/city-bikes-adapter.jar"/>
 	<property name="apama-home"   value="${env.APAMA_HOME}"/>
 	<property name="lib-dir"      value="${apama-home}/lib"/>
 	<property name="jar-version"  value="${env.APAMA_LIBRARY_VERSION}"/>

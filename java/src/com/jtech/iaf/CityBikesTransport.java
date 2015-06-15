@@ -11,7 +11,7 @@ import com.apama.iaf.plugin.TransportStatus;
 import com.apama.util.TimestampSet;
 
 
-public class CityBikes extends AbstractEventTransport {
+public class CityBikesTransport extends AbstractEventTransport {
 	private static final String PROPERTY_CITY_NAME = "cityName";
 	private static final String PROPERTY_DATA_URL = "dataURL";
 	private static final String PROPERTY_POLLING_INTERVAL = "pollingInterval";
@@ -26,11 +26,12 @@ public class CityBikes extends AbstractEventTransport {
 	private String dataURL;
 	private long pollingInterval;
 
-	public CityBikes(String name, EventTransportProperty[] properties,
+	public CityBikesTransport(String name, EventTransportProperty[] properties,
 			TimestampConfig timestampConfig) throws TransportException {
 		super(name, properties, timestampConfig);
 		updateProperties(properties, timestampConfig);
-		this.transportName = name;
+		transportName = name;
+		logger = Logger.getLogger(CityBikesTransport.class);
 	}
 
 	public synchronized void updateProperties(EventTransportProperty[] properties,
@@ -45,14 +46,17 @@ public class CityBikes extends AbstractEventTransport {
 			String value = property.getValue();
 
 			if (PROPERTY_CITY_NAME.equals(name)) {
-				this.cityName = value;
+				cityName = value;
+				logger.info("Set city name to " + cityName);
 			} 
 			else if (PROPERTY_DATA_URL.equals(name)) {
 				dataURL = value;
+				logger.info("Set data URL to " + dataURL);
 			}
 			else if (PROPERTY_POLLING_INTERVAL.equals(name)) {
 				try {
 					pollingInterval = Long.parseLong(value);
+					logger.info("Set polling interval to " + pollingInterval);
 				}
 				catch(NumberFormatException e) { };
 			}
@@ -82,7 +86,7 @@ public class CityBikes extends AbstractEventTransport {
 
 	@Override
 	public void removeEventDecoder(String name) throws TransportException {
-		this.decoder = null;
+		decoder = null;
 	}
 
 	@Override
@@ -92,11 +96,11 @@ public class CityBikes extends AbstractEventTransport {
 
 	@Override
 	public void start() throws TransportException {
-		this.started = true;
+		started = true;
 	}
 
 	@Override
 	public void stop() throws TransportException {
-		this.started = false;
+		started = false;
 	}
 }

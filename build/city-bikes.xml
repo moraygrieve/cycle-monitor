@@ -3,16 +3,16 @@
 <adapter-config xmlns:xi="http://www.w3.org/2001/XInclude">
 
 	<transports>
-		<transport name="CityBikesTransport" jarName="${libs.dir}/city-bikes-adapter.jar"
+		<transport name="CityBikesTransport" jarName="libs/city-bikes-adapter.jar"
 			className="com.jtech.iaf.CityBikesTransport">
-			<property name="city-name" value="${city-name}" />
-			<property name="data-url" value="${data-url}" />
-			<property name="polling-frequency" value="${polling-frequency}" />
+			<property name="city-name" value="London" />
+			<property name="data-url" value="http://api.citybik.es/barclays-cycle-hire" />
+			<property name="polling-frequency" value="60" />
 		</transport>
 	</transports>
 
 	<codecs>
-		<codec name="JNullCodec" jarName="${apama.home}/adapters/lib/JNullCodec.jar"
+		<codec name="JNullCodec" jarName="C:\Program Files\SoftwareAG\Apama 5.3/adapters/lib/JNullCodec.jar"
 			className="com.apama.iaf.codec.nullcodec.JNullCodec" />
 	</codecs>
 
@@ -40,10 +40,10 @@
 
 	<apama>
 		<sinks>
-			<sink host="localhost" port="${correlator.port}" />
+			<sink host="localhost" port="15903" />
 		</sinks>
 		<sources>
-			<source host="localhost" port="${correlator.port}" channels="CITY-BIKES" />
+			<source host="localhost" port="15903" channels="CITY-BIKES" />
 		</sources>
 	</apama>
 
