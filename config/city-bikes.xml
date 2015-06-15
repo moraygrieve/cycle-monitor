@@ -11,7 +11,7 @@
 			className="com.jtech.iaf.CityBikesTransport">
 			<property name="cityName" value="${city-name}" />
 			<property name="dataURL" value="${data-url}" />
-			<property name="pollingInterval" value="${polling-frequency}" />
+			<property name="pollingSchedule" value="${polling-schedule}" />
 		</transport>
 	</transports>
 

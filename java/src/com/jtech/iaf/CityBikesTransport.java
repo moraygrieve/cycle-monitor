@@ -30,7 +30,7 @@ import com.apama.util.TimestampSet;
 public class CityBikesTransport extends AbstractEventTransport {
 	private static final String PROPERTY_CITY_NAME = "cityName";
 	private static final String PROPERTY_DATA_URL = "dataURL";
-	private static final String PROPERTY_POLLING_INTERVAL = "pollingInterval";
+	private static final String PROPERTY_POLLING_SCHEDULE = "pollingSchedule";
 
 	/** Private data members */
 	private Logger logger;
@@ -38,7 +38,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 	private EventDecoder decoder;
 	private String cityName;
 	private String dataURL;
-	private long pollingInterval;
+	private String pollingSchedule;
 
 	/** Used for status reporting */
 	private volatile boolean started;
@@ -74,12 +74,9 @@ public class CityBikesTransport extends AbstractEventTransport {
 				dataURL = value;
 				logger.info("Set data URL to " + dataURL);
 			}
-			else if (PROPERTY_POLLING_INTERVAL.equals(name)) {
-				try {
-					pollingInterval = Long.parseLong(value);
-					logger.info("Set polling interval to " + pollingInterval);
-				}
-				catch(NumberFormatException e) { };
+			else if (PROPERTY_POLLING_SCHEDULE.equals(name)) {
+				pollingSchedule = value;
+				logger.info("Set polling schedule to " + pollingSchedule);
 			}
 			else {
 				continue;
@@ -118,7 +115,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 			started = true;
 			
 			Scheduler s = new Scheduler();
-			s.schedule("* * * * *", new Runnable() {
+			s.schedule(pollingSchedule, new Runnable() {
 				public void run() { poll(); }
 			});
 			s.start();
