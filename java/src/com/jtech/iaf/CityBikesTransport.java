@@ -32,16 +32,12 @@ public class CityBikesTransport extends AbstractEventTransport {
 	private static final String PROPERTY_CITY_NAME = "cityName";
 	private static final String PROPERTY_DATA_URL = "dataURL";
 	private static final String PROPERTY_POLLING_SCHEDULE = "pollingSchedule";
-
-	/** Private data members */
+	
 	private Logger logger;
-	private String transportName;
 	private EventDecoder decoder;
 	private String cityName;
 	private String dataURL;
 	private String pollingSchedule;
-
-	/** Used for status reporting */
 	private volatile boolean started;
 	private volatile long totalSent;
 	private volatile long totalReceived;
@@ -50,15 +46,12 @@ public class CityBikesTransport extends AbstractEventTransport {
 			TimestampConfig timestampConfig) throws TransportException 
 	{
 		super(name, properties, timestampConfig);
-		transportName = name;
 		logger = Logger.getLogger(CityBikesTransport.class);
 		updateProperties(properties, timestampConfig);
-		logger.info("Created the city bikes transport");
 	}
 
 	public synchronized void updateProperties(EventTransportProperty[] properties,
-			TimestampConfig timestampConfig) 
-					throws TransportException
+			TimestampConfig timestampConfig) throws TransportException
 	{
 		super.updateProperties(properties, timestampConfig);
 
@@ -101,20 +94,24 @@ public class CityBikesTransport extends AbstractEventTransport {
 	}
 
 	@Override
-	public synchronized void removeEventDecoder(String name) throws TransportException {
+	public synchronized void removeEventDecoder(String name) 
+			throws TransportException 
+	{
 		decoder = null;
 	}
 
 	@Override
 	public void sendTransportEvent(Object event, TimestampSet timestampSet)
-			throws TransportException {
+			throws TransportException 
+	{
+		totalReceived++;
 	}
 
 	@Override
 	public void start() throws TransportException {
 		synchronized(this) {
 			started = true;
-			
+
 			Scheduler s = new Scheduler();
 			s.schedule(pollingSchedule, new Runnable() {
 				public void run() { poll(); }
@@ -135,9 +132,9 @@ public class CityBikesTransport extends AbstractEventTransport {
 
 	private void poll() {
 		JSONArray jsonArray = getJSON();
-		load(jsonArray);
+		processJSON(jsonArray);
 	}
-	
+
 	private JSONArray getJSON() {
 		try {
 			URL page = new URL(dataURL);
@@ -146,31 +143,31 @@ public class CityBikesTransport extends AbstractEventTransport {
 			JSONParser parser = new JSONParser();
 			return (JSONArray) parser.parse(br);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return null;
 	}
 
-	public void load(JSONArray jsonArray) {
+	private void processJSON(JSONArray jsonArray) {
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Calendar cal = Calendar.getInstance();
 			String time = dateFormat.format(cal.getTime());
-			
+
 			for (Object o : jsonArray) {
 				JSONObject entry = (JSONObject) o;
 				Long id = (Long) entry.get("id");
 				String name = (String) entry.get("name");
-			
+
 				Pattern regex = Pattern.compile("^(\\d+)\\s?-\\s?(.*)");
 				Matcher regexMatcher = regex.matcher(name);
 				while (regexMatcher.find()) { name = regexMatcher.group(2); }
-				
+
 				Double lat = Double.valueOf((Long) entry.get("lat")) / 1000000d;
 				Double lng = Double.valueOf((Long) entry.get("lng")) / 1000000d;
 				Long avail = (Long) entry.get("bikes");
 				Long empty = (Long) entry.get("free");
-				
+
 				NormalisedEvent normalisedEvent = new NormalisedEvent(); 
 				normalisedEvent.addQuick("__type", "__station_update");
 				normalisedEvent.addQuick("city", cityName);
@@ -182,7 +179,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 				normalisedEvent.addQuick("docked", avail.toString());
 				normalisedEvent.addQuick("empty", empty.toString());
 				normalisedEvent.addQuick("active", "true");
-				
+
 				logger.info("Sending downstream transport event to data codec: "+normalisedEvent);
 
 				TimestampSet timestampSet = new TimestampSet();
@@ -191,7 +188,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 	}
 }

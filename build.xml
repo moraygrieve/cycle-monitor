@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Cycle Monitor application build file" default="all" basedir=".">
+<project name="Cycle Monitor application build file" default="usage" basedir=".">
 
 	<!-- Import the apama macros, this will also set some standard properties -->
 	<import file="apama-macros.xml" />
@@ -19,15 +19,13 @@
 	</target>
 
 	<!-- Top level start and stop tasks -->
-	<target name="all" depends="start, adapters" />
+	<target name="start" depends="init, correlator, adapters" />
 	
-	<target name="start" depends="init, framework" />
-	
-	<target name="framework" depends="start-correlator, inject-correlator" />
+	<target name="correlator" depends="start-correlator, inject-correlator" />
 
-	<target name="adapters" />
+	<target name="adapters" depends="start-adapters"/>
 
-	<target name="stop" depends="stop-correlator" />
+	<target name="stop" depends="stop-correlator, stop-adapters" />
 
 	<!-- Correlator start, stop and load tasks -->
 	<target name="start-correlator">
@@ -35,7 +33,7 @@
 	</target>
 
 	<target name="stop-correlator">
-		<kill-correlator port="${correlator.port}" />
+		<kill-correlator port="${correlator.port}" failonerror="false"/>
 	</target>
 
 	<target name="inject-correlator" >
@@ -45,6 +43,15 @@
 		<engine-inject-filelistid filelistid="strategy" />
 	</target>
 
+	<!-- City bikes adapter start and stop -->
+	<target name="start-adapters">
+		<start-iaf port="${iaf.port}" config="build/city-bikes.xml" console="false"/>
+	</target>	
+	
+	<target name="stop-adapters">
+		<kill-iaf port="${iaf.port}" failonerror="false"/>
+	</target>
+	
 	<!-- Clean tasks -->
 	<target name="clean">
 		<delete dir="${build.dir}" />
@@ -52,5 +59,7 @@
 			<fileset dir="${log.dir}" includes="**/*" />
 		</delete>
 	</target>
+	
+	<target name="usage" />
 </project>
 
