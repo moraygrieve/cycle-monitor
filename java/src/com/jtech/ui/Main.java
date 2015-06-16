@@ -33,22 +33,14 @@ public class Main extends Application {
 			Parent root = (Parent) fxmlLoader.load();
 			Controller controller = fxmlLoader.<Controller>getController();
 			
-			Scene scene = new Scene(root, 775, 700);
+			Scene scene = new Scene(root, 2000, 1200);
 			stage.setTitle("Cycle Monitor");
 			stage.setScene(scene);
 			stage.show();
 
-			MapController mapController = new MapController(controller);
-			
-		    if (controller==null)
-	        	logger.info("Controller is null");
-	        else {
-	        	controller.idColumn.setCellValueFactory(new PropertyValueFactory<StationUpdateEntry, Long>("stationId"));
-	        	controller.nameColumn.setCellValueFactory(new PropertyValueFactory<StationUpdateEntry, String>("stationName"));
-	        	controller.dockedColumn.setCellValueFactory(new PropertyValueFactory<StationUpdateEntry, Long>("numDocked"));
-	        	controller.emptyColumn.setCellValueFactory(new PropertyValueFactory<StationUpdateEntry, Long>("numEmpty"));	  
-	        	controller.stationUpdateTable.setItems(suTable.getDataCache());        	
-	        }				       
+			new MapController(controller);
+			new TableController(controller, suTable);
+					       
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
