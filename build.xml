@@ -33,6 +33,7 @@
 	</target>
 
 	<target name="inject-correlator" >
+		<engine-inject-filelistid filelistid="apama.scenarios" />
 		<engine-inject-filelistid filelistid="utils" />
 		<engine-inject-filelistid filelistid="configuration" />
 		<engine-inject-filelistid filelistid="source" />

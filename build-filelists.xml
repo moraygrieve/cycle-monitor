@@ -1,5 +1,11 @@
 <project name="Cycle Monitor filelists">
 
+	<filelist id="apama.scenarios">
+		<file name="${apama.home}/monitors/ScenarioService.mon" />
+		<file name="${apama.home}/monitors/DataViewService_Interface.mon" />
+		<file name="${apama.home}/monitors/DataViewService_Impl_Dict.mon" />
+	</filelist>
+
 	<filelist id="utils">
 		<file name="monitors/utils/DataViewKeyFields.mon" />
 		<file name="monitors/utils/InitialisationManager.mon" />

@@ -4,6 +4,8 @@ monitor StationManager {
 	com.jtech.util.KeyedDataViewHelper dvHelper;
 	
 	action onload {
+		log "Station manager loaded" at INFO;
+		
 		dvHelper.register((new StationUpdate).iface());
 		
 		StationUpdate stationUpdate;
