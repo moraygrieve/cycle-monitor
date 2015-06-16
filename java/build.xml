@@ -13,11 +13,14 @@
 	<patternset id="libs">
 		<include name="json-simple-1.1.jar"/>
 		<include name="cron4j-2.2.5.jar"/>
+		<include name="log4j-1.2.16jar"/>
+				
 	</patternset>
 	
 	<patternset id="apama-libs">
 		<include name="jplugin_public${apama-version}.jar"/>
 		<include name="util${apama-version}.jar"/>
+		<include name="engine_client${apama-version}.jar"/>
 	</patternset>
 		
 	<patternset id="jar-contents">

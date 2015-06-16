@@ -38,13 +38,13 @@ public class Main extends Application {
 			stage.setScene(scene);
 			stage.show();
 
+			MapController mapController = new MapController(controller);
+			
 		    if (controller==null)
 	        	logger.info("Controller is null");
 	        else {
 	        	controller.idColumn.setCellValueFactory(new PropertyValueFactory<StationUpdateEntry, Long>("stationId"));
 	        	controller.nameColumn.setCellValueFactory(new PropertyValueFactory<StationUpdateEntry, String>("stationName"));
-	        	controller.latColumn.setCellValueFactory(new PropertyValueFactory<StationUpdateEntry, Double>("stationLat"));
-	        	controller.lngColumn.setCellValueFactory(new PropertyValueFactory<StationUpdateEntry, Double>("stationLng"));
 	        	controller.dockedColumn.setCellValueFactory(new PropertyValueFactory<StationUpdateEntry, Long>("numDocked"));
 	        	controller.emptyColumn.setCellValueFactory(new PropertyValueFactory<StationUpdateEntry, Long>("numEmpty"));	  
 	        	controller.stationUpdateTable.setItems(suTable.getDataCache());        	

@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style type="text/css">
+html {
+	height: 100%
+}
+
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px
+}
+
+#map_canvas {
+	height: 100%;
+	background-color: #666970;
+}
+</style>
+<script type="text/javascript"
+	src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+    function initialize() {
+        var markersArray = [];
+        var linesArray = [];
+        var latlng = new google.maps.LatLng(51.511213, -0.119824);
+        var myOptions = {
+        zoom: 12,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false,
+        navigationControl: false,
+        streetViewControl: false,
+        backgroundColor: "#666970"
+        };
+
+        document.map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+        document.directionsService = new google.maps.DirectionsService();
+        document.directionsDisplay = new google.maps.DirectionsRenderer()
+        document.directionsDisplay.setMap(document.map);
+        document.infoWindow = new google.maps.InfoWindow;
+
+        document.drawStation = function drawStation(id, lat, long, color, title, scale) {
+            m = new google.maps.Marker({
+                position:  new google.maps.LatLng(lat, long),
+                map: document.map,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    fillColor: color,
+                    fillOpacity: .8,
+                    scale: scale,
+                    strokeColor: 'white',
+                    strokeWeight: 1
+                },
+            });
+
+            markersArray.push(m);
+
+            var content = '<p>'+title+'</p>'
+            google.maps.event.addListener(m, 'click', function(event) {
+                app.displayStation(id);
+                document.infoWindow.setContent(content);
+                document.infoWindow.setPosition(event.latLng);
+                document.infoWindow.open(document.map);
+            });
+
+            google.maps.event.addListener(m, 'rightclick', function(event) {
+                 app.displayStation(id);
+            });
+        }
+       
+        document.clearMarkers = function clearMarkers() {
+            if (markersArray) {
+                for (i in markersArray) {
+                    markersArray[i].setMap(null);
+                }
+            }
+        }
+
+        document.reset = function reset() {
+            document.map.setCenter(latlng);
+            document.map.setZoom(12);
+        }
+
+        document.setZoom = function setZoom(level) {
+            document.map.setZoom(level);
+        }
+
+        document.setCentre = function setCentre(lat, lng) {
+            latlng = new google.maps.LatLng(lat, lng);
+            document.reset();
+        }
+    }
+
+    </script>
+</head>
+
+<body onload="initialize()">
+	<div id="map_canvas" style="width: 100%; height: 100%"></div>
+</body>
+
+</html>
+
