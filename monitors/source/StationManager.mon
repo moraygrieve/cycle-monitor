@@ -1,7 +1,14 @@
 package com.jtech.source;
 
 monitor StationManager {
+	com.jtech.util.KeyedDataViewHelper dvHelper;
+	
 	action onload {
+		dvHelper.register((new StationUpdate).iface());
 		
+		StationUpdate stationUpdate;
+		on all StationUpdate():stationUpdate {
+			dvHelper.add(stationUpdate.iface());
+		}
 	}
 }

@@ -1,5 +1,40 @@
 package com.jtech.util;
 
-event DataViewKeyFieldsHelper {
-	
+//use only for dataviews where the user defines the key fields
+
+//the interface
+event IKeyedDataView {
+	action<> returns string getDVName;
+	action<> returns string getDVDisplayName;
+	action<> returns string getDVDescription;
+	action<> returns sequence<string> getDVFieldNames;    
+	action<> returns sequence<string> getDVFieldTypes; 
+	action<> returns sequence<string> getDVFieldValues; 
+	action<> returns sequence<string> getDVKeyFields;    
+}
+
+//the helper for creation of the definition and addition of entries
+event KeyedDataViewHelper {
+	action register(IKeyedDataView dv) {
+		log "Registering data view " + dv.getDVName() at INFO;
+		com.apama.dataview.DataViewAddDefinition add := new com.apama.dataview.DataViewAddDefinition;
+		add.msgId := integer.getUnique().toString();
+		add.dvName := dv.getDVName();
+		add.dvDisplayName := dv.getDVDisplayName();
+		add.dvDescription := dv.getDVDescription();
+		add.fieldNames := dv.getDVFieldNames();
+		add.fieldTypes := dv.getDVFieldTypes();
+		add.keyFields := dv.getDVKeyFields();
+		route add;		
+	}
+
+	action add(IKeyedDataView entry) {
+		com.apama.dataview.DataViewAddOrUpdateItem item := new com.apama.dataview.DataViewAddOrUpdateItem;
+		item.msgId := integer.getUnique().toString();
+		item.dvName := entry.getDVName();
+		item.owner := "*";
+		item.timeStamp := currentTime;
+		item.fieldValues := entry.getDVFieldValues();
+		route item;		
+	}
 }

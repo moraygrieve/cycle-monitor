@@ -22,8 +22,7 @@
 
 	<mapping>
 		<event package="com.jtech.source" name="StationUpdate"
-			direction="downstream" encoder="JNullCodec"
-			copyUnmappedToDictionaryPayload="true">
+			direction="downstream" encoder="JNullCodec">
 			<id-rules>
 				<downstream>
 					<id fields="__type" test="==" value="__station_update" />

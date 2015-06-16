@@ -32,10 +32,6 @@
 		<start-correlator port="${correlator.port}" console="false" java="true" />
 	</target>
 
-	<target name="stop-correlator">
-		<kill-correlator port="${correlator.port}" failonerror="false"/>
-	</target>
-
 	<target name="inject-correlator" >
 		<engine-inject-filelistid filelistid="utils" />
 		<engine-inject-filelistid filelistid="configuration" />
@@ -43,6 +39,10 @@
 		<engine-inject-filelistid filelistid="strategy" />
 	</target>
 
+	<target name="stop-correlator">
+		<kill-correlator port="${correlator.port}" failonerror="false"/>
+	</target>
+	
 	<!-- City bikes adapter start and stop -->
 	<target name="start-adapters">
 		<start-iaf port="${iaf.port}" config="build/city-bikes.xml" console="false"/>
@@ -60,6 +60,8 @@
 		</delete>
 	</target>
 	
-	<target name="usage" />
+	<target name="usage" >
+		<echo message=""/>
+	</target>
 </project>
 

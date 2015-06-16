@@ -10,5 +10,28 @@ event StationUpdate {
 	integer docked;
 	integer empty;
 	boolean active;
-	dictionary<string,string> __payload;
+	
+	action iface() returns com.jtech.util.IKeyedDataView {
+		com.jtech.util.IKeyedDataView this := new com.jtech.util.IKeyedDataView;
+		this.getDVName := getDVName;
+		this.getDVDisplayName := getDVDisplayName;
+		this.getDVDescription := getDVDescription;
+		this.getDVFieldNames := getDVFieldNames;
+		this.getDVFieldTypes := getDVFieldTypes;
+		this.getDVFieldValues := getDVFieldValues;
+		this.getDVKeyFields := getDVKeyFields;
+		return this;
+	}
+	
+	action getDVName() returns string { return "StationUpdate"; }
+	action getDVDisplayName() returns string { return "StationUpdate"; }
+	action getDVDescription() returns string { return "Lastest state of the cycle station"; }
+	action getDVFieldNames() returns sequence<string> { return self.getFieldNames(); }
+	action getDVFieldTypes() returns sequence<string> { return self.getFieldTypes(); }
+	action getDVFieldValues() returns sequence<string> { return self.getFieldValues(); }
+	action getDVKeyFields() returns sequence<string> {
+		sequence<string> ret := new sequence<string>;
+		ret := ["city,id"];
+		return ret;
+	}
 }
