@@ -39,21 +39,20 @@ public class MapController {
 
 		suTable.getDataCache().addListener(new ListChangeListener<StationUpdateEntry>(){
 			@Override
-			public void onChanged(javafx.collections.ListChangeListener.Change<? extends StationUpdateEntry> pChange) {
-				while(pChange.next()) {
-					if (pChange.wasPermutated()) {
-
-					}
-					else if (pChange.wasUpdated()) {
-
-					} 
-					else {
-						for (StationUpdateEntry remitem : pChange.getRemoved()) {
-
+			public void onChanged(javafx.collections.ListChangeListener.Change<? extends StationUpdateEntry> c) {
+				while (c.next()) {
+					if (c.wasPermutated()) {
+						for (int i = c.getFrom(); i < c.getTo(); ++i) {
+							System.out.println("Permutated " + i);
 						}
-						for (StationUpdateEntry additem : pChange.getAddedSubList()) {
-							System.out.println(("Added station " + additem.getId()));
-							//drawStation(additem);
+					} else if (c.wasUpdated()) {
+						System.out.println("Updated ...");
+					} else {
+						for (StationUpdateEntry remitem : c.getRemoved()) {
+							System.out.println("Removed " + remitem.getId());
+						}
+						for (StationUpdateEntry additem : c.getAddedSubList()) {
+							System.out.println("Added " + additem.getId());
 						}
 					}
 				}
@@ -74,12 +73,12 @@ public class MapController {
 		webEngine.executeScript("document.setZoom(" + level + ")");
 	}
 
-    private String getStationTitle(StationUpdateEntry entry) {
-        String name = entry.getName().replace(",", "&#44").replace("'", "").replace("(", "&#40").replace(")", "&#41");
-        String title = "<br><b>Name:</b> " + name + "</br>" +
-                "<br><b>ID:</b> " + entry.getId() + "</br>" +
-                "<br><b>Total:</b> " + (entry.getNumEmpty() + entry.getNumDocked()) + "</br>" +
-                "<br><b>Emtpy:</b> " + entry.getNumEmpty() + "</br>";
-        return title;
-    }
+	private String getStationTitle(StationUpdateEntry entry) {
+		String name = entry.getName().replace(",", "&#44").replace("'", "").replace("(", "&#40").replace(")", "&#41");
+		String title = "<br><b>Name:</b> " + name + "</br>" +
+				"<br><b>ID:</b> " + entry.getId() + "</br>" +
+				"<br><b>Total:</b> " + (entry.getNumEmpty() + entry.getNumDocked()) + "</br>" +
+				"<br><b>Emtpy:</b> " + entry.getNumEmpty() + "</br>";
+		return title;
+	}
 }
