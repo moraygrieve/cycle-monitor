@@ -2,6 +2,7 @@
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <style type="text/css">
+
 html {
 	height: 100%
 }
@@ -9,12 +10,15 @@ html {
 body {
 	height: 100%;
 	margin: 0px;
-	padding: 0px
+	padding: 0px;
+	font-size: 16px;
 }
 
-#map_canvas {
+map_canvas {
 	height: 100%;
 	background-color: #666970;
+	font-size: 16px;
+	font-weight: 300;
 }
 </style>
 <script type="text/javascript"
@@ -25,7 +29,7 @@ body {
         var linesArray = [];
         var latlng = new google.maps.LatLng(51.511213, -0.119824);
         var myOptions = {
-        zoom: 12,
+        zoom: 13,
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControl: false,
@@ -35,9 +39,6 @@ body {
         };
 
         document.map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
-        document.directionsService = new google.maps.DirectionsService();
-        document.directionsDisplay = new google.maps.DirectionsRenderer()
-        document.directionsDisplay.setMap(document.map);
         document.infoWindow = new google.maps.InfoWindow;
 
         document.drawStation = function drawStation(id, lat, long, color, title, scale) {
@@ -48,9 +49,7 @@ body {
                     path: google.maps.SymbolPath.CIRCLE,
                     fillColor: color,
                     fillOpacity: .8,
-                    scale: scale,
-                    strokeColor: 'white',
-                    strokeWeight: 1
+                    scale: scale
                 },
             });
 
@@ -58,14 +57,9 @@ body {
 
             var content = '<p>'+title+'</p>'
             google.maps.event.addListener(m, 'click', function(event) {
-                app.displayStation(id);
                 document.infoWindow.setContent(content);
                 document.infoWindow.setPosition(event.latLng);
                 document.infoWindow.open(document.map);
-            });
-
-            google.maps.event.addListener(m, 'rightclick', function(event) {
-                 app.displayStation(id);
             });
         }
        

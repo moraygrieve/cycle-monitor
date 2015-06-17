@@ -132,7 +132,7 @@ public class ScenarioTable<T extends IScenarioEntry> extends IScenarioServiceSub
                     }
                 }
             }
-            logger.info("Adding instance to data cache: " + data);
+            logger.debug("Adding instance to data cache: " + data);
             dataCache.add(data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,7 +157,7 @@ public class ScenarioTable<T extends IScenarioEntry> extends IScenarioServiceSub
                     }
                 }
             }
-            logger.info("Updating instance in data cache: " + data);
+            logger.debug("Updating instance in data cache: " + data);
             dataCache.set(index, data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,7 +170,7 @@ public class ScenarioTable<T extends IScenarioEntry> extends IScenarioServiceSub
                     newInstance(instance.getScenarioDefinition().getId(), instance.getId());
 
             if (dataCache.indexOf(data) != -1) {
-                logger.info("Removing instance from data cache: " + data);
+                logger.debug("Removing instance from data cache: " + data);
                 dataCache.remove(data);
             }
         } catch (Exception e) {

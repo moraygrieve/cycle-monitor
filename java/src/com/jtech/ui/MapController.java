@@ -1,6 +1,9 @@
 package com.jtech.ui;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.jtech.ui.model.StationUpdateEntry;
 import com.jtech.ui.model.StationUpdateTable;
@@ -21,8 +24,10 @@ import netscape.javascript.JSObject;
 
 public class MapController {
 	private final WebEngine webEngine;
+	private volatile boolean loaded;
+	private final Map<Long, StationUpdateEntry> stations = new HashMap<Long, StationUpdateEntry>();
 
-	public MapController(Controller controller, StationUpdateTable suTable) {
+	public MapController(Controller controller, final StationUpdateTable suTable) {
 		final URL urlGoogleMaps = getClass().getClassLoader().getResource("googlemap.html");
 		webEngine = controller.webViewPanel.getEngine();
 
@@ -32,6 +37,14 @@ public class MapController {
 					public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
 						if (newState == Worker.State.SUCCEEDED) {
 							JSObject window = (JSObject) webEngine.executeScript("window");
+
+							int index=0;
+							while (index<suTable.getDataCache().size()) {
+								stations.put(suTable.getDataCache().get(index).getId(), suTable.getDataCache().get(index));
+								drawStation(suTable.getDataCache().get(index));
+								index++;
+							}
+							loaded=true;
 						}
 					}
 				});
@@ -40,19 +53,11 @@ public class MapController {
 		suTable.getDataCache().addListener(new ListChangeListener<StationUpdateEntry>(){
 			@Override
 			public void onChanged(javafx.collections.ListChangeListener.Change<? extends StationUpdateEntry> c) {
-				while (c.next()) {
-					if (c.wasPermutated()) {
-						for (int i = c.getFrom(); i < c.getTo(); ++i) {
-							System.out.println("Permutated " + i);
-						}
-					} else if (c.wasUpdated()) {
-						System.out.println("Updated ...");
-					} else {
-						for (StationUpdateEntry remitem : c.getRemoved()) {
-							System.out.println("Removed " + remitem.getId());
-						}
-						for (StationUpdateEntry additem : c.getAddedSubList()) {
-							System.out.println("Added " + additem.getId());
+				while (loaded && c.next()) {
+					for (StationUpdateEntry additem : c.getAddedSubList()) {
+						if (!stations.containsKey(additem.getId())) {
+							stations.put(additem.getId(), additem);
+							drawStation(additem);
 						}
 					}
 				}
@@ -62,7 +67,7 @@ public class MapController {
 
 	public void drawStation(StationUpdateEntry entry) {
 		webEngine.executeScript("document.drawStation(" + entry.getId() + "," + entry.getStationLat() + "," + entry.getStationLng() + 
-				",'black','title',2)");
+				",'black','"+getStationTitle(entry)+"',8.0)");
 	}
 
 	public void setMapCentre(double lat, double lng) {
@@ -74,7 +79,7 @@ public class MapController {
 	}
 
 	private String getStationTitle(StationUpdateEntry entry) {
-		String name = entry.getName().replace(",", "&#44").replace("'", "").replace("(", "&#40").replace(")", "&#41");
+		String name = entry.getStationName().replace(",", "&#44").replace("'", "").replace("(", "&#40").replace(")", "&#41");
 		String title = "<br><b>Name:</b> " + name + "</br>" +
 				"<br><b>ID:</b> " + entry.getId() + "</br>" +
 				"<br><b>Total:</b> " + (entry.getNumEmpty() + entry.getNumDocked()) + "</br>" +
