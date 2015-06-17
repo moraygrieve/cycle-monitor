@@ -25,9 +25,6 @@ public class Main extends Application {
 		ScenarioService sService = new ScenarioService(15903);
 		StationUpdateTable suTable = new StationUpdateTable("DV_StationUpdate", sService);
 
-    	logger.info("Calling update connection");
-		sService.updateConnection("localhost");
-		
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application.fxml"));
 			Parent root = (Parent) fxmlLoader.load();
@@ -38,9 +35,12 @@ public class Main extends Application {
 			stage.setScene(scene);
 			stage.show();
 
-			new MapController(controller);
+			new MapController(controller, suTable);
 			new TableController(controller, suTable);
-					       
+	
+			logger.info("Calling update connection");
+			sService.updateConnection("localhost");
+		
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
