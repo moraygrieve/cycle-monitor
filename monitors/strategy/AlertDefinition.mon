@@ -1,11 +1,55 @@
 package com.jtech.alert;
 
+event AddAlert {
+	integer id;
+	string city;
+	string type;
+	string message;
+	integer precedence;
+}
+
+event RemoveAlert {
+	integer id;
+	string city;
+	string type;
+}
+
 event Alert {
 	integer id;
 	string city;
-	string stationId;
-	string stationName;
-	integer alertLevel;
-	string alertType;
+	string type;
 	string message;
+	
+	action iface() returns com.jtech.util.IKeyedDataView {
+		com.jtech.util.IKeyedDataView this := new com.jtech.util.IKeyedDataView;
+		this.getDVName := getDVName;
+		this.getDVDisplayName := getDVDisplayName;
+		this.getDVDescription := getDVDescription;
+		this.getDVFieldNames := getDVFieldNames;
+		this.getDVFieldTypes := getDVFieldTypes;
+		this.getDVFieldValues := getDVFieldValues;
+		this.getDVKeyFields := getDVKeyFields;
+		return this;
+	}
+	
+	action getDVName() returns string { return "StationAlert"; }
+	action getDVDisplayName() returns string { return "StationAlert"; }
+	action getDVDescription() returns string { return "An alert accociated with the cycle station"; }
+	action getDVFieldNames() returns sequence<string> { return self.getFieldNames(); }
+	action getDVFieldTypes() returns sequence<string> { return self.getFieldTypes(); }
+	action getDVFieldValues() returns sequence<string> { return self.getFieldValues(); }
+	action getDVKeyFields() returns sequence<string> {
+		sequence<string> ret := new sequence<string>;
+		ret := ["city","id"];
+		return ret;
+	}
+	
+	action fromAddAlert(AddAlert add) returns Alert {
+		Alert alert := new Alert;
+		alert.id := add.id;
+		alert.city := add.city;
+		alert.type := add.type;
+		alert.message := add.message;
+		return alert;
+	}
 }

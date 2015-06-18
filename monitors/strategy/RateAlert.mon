@@ -1,4 +1,4 @@
-package com.jtech.strategy;
+package com.jtech.alert;
 
 monitor RateAlert {
 	action onload {

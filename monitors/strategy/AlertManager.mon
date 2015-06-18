@@ -1,0 +1,19 @@
+package com.jtech.alert;
+
+monitor AlertManager {
+	com.jtech.util.KeyedDataViewHelper dvHelper;
+
+	action onload {
+		log "Alert manager loaded" at INFO;
+
+		dvHelper.register((new Alert).iface());
+
+		AddAlert add;
+		on all AddAlert():add {
+			dvHelper.add((new Alert).fromAddAlert(add).iface());
+		}
+		
+		RemoveAlert remove;
+		on all RemoveAlert() {}
+	}
+}

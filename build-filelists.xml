@@ -24,6 +24,7 @@
 	
 	<filelist id="strategy">
 		<file name="monitors/strategy/AlertDefinition.mon" />
+		<file name="monitors/strategy/AlertManager.mon" />
 		<file name="monitors/strategy/BoundaryAlert.mon" />
 		<file name="monitors/strategy/RateAlert.mon" />
 	</filelist>
