@@ -1,5 +1,36 @@
 package com.jtech.config;
 
 event DBLoader {
-	
+	action<> onLoaded;
+
+	RateLoader rateLoader;
+	BoundaryLoader boundaryLoader;
+	sequence<ILoader> loaders;
+
+	action init(DBConfig config, action<> onLoaded) {
+		self.onLoaded := onLoaded;
+
+		//open database
+		com.apama.database.DBUtil db := new com.apama.database.DBUtil;
+		db.open("JDBC", config.serviceId, config.databaseURL, config.user, config.password, "false", false, 100, 10.0, onError);        
+
+		//load data 
+		loaders.append( rateLoader.init(db, onDone) );
+		loaders.append( boundaryLoader.init(db, onDone) );
+		ILoader l; for l in loaders { l.doQuery();}
+
+		//close database
+		db.close(false);
+	}
+
+	action onError(string message) {
+		log message at ERROR;
+	}
+
+	action onDone() {
+		ILoader l; for l in loaders { 
+			if not l.isDone() then { return;}
+		}		
+		onLoaded();
+	}
 }

@@ -1,0 +1,26 @@
+package com.jtech.config;
+using com.apama.database.DBUtil;
+
+event BaseLoader {
+	DBUtil db;
+	action<> onDone;
+	boolean _done;
+
+	action init(DBUtil db, action<> onDone) returns ILoader {
+		self.db := db;
+		self.onDone := onDone;
+
+		ILoader this := new ILoader;
+		this.doQuery := doQuery;
+		this.isDone := isDone;
+		return this;
+	}
+
+	action doQuery() {}
+
+	action isDone() returns boolean { return self._done; }
+
+	action onQueryDone() { self._done:=true; onDone(); }	
+
+	action onError(string message) { log message at ERROR; }
+}

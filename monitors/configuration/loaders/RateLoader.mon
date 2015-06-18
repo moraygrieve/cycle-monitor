@@ -1,0 +1,39 @@
+package com.jtech.config;
+using com.apama.database.DBUtil;
+
+event RateLoader {	
+	ILoader this;
+	BaseLoader base;
+	dictionary< DBAlertKey, DBRateAlert > alerts;
+
+	action init(DBUtil db, action<> onDone) returns ILoader {
+		ILoader this := base.init(db, onDone);
+		this.doQuery := doQuery;
+		return this;
+	}
+
+	action doQuery() {
+		log "Performing query for rate alert details; " at INFO;
+		base.db.doSQLQueryWithCallback("select * from rate_alert_config", queryResult, queryDone);
+	}
+
+	action getCache() returns dictionary< DBAlertKey, DBRateAlert > {
+		return alerts;
+	}
+
+	action queryResult(dictionary<string, string> data) {
+		string city := data.getOrDefault("city");  
+		string id := data.getOrDefault("id"); 
+		if (id!="" and city!="") then {                     
+			alerts.add(DBAlertKey(city, id.toInteger()),(new DBRateAlert).fromResult(data));
+		}
+	}
+
+	action queryDone(string error, integer eventCount) {
+		log "Query complete, rate alerts are; " at INFO;
+		DBAlertKey key; for key in alerts.keys() {
+			log "  Rate alert: " + alerts[key].pprint() at INFO;
+		}
+		base.onQueryDone();
+	}
+}

@@ -1,0 +1,7 @@
+package com.jtech.config;
+using com.apama.database.DBUtil;
+
+event ILoader {
+	action < > doQuery;
+	action < > returns boolean isDone;
+}

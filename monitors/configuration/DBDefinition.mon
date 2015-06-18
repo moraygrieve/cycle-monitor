@@ -1,10 +1,55 @@
 package com.jtech.config;
 
-//entry in db, and dataview
-event StationEntry {
-	string city;
-	integer stationId;
-	float lowerBound;
-	float upperBound;
-	float rateLimit;
+event DBConfig {
+	string serviceId;
+	string databaseURL;
+	string user;
+	string password;
+}
+
+event DBReload {}
+
+event DBAlertKey { 
+	string city; 
+	integer id; 
+}
+
+event DBBoundaryAlert {
+	integer id;
+	string name;
+	float boundary;
+	boolean greater;
+	
+	action fromResult(dictionary<string, string> data) returns DBBoundaryAlert {
+		DBBoundaryAlert alert := new DBBoundaryAlert; 
+		alert.id := data.getOr("id", "-1").toInteger();
+		alert.name := data.getOr("name","");
+		alert.boundary := data.getOr("boundary", "-1.0").toFloat();
+		alert.greater := data.getOr("greater", "true").toBoolean();
+		return alert;
+	}
+
+	action pprint() returns string {
+		return " | ".join(self.getFieldValues());
+	}
+}
+
+event DBRateAlert {
+	integer id;
+	string name;
+	float change;
+	float duration;
+	
+	action fromResult(dictionary<string, string> data) returns DBRateAlert {
+		DBRateAlert alert := new DBRateAlert; 
+		alert.id := data.getOr("id", "-1").toInteger();
+		alert.name := data.getOr("name","");
+		alert.change := data.getOr("change", "1.0").toFloat();
+		alert.duration := data.getOr("duration", "60.0").toFloat();
+		return alert;
+	}
+
+	action pprint() returns string {
+		return " | ".join(self.getFieldValues());
+	}
 }

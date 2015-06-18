@@ -1,7 +1,33 @@
 package com.jtech.config;
 
 monitor DBManager {
+	DBConfig config;
+	DBLoader cacheLoader, cache;
+	
 	action onload {
-		
+		on DBConfig():config load(onLoaded);
+	}
+
+	action load(action<> onDone) {
+		log "Starting loading for connection with parameters; ";
+		log "  databaseURL: " + config.databaseURL at INFO;
+		log "  user: " + config.user at INFO;
+		log "  password: " + config.password at INFO;
+		cacheLoader.init(config, onDone);
+	}
+	
+	action onLoaded() {
+		switchCaches();
+		on DBReload() {load(onReLoaded); }
+	}
+
+	action onReLoaded() {
+		switchCaches();
+		on DBReload() { load(onReLoaded); }
+	}
+	
+	action switchCaches() {
+		cache := cacheLoader;
+		cacheLoader := new DBLoader;
 	}
 }
