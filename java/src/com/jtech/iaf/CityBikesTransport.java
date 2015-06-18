@@ -111,7 +111,8 @@ public class CityBikesTransport extends AbstractEventTransport {
 	public void start() throws TransportException {
 		synchronized(this) {
 			started = true;
-
+			poll();
+			
 			Scheduler s = new Scheduler();
 			s.schedule(pollingSchedule, new Runnable() {
 				public void run() { poll(); }

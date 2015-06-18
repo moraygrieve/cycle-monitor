@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="yes"?>
+<pysysproject>
+	
+	<!-- Get the environment and osfamily properties -->
+	<property environment="env"/>
+
+	<!-- Reference to the project root -->
+	<property root="rootdir"/>
+
+	<!-- Set Apama environment -->
+	<property name="APAMA_LIBRARY_VERSION"   value="${env.APAMA_LIBRARY_VERSION}"/>
+	<property name="APAMA_HOME"              value="${env.APAMA_HOME}"/>
+	<property name="APAMA_CORRELATOR_HOME"   value="${env.APAMA_HOME}"/>
+	<property name="APAMA_DEV_HOME"          value="${env.APAMA_HOME}"/>
+	<property name="APAMA_MANAGEMENT_HOME"   value="${env.APAMA_HOME}"/>
+	<property name="APAMA_COMMON_JRE"        value="${env.APAMA_HOME}/third_party/jre"/>
+	<property name="APAMA_MODELER_HOME"      value="${env.APAMA_HOME}"/>
+	<property name="APAMA_LICENCE"           value="${env.APAMA_HOME}/etc/license.txt"/>
+	
+	<!-- set up python path -->
+	<path value="python" relative="true"/>
+
+	<formatters>
+		<formatter name="stdout" messagefmt="%(asctime)s %(levelname)-5s %(message)s" datefmt="%Y:%m:%d %H:%M:%S"/>	
+	</formatters>
+	
+	<writers>
+		<writer classname="JUnitXMLResultsWriter" module="pysys.writer">
+			<property name="outputDir" value="${rootdir}/pysys-reports"/>
+		</writer>
+	</writers>
+		
+</pysysproject>

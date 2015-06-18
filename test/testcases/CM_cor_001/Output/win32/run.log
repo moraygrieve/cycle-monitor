@@ -1,0 +1,16 @@
+2015-06-18 21:24:32,984 INFO  ==========================================
+2015-06-18 21:24:33,062 INFO          CM_cor_001
+2015-06-18 21:24:33,094 INFO  ==========================================
+2015-06-18 21:24:33,375 WARN  caught <type 'exceptions.AttributeError'>: Project instance has no attribute 'APAMA_WORK'
+Traceback (most recent call last):
+  File "C:\Program Files\SoftwareAG\Apama 5.3\third_party\python\lib\site-packages\pysys\baserunner.py", line 497, in __call__
+    self.testObj.execute()
+  File "c:\Users\moray\Development\cycle-monitor\test\testcases\CM_cor_001\run.py", line 8, in execute
+    correlator.start()
+  File "C:\Program Files\SoftwareAG\Apama 5.3\third_party\python\lib\site-packages\apama\correlator.py", line 152, in start
+    licence = os.path.join(PROJECT.APAMA_WORK, 'license', 'license.txt')
+AttributeError: Project instance has no attribute 'APAMA_WORK'
+2015-06-18 21:24:33,530 INFO  
+2015-06-18 21:24:33,562 INFO  Test duration 0.57 secs
+2015-06-18 21:24:33,657 INFO  Test final outcome BLOCKED
+2015-06-18 21:24:33,671 INFO  

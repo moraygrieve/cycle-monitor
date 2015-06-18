@@ -13,8 +13,8 @@
 	<patternset id="libs">
 		<include name="json-simple-1.1.jar"/>
 		<include name="cron4j-2.2.5.jar"/>
-		<include name="log4j-1.2.16jar"/>
-				
+		<include name="log4j-1.2.16.jar"/>
+		<include name="jfxrt.jar"/>
 	</patternset>
 	
 	<patternset id="apama-libs">
@@ -24,7 +24,7 @@
 	</patternset>
 		
 	<patternset id="jar-contents">
-		<include name="**/*.class" />
+		<include name="**/iaf/*.class" />
 	</patternset>
 
 	<target name="prepare">	       

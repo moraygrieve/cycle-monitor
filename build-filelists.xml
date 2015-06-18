@@ -6,6 +6,16 @@
 		<file name="${apama.home}/monitors/DataViewService_Impl_Dict.mon" />
 	</filelist>
 
+	<filelist id="apama.adbc">
+		<file name="${apama.home}/monitors/StatusSupport.mon" />
+		<file name="${apama.home}/adapters/monitors/IAFStatusManager.mon" />
+		<file name="${apama.home}/adapters/monitors/ADBCAdapterEvents.mon" />
+		<file name="${apama.home}/adapters/monitors/ADBCAdapterService.mon" />
+		<file name="${apama.home}/adapters/monitors/ADBCEvents.mon" />
+		<file name="${apama.home}/adapters/monitors/ADBCStatusManager.mon" />
+		<file name="${apama.home}/adapters/monitors/ADBCHelper.mon" />
+	</filelist>
+
 	<filelist id="utils">
 		<file name="monitors/utils/DataViewKeyFields.mon" />
 		<file name="monitors/utils/InitialisationManager.mon" />
@@ -13,15 +23,19 @@
 
 	<filelist id="configuration">
 		<file name="monitors/configuration/DBDefinition.mon" />
+		<file name="monitors/configuration/loaders/ILoader.mon" />
+		<file name="monitors/configuration/loaders/BaseLoader.mon" />
+		<file name="monitors/configuration/loaders/BoundaryLoader.mon" />
+		<file name="monitors/configuration/loaders/RateLoader.mon" />
 		<file name="monitors/configuration/DBLoader.mon" />
 		<file name="monitors/configuration/DBManager.mon" />
 	</filelist>
-	
+
 	<filelist id="source">
 		<file name="monitors/source/StationDefinition.mon" />
 		<file name="monitors/source/StationManager.mon" />
 	</filelist>
-	
+
 	<filelist id="strategy">
 		<file name="monitors/strategy/AlertDefinition.mon" />
 		<file name="monitors/strategy/AlertManager.mon" />
