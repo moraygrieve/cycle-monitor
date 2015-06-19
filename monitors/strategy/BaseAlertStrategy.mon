@@ -1,0 +1,42 @@
+package com.jtech.alert;
+using com.jtech.source.StationUpdate;
+
+event BaseAlertStrategy { 
+	IAlertStrategy this;
+	
+	integer _id;
+	string  _city;
+	boolean _alerted;
+	IAlertManager _manager;
+	
+    action init(integer id, string city, IAlertManager manager) returns IAlertStrategy {
+        _id := id;
+        _city := city;
+        _manager := manager;
+		
+		this := new IAlertStrategy;
+		this.getId := getId;
+		this.getCity := getCity;
+		this.getAlerted := getAlerted;
+		this.check := check;
+		this.alert := alert;
+		this.clear := clear;
+		return this;
+	}
+	
+	/** implement in extending strategy (abstract) */
+	action check(StationUpdate update) {}
+
+	/** base implementations */
+	action getId() returns integer { return _id; }
+	action getCity() returns string { return _city; }
+	action getAlerted() returns boolean { return _alerted; }
+	action alert(integer id, string city, string type, string message, integer precedence) {
+		_alerted := true;
+		_manager.addAlert(id, city, type, message, precedence);
+	}
+	action clear(integer id, string city, string type) {
+		_alerted := false;
+		_manager.clearAlert(id, city, type);
+	}
+}

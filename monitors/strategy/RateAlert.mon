@@ -1,7 +1,0 @@
-package com.jtech.alert;
-
-monitor RateAlert {
-	action onload {
-		
-	}
-}

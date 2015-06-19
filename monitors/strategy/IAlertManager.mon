@@ -1,0 +1,8 @@
+package com.jtech.alert;
+
+event IAlertManager {
+	
+	/** actions */
+	action <integer,string,string,string,integer> addAlert;
+	action <integer,string,string> clearAlert;
+}
