@@ -9,7 +9,7 @@ event LowerBoundary {
 	IAlertStrategy this;
 
 	action init(integer id, string city, IAlertManager manager) returns IAlertStrategy {    
-		this := (new BaseAlertStrategy).init(id, city, manager);
+		this := (new AlertStrategy).init(id, city, manager);
 		this.check := check;
 		return this;
 	}
