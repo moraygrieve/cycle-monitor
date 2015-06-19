@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<adapter-config xmlns:xi="http://www.w3.org/2001/XInclude">
+
+	<logging          level="INFO"/>	<!-- Log level for the IAF itself -->
+	<plugin-logging   level="INFO"/>	<!-- Log level for ADBC adapter -->
+
+	<java>
+		<classpath path="${basedir}/java/lib/${ADBC_DRIVER_JAR}" />
+	</java>
+
+	<transports>
+		<transport name="ADBC-JDBC" library="ADBCTransport">
+			<!-- Data source settings -->
+			<property name="DataSource" value="JDBC"/> <!-- Sim, ODBC, SQLite, etc. -->
+			<property name="JavaDataSource" value="true"/>
+			<property name="JarName" value="${apama.home}/adapters/lib/ADBC-JDBC.jar"/>
+			<property name="ClassName" value="com.apama.adbc.datasource.JDBCDataSource"/>
+			<property name="DatabaseURL" value="${ADBC_DATABASE_URL}" />
+			
+			<!-- JDBC data source settings -->
+			<property name="Driver" value="${ADBC_DRIVER}" />
+			<property name="StoreBatchSize" value="100"/>
+			<property name="StoreCommitInterval" value="0.0"/>
+			<property name="AutoCommit" value="false"/>
+			<property name="TransactionIsolationLevel" value="Default"/>
+			<property name="AlternateDiscoveryQuery" value=""/>
+			<property name="ColumnNameCase" value="lower"/>
+			<property name="NumericSeparatorLocale" value=""/>
+			<property name="CloseDatabaseIfDisconnected" value="false"/>
+			
+			<!-- JDBC driver specific settings -->
+			<!-- <xi:include href="JDBC-MonetDB.xml" xpointer="xpointer(//property)" /> -->
+			
+			<!-- Common ADBC adapter settings -->
+			<property name="FlowControlHighWater" value="15000"/>
+			<property name="FlowControlLowWater" value="6000"/>
+			<property name="QueryTemplateConfigFile" value="${basedir}/config/ADBC-query-templates.xml"/>
+			<property name="LogInboundEvents" value="false"/>
+			<property name="LogOutboundEvents" value="false"/>
+		</transport>
+	</transports>
+
+	<!-- Codecs -->
+	<codecs>
+		<xi:include href="ADBC-static-codecs.xml" xpointer="xpointer(//codec)" />
+	</codecs>
+	
+	<!-- Event mappings -->
+	<mapping>
+		<xi:include href="ADBC-static.xml" xpointer="xpointer(//event)" />
+		<xi:include href="ADBC-static.xml" xpointer="xpointer(//unmapped)" />
+		<xi:include href="ADBC-application.xml" xpointer="xpointer(//event)" >
+	 	<xi:fallback></xi:fallback>
+		</xi:include>
+	</mapping>
+
+	<apama>
+		<sinks>
+			<sink host="localhost" port="${correlator.port}"/>
+		</sinks>
+		<sources>
+			<source host="localhost" port="${correlator.port}" channels="com.apama.adbc,com.apama.adbc.JDBC"/>
+		</sources>
+	</apama>
+
+</adapter-config>
