@@ -1,5 +1,17 @@
 package com.jtech.alert;
 
+event CreateUpperBoundaryAlert {
+	integer id;
+	string city;
+	float threshold;
+}
+
+event CreateLowerBoundaryAlert {
+	integer id;
+	string city;
+	float threshold;
+}
+
 event AddAlert {
 	integer id;
 	string city;

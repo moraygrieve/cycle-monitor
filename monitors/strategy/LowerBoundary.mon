@@ -7,8 +7,11 @@ event LowerBoundary {
 	constant integer PRECEDENCE:=0;
 
 	IAlertStrategy this;
-
-	action init(integer id, string city, IAlertManager manager) returns IAlertStrategy {    
+	float _threshold;
+	
+	action init(integer id, string city, float threshold, IAlertManager manager) returns IAlertStrategy {    
+		_threshold := threshold;
+		
 		this := (new AlertStrategy).init(id, city, manager);
 		this.check := check;
 		return this;

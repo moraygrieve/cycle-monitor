@@ -7,8 +7,11 @@ event UpperBoundary {
 	constant integer PRECEDENCE:=0;
 	
 	IAlertStrategy this;
-
-	action init(integer id, string city, IAlertManager manager) returns IAlertStrategy {    
+	float _threshold;
+	
+	action init(integer id, string city, float threshold, IAlertManager manager) returns IAlertStrategy {    
+		_threshold := threshold;
+		
 		this := (new AlertStrategy).init(id, city, manager);
 		this.check := check;
 		return this;
@@ -17,10 +20,10 @@ event UpperBoundary {
     /** implementation of required actions*/
 	action check(StationUpdate update) {
 		float ratio:=update.docked.toFloat() / (update.docked+update.empty).toFloat();
-		if (not this.getAlerted() and ratio >= 0.9) then {
+		if (not this.getAlerted() and ratio >= _threshold) then {
 			this.alert(update.id, update.city, TYPE, "Ratio is " + ratio.formatFixed(2), PRECEDENCE);
 		}
-		else if (this.getAlerted() and ratio <= 0.9) then {
+		else if (this.getAlerted() and ratio <= _threshold) then {
 			this.clear(update.id, update.city, TYPE);
 		}
 	}

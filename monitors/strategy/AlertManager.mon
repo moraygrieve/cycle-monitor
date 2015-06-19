@@ -1,19 +1,45 @@
 package com.jtech.alert;
 
 monitor AlertManager {
+	event Key { integer id; string city; }
+	
+	IAlertManager this;
 	com.jtech.util.KeyedDataViewHelper dvHelper;
-
+	dictionary < Key, sequence<IAlertStrategy> > strategies;
+	
 	action onload {
 		log "Alert manager loaded" at INFO;
 
+		//register the alert dataview
 		dvHelper.register((new Alert).iface());
 
-		AddAlert add;
-		on all AddAlert():add {
-			dvHelper.add((new Alert).fromAddAlert(add).iface());
+		//initialise the interface
+		this.addAlert := addAlert;
+		this.clearAlert := clearAlert;
+		
+		//handle create on the strategies
+		CreateUpperBoundaryAlert cuba;
+		on all CreateUpperBoundaryAlert():cuba {
+			Key key := Key(cuba.id, cuba.city);
+			if not strategies.hasKey(key) then {
+				strategies.add(key, new sequence<IAlertStrategy> );
+			}
+			strategies[key].append( (new UpperBoundary).init(cuba.id, cuba.city, cuba.threshold, this) );
 		}
 		
-		RemoveAlert remove;
-		on all RemoveAlert() {}
+		CreateLowerBoundaryAlert clba;
+		on all CreateLowerBoundaryAlert():clba {
+			Key key := Key(clba.id, clba.city);
+			if not strategies.hasKey(key) then {
+				strategies.add(key, new sequence<IAlertStrategy> );
+			}
+			strategies[key].append( (new LowerBoundary).init(clba.id, clba.city, clba.threshold, this) );
+		}
 	}
+	
+	action addAlert(integer id, string city, string type, string message, integer precedence) {
+		dvHelper.add((Alert(id, city, type, message)).iface());
+	}
+	
+	action clearAlert(integer id, string city, string type) {}
 }
