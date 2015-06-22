@@ -2,19 +2,11 @@ package com.jtech.source;
 using com.jtech.config.DBLoaded;
 
 monitor StationManager {
-	com.jtech.util.KeyedDataViewHelper dvHelper;
 	
 	action onload {
 		log "Station manager loaded" at INFO;
-	
-		// initialise the dataview
-		dvHelper.register((new StationUpdate).iface());
 		
 		// start the adapter when db is loaded
-		on DBLoaded() { emit Start() to "CITY-BIKES"; }
-		
-		// create dataview instances
-		StationUpdate stationUpdate;
-		on all StationUpdate():stationUpdate { dvHelper.add(stationUpdate.iface()); }
+		on DBLoaded() { emit Start() to "CITY-BIKES"; }		
 	}
 }

@@ -20,10 +20,10 @@ event UpperBoundary {
 	action check(StationUpdate update) {
 		float ratio:=update.docked.toFloat() / (update.docked+update.empty).toFloat();
 		if (not this.getAlerted() and ratio >= _threshold) then {
-			this.alert(update.id, update.city, TYPE, "Ratio is " + ratio.formatFixed(2), COLOR);
+			this.alert(update, TYPE, "Ratio is " + ratio.formatFixed(2), COLOR);
 		}
 		else if (this.getAlerted() and ratio <= _threshold) then {
-			this.clear(update.id, update.city, TYPE);
+			this.clear(update, TYPE);
 		}
 	}
 }

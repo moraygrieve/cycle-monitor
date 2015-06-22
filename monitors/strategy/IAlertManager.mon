@@ -1,7 +1,8 @@
 package com.jtech.alert;
+using com.jtech.source.StationUpdate;
 
 event IAlertManager {
 	/** actions */
-	action <integer,string,string,string,string> addAlert;
-	action <integer,string,string> clearAlert;
+	action <StationUpdate,string,string,string> addAlert;
+	action <StationUpdate,string> clearAlert;
 }

@@ -31,12 +31,12 @@ event AlertStrategy {
 	action getId() returns integer { return _id; }
 	action getCity() returns string { return _city; }
 	action getAlerted() returns boolean { return _alerted; }
-	action alert(integer id, string city, string type, string message, string color) {
+	action alert(StationUpdate update, string type, string message, string color) {
 		_alerted := true;
-		_manager.addAlert(id, city, type, message, color);
+		_manager.addAlert(update, type, message, color);
 	}
-	action clear(integer id, string city, string type) {
+	action clear(StationUpdate update, string type) {
 		_alerted := false;
-		_manager.clearAlert(id, city, type);
+		_manager.clearAlert(update, type);
 	}
 }

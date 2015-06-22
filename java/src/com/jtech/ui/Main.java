@@ -11,8 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import com.jtech.ui.model.StationAlertTable;
-import com.jtech.ui.model.StationUpdateEntry;
-import com.jtech.ui.model.StationUpdateTable;
+import com.jtech.ui.model.StationAlertEntry;
 import com.jtech.ui.scenario.ScenarioService;
 
 public class Main extends Application {
@@ -25,8 +24,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		ScenarioService sService = new ScenarioService(15903);
-		StationUpdateTable suUpdateTable = new StationUpdateTable("DV_StationUpdate", sService);
-		StationAlertTable suAlertTable = new StationAlertTable("DV_StationAlert", sService);
+		StationAlertTable stationUpdateTable = new StationAlertTable("DV_StationAlert", sService);
 		
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application.fxml"));
@@ -38,8 +36,8 @@ public class Main extends Application {
 			stage.setScene(scene);
 			stage.show();
 
-			new MapController(controller, suUpdateTable, suAlertTable);
-			new TableController(controller, suUpdateTable, suAlertTable);
+			new MapController(controller, stationUpdateTable);
+			new TableController(controller, stationUpdateTable);
 	
 			logger.info("Calling update connection");
 			sService.updateConnection("localhost");

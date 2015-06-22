@@ -1,14 +1,6 @@
 package com.jtech.alert;
 
-/** add actual raised alerts */
-event AddAlert {
-	integer id;
-	string city;
-	string type;
-	string message;
-	string color;
-}
-
+/** remove a raised alert */
 event RemoveAlert {
 	integer id;
 	string city;
@@ -16,10 +8,14 @@ event RemoveAlert {
 }
 
 
-/** actual raised alert */
+/** raise an alert */
 event Alert {
 	integer id;
 	string city;
+	float lat;
+	float lng;
+	integer docked;
+	integer empty;
 	string type;
 	string message;
 	string color;
@@ -46,15 +42,5 @@ event Alert {
 		sequence<string> ret := new sequence<string>;
 		ret := ["city","id"];
 		return ret;
-	}
-	
-	action fromAddAlert(AddAlert add) returns Alert {
-		Alert alert := new Alert;
-		alert.id := add.id;
-		alert.city := add.city;
-		alert.type := add.type;
-		alert.message := add.message;
-		alert.color := add.color;
-		return alert;
 	}
 }

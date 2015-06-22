@@ -57,11 +57,12 @@ monitor AlertManager {
 		}
 	}
 	
-	action addAlert(integer id, string city, string type, string message, string color) {
-		log "Adding alert for "+id.toString()+","+city+","+type at INFO;
-		dvHelper.add((Alert(id, city, type, message, color)).iface());
+	action addAlert(StationUpdate update, string type, string message, string color) {
+		log "Adding alert for "+update.id.toString()+","+update.city+","+type at INFO;
+		dvHelper.add((Alert(update.id, update.city, update.lat, update.lng, 
+		                    update.docked, update.empty, type, message, color)).iface());
 	}
 	
-	action clearAlert(integer id, string city, string type) {
+	action clearAlert(StationUpdate update, string type) {
 	}
 }

@@ -9,6 +9,6 @@ event IAlertStrategy {
 	
 	/** actions */
 	action <StationUpdate> check;
-	action <integer,string,string,string,string> alert;
-	action <integer,string,string> clear;
+	action <StationUpdate, string,string,string> alert;
+	action <StationUpdate, string> clear;
 }
