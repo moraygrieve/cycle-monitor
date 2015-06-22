@@ -16,7 +16,7 @@ event UpperBoundary {
 		return this;
 	}
     
-    /** implementation of required actions*/
+    //implementation of required actions
 	action check(StationUpdate update) {
 		float ratio:=update.docked.toFloat() / (update.docked+update.empty).toFloat();
 		if (not this.getAlerted() and ratio >= _threshold) then {

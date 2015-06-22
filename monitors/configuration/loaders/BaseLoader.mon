@@ -19,8 +19,6 @@ event BaseLoader {
 	action doQuery() {}
 
 	action isDone() returns boolean { return self._done; }
-
 	action onQueryDone() { self._done:=true; onDone(); }	
-
 	action onError(string message) { log message at ERROR; }
 }

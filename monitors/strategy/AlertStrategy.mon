@@ -24,10 +24,10 @@ event AlertStrategy {
 		return this;
 	}
 	
-	/** implement in extending strategy (abstract) */
+	//implement in extending strategy (abstract)
 	action check(StationUpdate update) {}
 
-	/** base implementations */
+	//base implementations
 	action getId() returns integer { return _id; }
 	action getCity() returns string { return _city; }
 	action getAlerted() returns boolean { return _alerted; }

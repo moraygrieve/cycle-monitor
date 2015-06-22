@@ -1,7 +1,5 @@
 package com.jtech.util;
 
-//use only for dataviews where the user defines the key fields
-
 //the interface
 event IKeyedDataView {
 	action<> returns string getDVName;
@@ -10,13 +8,13 @@ event IKeyedDataView {
 	action<> returns sequence<string> getDVFieldNames;    
 	action<> returns sequence<string> getDVFieldTypes; 
 	action<> returns sequence<string> getDVFieldValues; 
-	action<> returns sequence<string> getDVKeyFields;    
+	action<> returns sequence<string> getDVKeyFields;  
+	action<> returns sequence<string> getDVKeyFieldValues;  
 }
 
 //the helper for creation of the definition and addition of entries
 event KeyedDataViewHelper {
 	action register(IKeyedDataView dv) {
-		log "Registering data view " + dv.getDVName() at INFO;
 		com.apama.dataview.DataViewAddDefinition add := new com.apama.dataview.DataViewAddDefinition;
 		add.msgId := integer.getUnique().toString();
 		add.dvName := dv.getDVName();
@@ -36,5 +34,14 @@ event KeyedDataViewHelper {
 		item.timeStamp := currentTime;
 		item.fieldValues := entry.getDVFieldValues();
 		route item;		
+	}
+	
+	action remove(IKeyedDataView entry) {
+		com.apama.dataview.DataViewDeleteItem delete := new com.apama.dataview.DataViewDeleteItem;
+		delete.msgId := integer.getUnique().toString();
+		delete.dvName := entry.getDVName();
+		delete.dvItemId := -1;
+		delete.keyFields := entry.getDVKeyFieldValues();
+		route delete;
 	}
 }

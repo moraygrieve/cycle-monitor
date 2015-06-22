@@ -1,14 +1,13 @@
 package com.jtech.alert;
 
-/** remove a raised alert */
 event RemoveAlert {
 	string city;
 	integer id;
 	string type;
 }
 
+event RemoveAllAlerts {}
 
-/** raise an alert */
 event Alert {
 	string city;
 	integer id;
@@ -30,6 +29,7 @@ event Alert {
 		this.getDVFieldTypes := getDVFieldTypes;
 		this.getDVFieldValues := getDVFieldValues;
 		this.getDVKeyFields := getDVKeyFields;
+		this.getDVKeyFieldValues := getDVKeyFieldValues;
 		return this;
 	}
 	
@@ -42,6 +42,11 @@ event Alert {
 	action getDVKeyFields() returns sequence<string> {
 		sequence<string> ret := new sequence<string>;
 		ret := ["city","id"];
+		return ret;
+	}
+	action getDVKeyFieldValues() returns sequence<string> {
+		sequence<string> ret := new sequence<string>;
+		ret := [city,id.toString()];
 		return ret;
 	}
 }

@@ -1,6 +1,5 @@
 package com.jtech.config;
 
-/** configuration, interaction and data structures */
 event DBConfig {
 	string serviceId;
 	string databaseURL;
@@ -10,14 +9,11 @@ event DBConfig {
 
 event DBLoaded {}
 
-event DBReload {}
-
 event DBKey { 
 	string city; 
 	integer id; 
 }
 
-/** create alert strategies */
 event CreateUpperBoundaryAlert {
 	integer id;
 	string city;
@@ -30,7 +26,6 @@ event CreateLowerBoundaryAlert {
 	float threshold;
 }
 
-/** holder for a boundary alert configuration */
 event DBBoundaryAlert {
 	integer id;
 	string city;
@@ -51,7 +46,6 @@ event DBBoundaryAlert {
 	}
 }
 
-/** holder for a rate alert configuration */
 event DBRateAlert {
 	integer id;
 	string name;

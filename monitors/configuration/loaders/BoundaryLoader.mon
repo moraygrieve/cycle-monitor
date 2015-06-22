@@ -7,7 +7,6 @@ event BoundaryLoader {
 	dictionary< DBKey, DBBoundaryAlert > upperEntries;
 	dictionary< DBKey, DBBoundaryAlert > lowerEntries;
 	
-
 	action init(DBUtil db, action<> onDone) returns ILoader {
 		ILoader this := base.init(db, onDone);
 		this.doQuery := doQuery;
