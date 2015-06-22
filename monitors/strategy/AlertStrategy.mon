@@ -31,9 +31,9 @@ event AlertStrategy {
 	action getId() returns integer { return _id; }
 	action getCity() returns string { return _city; }
 	action getAlerted() returns boolean { return _alerted; }
-	action alert(integer id, string city, string type, string message, integer precedence) {
+	action alert(integer id, string city, string type, string message, string color) {
 		_alerted := true;
-		_manager.addAlert(id, city, type, message, precedence);
+		_manager.addAlert(id, city, type, message, color);
 	}
 	action clear(integer id, string city, string type) {
 		_alerted := false;

@@ -4,7 +4,6 @@ using com.jtech.source.StationUpdate;
 event LowerBoundary {
 	constant string  TYPE:="LOWER_BOUNDARY";
 	constant string  COLOR:="RED";
-	constant integer PRECEDENCE:=0;
 
 	IAlertStrategy this;
 	float _threshold;
@@ -21,7 +20,7 @@ event LowerBoundary {
 	action check(StationUpdate update) {
 		float ratio:=update.docked.toFloat() / (update.docked+update.empty).toFloat();
 		if (not this.getAlerted() and ratio <= 0.1) then {
-			this.alert(update.id, update.city, TYPE, "Ratio is " + ratio.formatFixed(2), PRECEDENCE);
+			this.alert(update.id, update.city, TYPE, "Ratio is " + ratio.formatFixed(2), COLOR);
 		}
 		else if (this.getAlerted() and ratio > 0.1) then {
 			this.clear(update.id, update.city, TYPE);

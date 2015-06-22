@@ -12,11 +12,23 @@ event DBLoaded {}
 
 event DBReload {}
 
-event DBAlertKey { 
+event DBKey { 
 	string city; 
 	integer id; 
 }
 
+/** create alert strategies */
+event CreateUpperBoundaryAlert {
+	integer id;
+	string city;
+	float threshold;
+}
+
+event CreateLowerBoundaryAlert {
+	integer id;
+	string city;
+	float threshold;
+}
 
 /** holder for a boundary alert configuration */
 event DBBoundaryAlert {
@@ -30,7 +42,7 @@ event DBBoundaryAlert {
 		alert.id := data.getOr("id", "-1").toInteger();
 		alert.city := data.getOr("city","");
 		alert.threshold := data.getOr("threshold", "-1.0").toFloat();
-		alert.upper := data.getOr("upper", "true").toBoolean();
+		if (data.getOr("upper", "true")="1") then { alert.upper:= true; }
 		return alert;
 	}
 

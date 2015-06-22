@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.jtech.ui.model.StationAlertTable;
 import com.jtech.ui.model.StationUpdateEntry;
 import com.jtech.ui.model.StationUpdateTable;
 
@@ -27,7 +28,8 @@ public class MapController {
 	private volatile boolean loaded;
 	private final Map<Long, StationUpdateEntry> stations = new HashMap<Long, StationUpdateEntry>();
 
-	public MapController(Controller controller, final StationUpdateTable suTable) {
+	public MapController(Controller controller, final StationUpdateTable stationUpdateTable,
+			final StationAlertTable suAlertTables) {
 		final URL urlGoogleMaps = getClass().getClassLoader().getResource("googlemap.html");
 		webEngine = controller.webViewPanel.getEngine();
 
@@ -39,9 +41,9 @@ public class MapController {
 							JSObject window = (JSObject) webEngine.executeScript("window");
 
 							int index=0;
-							while (index<suTable.getDataCache().size()) {
-								stations.put(suTable.getDataCache().get(index).getId(), suTable.getDataCache().get(index));
-								drawStation(suTable.getDataCache().get(index));
+							while (index<stationUpdateTable.getDataCache().size()) {
+								stations.put(stationUpdateTable.getDataCache().get(index).getId(), stationUpdateTable.getDataCache().get(index));
+								drawStation(stationUpdateTable.getDataCache().get(index));
 								index++;
 							}
 							loaded=true;
@@ -50,7 +52,7 @@ public class MapController {
 				});
 
 
-		suTable.getDataCache().addListener(new ListChangeListener<StationUpdateEntry>(){
+		stationUpdateTable.getDataCache().addListener(new ListChangeListener<StationUpdateEntry>(){
 			@Override
 			public void onChanged(javafx.collections.ListChangeListener.Change<? extends StationUpdateEntry> c) {
 				while (loaded && c.next()) {

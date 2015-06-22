@@ -17,6 +17,23 @@ monitor DBManager {
 	}
 	
 	action onLoaded() {
+		log "Database is loaded, creating strategies";
+		createUpperBoundaries();
+		createLowerBoundaries();
 		route DBLoaded();
+	}
+	
+	action createUpperBoundaries() {
+		DBBoundaryAlert value; 
+		for value in cacheLoader.upperBoundaryConfig().values() {
+			route CreateUpperBoundaryAlert(value.id, value.city, value.threshold);
+		}
+	}
+	
+	action createLowerBoundaries() {
+		DBBoundaryAlert value; 
+		for value in cacheLoader.lowerBoundaryConfig().values() {
+			route CreateLowerBoundaryAlert(value.id, value.city, value.threshold);
+		}
 	}
 }

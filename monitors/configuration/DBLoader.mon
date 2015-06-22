@@ -23,6 +23,9 @@ event DBLoader {
 		db.close(false);
 	}
 
+	action upperBoundaryConfig() returns dictionary< DBKey, DBBoundaryAlert > { return boundaryLoader.getUpperCache(); }
+	action lowerBoundaryConfig() returns dictionary< DBKey, DBBoundaryAlert > { return boundaryLoader.getLowerCache(); }
+	
 	action onError(string message) {
 		log message at ERROR;
 	}

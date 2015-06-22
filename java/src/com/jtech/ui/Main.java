@@ -2,6 +2,7 @@ package com.jtech.ui;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import com.jtech.ui.model.StationAlertTable;
 import com.jtech.ui.model.StationUpdateEntry;
 import com.jtech.ui.model.StationUpdateTable;
 import com.jtech.ui.scenario.ScenarioService;
@@ -23,8 +25,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		ScenarioService sService = new ScenarioService(15903);
-		StationUpdateTable suTable = new StationUpdateTable("DV_StationUpdate", sService);
-
+		StationUpdateTable suUpdateTable = new StationUpdateTable("DV_StationUpdate", sService);
+		StationAlertTable suAlertTable = new StationAlertTable("DV_StationAlert", sService);
+		
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application.fxml"));
 			Parent root = (Parent) fxmlLoader.load();
@@ -35,8 +38,8 @@ public class Main extends Application {
 			stage.setScene(scene);
 			stage.show();
 
-			new MapController(controller, suTable);
-			new TableController(controller, suTable);
+			new MapController(controller, suUpdateTable, suAlertTable);
+			new TableController(controller, suUpdateTable, suAlertTable);
 	
 			logger.info("Calling update connection");
 			sService.updateConnection("localhost");

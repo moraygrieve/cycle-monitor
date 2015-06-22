@@ -1,26 +1,12 @@
 package com.jtech.alert;
 
-/** create alert strategies */
-event CreateUpperBoundaryAlert {
-	integer id;
-	string city;
-	float threshold;
-}
-
-event CreateLowerBoundaryAlert {
-	integer id;
-	string city;
-	float threshold;
-}
-
-
 /** add actual raised alerts */
 event AddAlert {
 	integer id;
 	string city;
 	string type;
 	string message;
-	integer precedence;
+	string color;
 }
 
 event RemoveAlert {
@@ -36,6 +22,7 @@ event Alert {
 	string city;
 	string type;
 	string message;
+	string color;
 	
 	action iface() returns com.jtech.util.IKeyedDataView {
 		com.jtech.util.IKeyedDataView this := new com.jtech.util.IKeyedDataView;
@@ -67,6 +54,7 @@ event Alert {
 		alert.city := add.city;
 		alert.type := add.type;
 		alert.message := add.message;
+		alert.color := add.color;
 		return alert;
 	}
 }
