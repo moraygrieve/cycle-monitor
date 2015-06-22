@@ -18,7 +18,6 @@
 
 	<filelist id="utils">
 		<file name="monitors/utils/DataViewKeyFields.mon" />
-		<file name="monitors/utils/InitialisationManager.mon" />
 	</filelist>
 
 	<filelist id="configuration">
