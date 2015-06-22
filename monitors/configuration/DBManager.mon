@@ -2,7 +2,7 @@ package com.jtech.config;
 
 monitor DBManager {
 	DBConfig config;
-	DBLoader cacheLoader, cache;
+	DBLoader cacheLoader;
 	
 	action onload {
 		on DBConfig():config load(onLoaded);
@@ -17,17 +17,6 @@ monitor DBManager {
 	}
 	
 	action onLoaded() {
-		switchCaches();
-		on DBReload() {load(onReLoaded); }
-	}
-
-	action onReLoaded() {
-		switchCaches();
-		on DBReload() { load(onReLoaded); }
-	}
-	
-	action switchCaches() {
-		cache := cacheLoader;
-		cacheLoader := new DBLoader;
+		route DBLoaded();
 	}
 }

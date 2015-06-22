@@ -19,8 +19,10 @@
 	</target>
 
 	<!-- Top level start and stop tasks -->
-	<target name="start" depends="init, correlator, adapters" />
-	
+	<target name="start" depends="init, adapters, correlator" >
+		<engine-send file="build/ADBC.evt" />
+	</target>
+
 	<target name="correlator" depends="start-correlator, inject-correlator" />
 
 	<target name="adapters" depends="start-adapters"/>
@@ -29,7 +31,12 @@
 
 	<!-- Correlator start, stop and load tasks -->
 	<target name="start-correlator">
-		<start-correlator port="${correlator.port}" console="false" java="true" />
+		<start-correlator port="${correlator.port}" console="false" java="true"
+			log="${log.dir}${file.separator}correlator.log"  
+			inputLog="${log.dir}${file.separator}correlator-input.log"  />
+		<set-application-log-file  port="${correlator.port}" 
+			package="com.jtech" filename="${log.dir}${file.separator}application.log" 
+		/>
 	</target>
 
 	<target name="inject-correlator" >
@@ -44,16 +51,18 @@
 	<target name="stop-correlator">
 		<kill-correlator port="${correlator.port}" failonerror="false"/>
 	</target>
-	
+
 	<!-- City bikes adapter start and stop -->
 	<target name="start-adapters">
-		<start-iaf port="${iaf.port}" config="build/city-bikes.xml" console="false"/>
-	</target>	
-	
-	<target name="stop-adapters">
-		<kill-iaf port="${iaf.port}" failonerror="false"/>
+		<start-iaf port="${city-bikes.port}" config="build/city-bikes.xml" log="${log.dir}${file.separator}city-bikes.log" console="false"/>
+		<start-iaf port="${city-bikes-adbc.port}" config="build/city-bikes-adbc.xml" log="${log.dir}${file.separator}city-bikes-adbc.log" console="false"/>
 	</target>
-	
+
+	<target name="stop-adapters">
+		<kill-iaf port="${city-bikes.port}" failonerror="false"/>
+		<kill-iaf port="${city-bikes-adbc.port}" failonerror="false"/>
+	</target>
+
 	<!-- Clean tasks -->
 	<target name="clean">
 		<delete dir="${build.dir}" />
@@ -61,7 +70,7 @@
 			<fileset dir="${log.dir}" includes="**/*" />
 		</delete>
 	</target>
-	
+
 	<target name="usage" >
 		<echo message=""/>
 	</target>

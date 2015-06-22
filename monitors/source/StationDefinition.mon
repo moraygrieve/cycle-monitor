@@ -1,5 +1,8 @@
 package com.jtech.source;
 
+/** correlator to iaf */
+event Start { }
+
 /** full snapshot update of all station details */
 event StationUpdate {
 	string city;

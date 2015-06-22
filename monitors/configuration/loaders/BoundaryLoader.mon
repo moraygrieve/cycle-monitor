@@ -4,7 +4,9 @@ using com.apama.database.DBUtil;
 event BoundaryLoader {	
 	ILoader this;
 	BaseLoader base;
-	dictionary< DBAlertKey, DBBoundaryAlert > alerts;
+	dictionary< DBAlertKey, DBBoundaryAlert > upperEntries;
+	dictionary< DBAlertKey, DBBoundaryAlert > lowerEntries;
+	
 
 	action init(DBUtil db, action<> onDone) returns ILoader {
 		ILoader this := base.init(db, onDone);
@@ -17,22 +19,34 @@ event BoundaryLoader {
 		base.db.doSQLQueryWithCallback("select * from boundary_alert_config", queryResult, queryDone);
 	}
 
-	action getCache() returns dictionary< DBAlertKey, DBBoundaryAlert > {
-		return alerts;
+	action getUpperCache() returns dictionary< DBAlertKey, DBBoundaryAlert > {
+		return upperEntries;
 	}
-
+	
+	action getLowerCache() returns dictionary< DBAlertKey, DBBoundaryAlert > {
+		return lowerEntries;
+	}
+	
 	action queryResult(dictionary<string, string> data) {
 		string city := data.getOrDefault("city");  
-		string id := data.getOrDefault("id"); 
-		if (id!="" and city!="") then {        
-			alerts.add(DBAlertKey(city, id.toInteger()),(new DBBoundaryAlert).fromResult(data));
+		string id := data.getOrDefault("id");
+		string upper := data.getOrDefault("upper");
+		if (id!="" and city!="" and upper="1") then {        
+			upperEntries.add(DBAlertKey(city, id.toInteger()),(new DBBoundaryAlert).fromResult(data));
+		}
+		else if (id!="" and city!="" and upper="0") then {        
+			lowerEntries.add(DBAlertKey(city, id.toInteger()),(new DBBoundaryAlert).fromResult(data));
 		}
 	}
 
 	action queryDone(string error, integer eventCount) {
 		log "Query complete, boundary alerts are; " at INFO;
-		DBAlertKey key; for key in alerts.keys() {
-			log "  Boundary alert: " + alerts[key].pprint() at INFO;
+		DBAlertKey key; 
+		for key in upperEntries.keys() {
+			log "  Upper Boundary alert: " + upperEntries[key].pprint() at INFO;
+		}
+		for key in lowerEntries.keys() {
+			log "  Lower Boundary alert: " + lowerEntries[key].pprint() at INFO;
 		}
 		base.onQueryDone();
 	}

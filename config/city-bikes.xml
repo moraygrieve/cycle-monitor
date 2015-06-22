@@ -21,8 +21,18 @@
 	</codecs>
 
 	<mapping>
-		<event package="com.jtech.source" name="StationUpdate"
-			direction="downstream" encoder="JNullCodec">
+		<event name="Start" package="com.jtech.source" direction="upstream"
+			inject="false" encoder="JNullCodec">
+			<id-rules>
+				<upstream />
+			</id-rules>
+			<mapping-rules>
+				<map transport="__type" type="string" default="Start" />
+			</mapping-rules>
+		</event>
+
+		<event name="StationUpdate" package="com.jtech.source"
+			direction="downstream" inject="false" encoder="JNullCodec">
 			<id-rules>
 				<downstream>
 					<id fields="__type" test="==" value="__station_update" />

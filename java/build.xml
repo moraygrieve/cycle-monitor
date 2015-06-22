@@ -64,7 +64,7 @@
 	</target>
 
 	<target name="clean">
-		<delete file="${jar-file}" />
+		<delete dir="bin"/>
 		<delete>
 			<fileset dir=".">
 				<include name="**/*.class"/>

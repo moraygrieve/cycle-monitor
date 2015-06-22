@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="C:/Users/moray/Development/cycle-monitor/java/lib/cron4j-2.2.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/moray/Development/cycle-monitor/java/lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="C:/Users/moray/Development/cycle-monitor/java/lib/jfxrt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/moray/Development/cycle-monitor/java/lib/com.mysql.jdbc_5.1.5.jar"/>
 	<classpathentry kind="output" path="java/bin"/>
 </classpath>

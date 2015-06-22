@@ -32,7 +32,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 	private static final String PROPERTY_CITY_NAME = "cityName";
 	private static final String PROPERTY_DATA_URL = "dataURL";
 	private static final String PROPERTY_POLLING_SCHEDULE = "pollingSchedule";
-	
+
 	private Logger logger;
 	private EventDecoder decoder;
 	private String cityName;
@@ -105,14 +105,18 @@ public class CityBikesTransport extends AbstractEventTransport {
 			throws TransportException 
 	{
 		totalReceived++;
-	}
 
-	@Override
-	public void start() throws TransportException {
-		synchronized(this) {
+		if ( !(event instanceof NormalisedEvent) ) {
+			throw new TransportException("Invalid event type " + event.getClass(), TransportException.DECODINGFAILURE);
+		}
+
+		NormalisedEvent normalisedEvent = (NormalisedEvent) event;
+		String type = normalisedEvent.findValue("__type");
+		if ( type!=null && type.equals("Start") ) {
+			logger.info("Received request to start polling ...");
 			started = true;
 			poll();
-			
+
 			Scheduler s = new Scheduler();
 			s.schedule(pollingSchedule, new Runnable() {
 				public void run() { poll(); }
@@ -122,10 +126,12 @@ public class CityBikesTransport extends AbstractEventTransport {
 	}
 
 	@Override
+	public void start() throws TransportException {
+	}
+
+	@Override
 	public void stop() throws TransportException {
-		synchronized(this) {
-			started = false;
-		}	
+		started = false;	
 	}
 
 	@Override

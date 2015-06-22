@@ -41,9 +41,9 @@
 		<file name="monitors/strategy/IAlertStrategy.mon" />
 		<file name="monitors/strategy/AlertDefinition.mon" />
 		<file name="monitors/strategy/AlertStrategy.mon" />
-		<file name="monitors/strategy/AlertManager.mon" />
 		<file name="monitors/strategy/UpperBoundary.mon" />
 		<file name="monitors/strategy/LowerBoundary.mon" />
+		<file name="monitors/strategy/AlertManager.mon" />
 	</filelist>
 
 </project>
