@@ -27,7 +27,7 @@ map_canvas {
         var linesArray = [];
         var latlng = new google.maps.LatLng(51.511213, -0.119824);
         var myOptions = {
-        zoom: 13,
+        zoom: 12,
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControl: false,
@@ -48,7 +48,8 @@ map_canvas {
                     fillColor: color,
                     fillOpacity: .8,
                     scale: scale,
-                    strokeColor: color
+                    strokeColor: 'white',
+                    strokeWeight: 1
                 },
             });
 

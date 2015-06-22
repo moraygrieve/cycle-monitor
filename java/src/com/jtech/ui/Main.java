@@ -31,7 +31,7 @@ public class Main extends Application {
 			Parent root = (Parent) fxmlLoader.load();
 			Controller controller = fxmlLoader.<Controller>getController();
 			
-			Scene scene = new Scene(root, 2300, 1150);
+			Scene scene = new Scene(root, 1200, 600);
 			stage.setTitle("Cycle Monitor");
 			stage.setScene(scene);
 			stage.show();

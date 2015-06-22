@@ -65,16 +65,16 @@ public class MapController {
 		});
 	}
 
-	public void drawStation(StationAlertEntry entry) {
+	private void drawStation(StationAlertEntry entry) {
 		webEngine.executeScript("document.drawStation(" + entry.getId() + "," + entry.getStationLat() + "," + entry.getStationLng() + 
-				",'"+entry.getColor()+"','"+getStationTitle(entry)+"',8.0)");
+				",'"+entry.getColor()+"','"+getStationTitle(entry)+"',6.0)");
 	}
 
-	public void setMapCentre(double lat, double lng) {
+	private void setMapCentre(double lat, double lng) {
 		webEngine.executeScript("document.setCentre(" + lat + "," + lng + ")");
 	}
 
-	public void setZoom(int level) {
+	private void setZoom(int level) {
 		webEngine.executeScript("document.setZoom(" + level + ")");
 	}
 
@@ -83,7 +83,8 @@ public class MapController {
 		String title = "<br><b>Name:</b> " + name + "</br>" +
 				"<br><b>ID:</b> " + entry.getStationId() + "</br>" +
 				"<br><b>Total:</b> " + (entry.getNumEmpty() + entry.getNumDocked()) + "</br>" +
-				"<br><b>Emtpy:</b> " + entry.getNumEmpty() + "</br>";
+				"<br><b>Emtpy:</b> " + entry.getNumEmpty() + "</br>" +
+				"<br><b>Alert:</b> " + entry.getType() + "</br>";
 		return title;
 	}
 }
