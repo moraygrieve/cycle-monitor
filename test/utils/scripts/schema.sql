@@ -1,9 +1,9 @@
 CREATE TABLE `cycle_monitor`.`boundary_alert_config` (
   `city` VARCHAR(45) NOT NULL,
   `id` INT NOT NULL,
-  `threshold` FLOAT NULL,
   `upper` TINYINT NULL,
-  PRIMARY KEY (`city`, `id`));
+  `threshold` FLOAT NULL,
+  PRIMARY KEY (`city`, `id`, `upper`));
   
 CREATE TABLE `cycle_monitor`.`rate_alert_config` (
   `city` VARCHAR(45) NOT NULL,

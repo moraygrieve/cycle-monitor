@@ -1,5 +1,6 @@
 package com.jtech.alert;
 
+/** create alert strategies */
 event CreateUpperBoundaryAlert {
 	integer id;
 	string city;
@@ -12,6 +13,8 @@ event CreateLowerBoundaryAlert {
 	float threshold;
 }
 
+
+/** add actual raised alerts */
 event AddAlert {
 	integer id;
 	string city;
@@ -26,6 +29,8 @@ event RemoveAlert {
 	string type;
 }
 
+
+/** actual raised alert */
 event Alert {
 	integer id;
 	string city;

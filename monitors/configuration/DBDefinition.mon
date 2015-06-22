@@ -1,5 +1,6 @@
 package com.jtech.config;
 
+/** configuration, interaction and data structures */
 event DBConfig {
 	string serviceId;
 	string databaseURL;
@@ -14,18 +15,20 @@ event DBAlertKey {
 	integer id; 
 }
 
+
+/** holder for a boundary alert configuration */
 event DBBoundaryAlert {
 	integer id;
 	string name;
-	float boundary;
-	boolean greater;
+	float threshold;
+	boolean upper;
 	
 	action fromResult(dictionary<string, string> data) returns DBBoundaryAlert {
 		DBBoundaryAlert alert := new DBBoundaryAlert; 
 		alert.id := data.getOr("id", "-1").toInteger();
 		alert.name := data.getOr("name","");
-		alert.boundary := data.getOr("boundary", "-1.0").toFloat();
-		alert.greater := data.getOr("greater", "true").toBoolean();
+		alert.threshold := data.getOr("threshold", "-1.0").toFloat();
+		alert.upper := data.getOr("upper", "true").toBoolean();
 		return alert;
 	}
 
@@ -34,6 +37,7 @@ event DBBoundaryAlert {
 	}
 }
 
+/** holder for a rate alert configuration */
 event DBRateAlert {
 	integer id;
 	string name;
