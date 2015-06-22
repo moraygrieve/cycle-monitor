@@ -3,7 +3,7 @@ using com.jtech.source.StationUpdate;
 
 event LowerBoundary {
 	constant string  TYPE:="LOWER_BOUNDARY";
-	constant string  COLOR:="RED";
+	constant string  COLOR:="red";
 
 	IAlertStrategy this;
 	float _threshold;

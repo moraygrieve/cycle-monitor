@@ -2,16 +2,17 @@ package com.jtech.alert;
 
 /** remove a raised alert */
 event RemoveAlert {
-	integer id;
 	string city;
+	integer id;
 	string type;
 }
 
 
 /** raise an alert */
 event Alert {
-	integer id;
 	string city;
+	integer id;
+	string name;
 	float lat;
 	float lng;
 	integer docked;

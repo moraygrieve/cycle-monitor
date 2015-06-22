@@ -59,7 +59,7 @@ monitor AlertManager {
 	
 	action addAlert(StationUpdate update, string type, string message, string color) {
 		log "Adding alert for "+update.id.toString()+","+update.city+","+type at INFO;
-		dvHelper.add((Alert(update.id, update.city, update.lat, update.lng, 
+		dvHelper.add((Alert(update.city, update.id, update.name, update.lat, update.lng, 
 		                    update.docked, update.empty, type, message, color)).iface());
 	}
 	

@@ -67,7 +67,7 @@ public class MapController {
 
 	public void drawStation(StationAlertEntry entry) {
 		webEngine.executeScript("document.drawStation(" + entry.getId() + "," + entry.getStationLat() + "," + entry.getStationLng() + 
-				",'black','"+getStationTitle(entry)+"',8.0)");
+				",'"+entry.getColor()+"','"+getStationTitle(entry)+"',8.0)");
 	}
 
 	public void setMapCentre(double lat, double lng) {
@@ -81,7 +81,7 @@ public class MapController {
 	private String getStationTitle(StationAlertEntry entry) {
 		String name = entry.getStationName().replace(",", "&#44").replace("'", "").replace("(", "&#40").replace(")", "&#41");
 		String title = "<br><b>Name:</b> " + name + "</br>" +
-				"<br><b>ID:</b> " + entry.getId() + "</br>" +
+				"<br><b>ID:</b> " + entry.getStationId() + "</br>" +
 				"<br><b>Total:</b> " + (entry.getNumEmpty() + entry.getNumDocked()) + "</br>" +
 				"<br><b>Emtpy:</b> " + entry.getNumEmpty() + "</br>";
 		return title;
