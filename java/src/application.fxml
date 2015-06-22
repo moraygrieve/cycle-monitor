@@ -41,12 +41,12 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="368.0" prefWidth="312.0">
                            <children>
-                              <TableView fx:id="stationUpdateTable" layoutX="108.0" prefHeight="369.0" prefWidth="416.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="stationAlertTable" layoutX="108.0" prefHeight="369.0" prefWidth="416.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
                                   <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
-                                  <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
-                                    <TableColumn fx:id="dockedColumn" prefWidth="75.0" text="Docked" />
-                                    <TableColumn fx:id="emptyColumn" prefWidth="75.0" text="Empty" />
+                                  <TableColumn fx:id="cityColumn" prefWidth="75.0" text="City" />
+                                    <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
+                                    <TableColumn fx:id="messageColumn" prefWidth="75.0" text="Message" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

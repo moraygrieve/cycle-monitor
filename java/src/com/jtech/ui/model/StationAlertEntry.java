@@ -38,7 +38,7 @@ public class StationAlertEntry extends IScenarioEntry {
 	public String getMessage() { return message.get(); }
 	public SimpleStringProperty messageProperty() { return message; }
 	@Setter(name="message", type="string") public void setMessage(String message) {
-		this.type.set(message);
+		this.message.set(message);
 	}
 
 	public String getColor() { return color.get(); }

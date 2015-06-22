@@ -1,20 +1,19 @@
 package com.jtech.ui;
 
-import com.jtech.ui.model.StationUpdateEntry;
+import com.jtech.ui.model.StationAlertEntry;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
 
 public class Controller {
     @FXML WebView webViewPanel;
-    @FXML TableView<StationUpdateEntry> stationUpdateTable;
-    @FXML TableColumn<StationUpdateEntry, Long> idColumn;
-    @FXML TableColumn<StationUpdateEntry, String> nameColumn;
-    @FXML TableColumn<StationUpdateEntry, Long> dockedColumn;
-    @FXML TableColumn<StationUpdateEntry, Long> emptyColumn;
+    @FXML TableView<StationAlertEntry> stationAlertTable;
+    @FXML TableColumn<StationAlertEntry, Long> idColumn;
+    @FXML TableColumn<StationAlertEntry, String> cityColumn;
+    @FXML TableColumn<StationAlertEntry, String> typeColumn;
+    @FXML TableColumn<StationAlertEntry, String> messageColumn;
     
     @FXML
     void initialize() {
