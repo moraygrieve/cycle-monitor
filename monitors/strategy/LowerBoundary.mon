@@ -18,11 +18,10 @@ event LowerBoundary {
 
 	//implementation of required actions
 	action check(StationUpdate update) {
-		float ratio := update.docked.toFloat()/(update.docked+update.empty).toFloat();
-		if (not base.getAlerted() and ratio <= 0.1) then {
-			base.alert(update, "Ratio is " + ratio.formatFixed(2));
+		if (not base.getAlerted() and update.ratio <= 0.1) then {
+			base.alert(update, "Ratio is " + update.ratio.formatFixed(2));
 		}
-		else if (base.getAlerted() and ratio > 0.1) then {
+		else if (base.getAlerted() and update.ratio > 0.1) then {
 			base.clear();
 		}
 	}

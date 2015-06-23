@@ -23,8 +23,7 @@ map_canvas {
 	src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
     function initialize() {
-        var markersArray = [];
-        var linesArray = [];
+        var markers = {};
         var latlng = new google.maps.LatLng(51.511213, -0.119824);
         var myOptions = {
         zoom: 12,
@@ -53,7 +52,7 @@ map_canvas {
                 },
             });
 
-            markersArray.push(m);
+            markers[id]=m;
 
             var content = '<p>'+title+'</p>'
             google.maps.event.addListener(m, 'click', function(event) {
@@ -64,13 +63,15 @@ map_canvas {
         }
        
         document.clearMarkers = function clearMarkers() {
-            if (markersArray) {
-                for (i in markersArray) {
-                    markersArray[i].setMap(null);
-                }
-            }
+        	for (var key in markers) {
+        	    markers[key].setMap(null);
+        	} 
         }
 
+      	document.deleteStation = function deleteStation(id) {
+      		markers[id].setMap(null);
+      	}
+      	
         document.reset = function reset() {
             document.map.setCenter(latlng);
             document.map.setZoom(12);

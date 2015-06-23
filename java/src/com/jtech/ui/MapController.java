@@ -54,10 +54,20 @@ public class MapController {
 			@Override
 			public void onChanged(javafx.collections.ListChangeListener.Change<? extends StationAlertEntry> c) {
 				while (loaded && c.next()) {
-					for (StationAlertEntry additem : c.getAddedSubList()) {
-						if (!stations.containsKey(additem.getId())) {
-							stations.put(additem.getId(), additem);
-							drawStation(additem);
+					if (c.wasPermutated()) { } 
+					else if (c.wasUpdated()) { } 
+					else {
+						for (StationAlertEntry remitem : c.getRemoved()) {
+							if (stations.containsKey(remitem.getId())) {
+								stations.remove(remitem.getId());
+								deleteStation(remitem);
+							}
+						}
+						for (StationAlertEntry additem : c.getAddedSubList()) {
+							if (!stations.containsKey(additem.getId())) {
+								stations.put(additem.getId(), additem);
+								drawStation(additem);
+							}
 						}
 					}
 				}
@@ -68,6 +78,10 @@ public class MapController {
 	private void drawStation(StationAlertEntry entry) {
 		webEngine.executeScript("document.drawStation(" + entry.getId() + "," + entry.getStationLat() + "," + entry.getStationLng() + 
 				",'"+entry.getColor()+"','"+getStationTitle(entry)+"',6.0)");
+	}
+
+	private void deleteStation(StationAlertEntry entry) {
+		webEngine.executeScript("document.deleteStation(" + entry.getId()+")");
 	}
 
 	private void setMapCentre(double lat, double lng) {

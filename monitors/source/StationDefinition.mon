@@ -8,7 +8,9 @@ event StationUpdate {
 	string name;
 	float lat;
 	float lng;
+	float ratio;
 	integer docked;
 	integer empty;
 	boolean active;
+	float timestamp;
 }

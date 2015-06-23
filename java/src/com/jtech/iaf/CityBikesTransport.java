@@ -183,9 +183,10 @@ public class CityBikesTransport extends AbstractEventTransport {
 				normalisedEvent.addQuick("lat", lat.toString());
 				normalisedEvent.addQuick("lng", lng.toString());
 				normalisedEvent.addQuick("updated", time);
+				normalisedEvent.addQuick("ratio", String.valueOf(Double.valueOf(avail)/Double.valueOf((avail+empty))));
 				normalisedEvent.addQuick("docked", avail.toString());
 				normalisedEvent.addQuick("empty", empty.toString());
-				normalisedEvent.addQuick("active", "true");
+				normalisedEvent.addQuick("timestamp", String.valueOf(System.currentTimeMillis()/1000));
 
 				logger.info("Sending downstream transport event to data codec: "+normalisedEvent);
 

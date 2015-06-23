@@ -3,7 +3,6 @@ using com.jtech.source.StationUpdate;
 
 event AlertStrategy { 
 	IAlertStrategy this;
-	
 	integer _id;
 	string  _city;
 	string  _type;

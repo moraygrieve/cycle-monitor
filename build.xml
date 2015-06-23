@@ -65,7 +65,7 @@
 
 	<!-- utility tasks -->
 	<target name="clear-all">
-		<engine-send literal="com.jtech.aler.RemoveAlerts()" port="${correlator.port}"/>
+		<engine-send literal="com.jtech.alert.RemoveAlerts()" port="${correlator.port}"/>
 	</target>
 	
 	<!-- clean tasks -->

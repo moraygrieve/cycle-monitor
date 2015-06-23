@@ -1,0 +1,32 @@
+package com.jtech.alert;
+using com.apama.aggregates.first;
+using com.apama.aggregates.last;
+using com.jtech.source.StationUpdate;
+
+event Result { float dx; float dy; }
+
+event RateThreshold {
+	constant string  TYPE :="RATE_THRESHOLD";
+	constant string  COLOR:="yellow";
+
+	AlertStrategy base;
+	float _threshold;
+	float _duration;
+	
+	action init(integer id, string city, float threshold, float duration, IAlertManager manager) returns IAlertStrategy {    
+		_threshold := threshold;
+		_duration := duration;
+		listen();
+		
+		IAlertStrategy this := base.init(id, city, TYPE, COLOR, manager);
+		return this;
+	}
+	
+	action listen() {
+		Result result;
+	    from u in all StationUpdate(id=base._id, city=base._city) within _duration
+          select Result((last(u.ratio)-first(u.ratio)),(last(u.timestamp)-first(u.timestamp))):result {
+        	  log "Gradient is " + (result.dx/result.dy).toString();
+          }  
+	}
+}

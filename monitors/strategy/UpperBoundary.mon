@@ -18,11 +18,10 @@ event UpperBoundary {
     
     //implementation of required actions
 	action check(StationUpdate update) {
-		float ratio := update.docked.toFloat()/(update.docked+update.empty).toFloat();
-		if (not base.getAlerted() and ratio >= _threshold) then {
-			base.alert(update, "Ratio is " + ratio.formatFixed(2));
+		if (not base.getAlerted() and update.ratio >= _threshold) then {
+			base.alert(update, "Ratio is " + update.ratio.formatFixed(2));
 		}
-		else if (base.getAlerted() and ratio <= _threshold) then {
+		else if (base.getAlerted() and update.ratio <= _threshold) then {
 			base.clear();
 		}
 	}

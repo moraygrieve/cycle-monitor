@@ -8,8 +8,10 @@ event Alert {
 	string name;
 	float lat;
 	float lng;
+	float ratio;
 	integer docked;
 	integer empty;
+	float timestamp;
 	string type;
 	string message;
 	string color;
