@@ -69,7 +69,9 @@ map_canvas {
         }
 
       	document.deleteStation = function deleteStation(id) {
-      		markers[id].setMap(null);
+      		if (markers.hasOwnProperty(id)) {
+      			markers[id].setMap(null);
+      		}
       	}
       	
         document.reset = function reset() {
