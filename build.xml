@@ -64,7 +64,7 @@
 	</target>
 
 	<!-- utility tasks -->
-	<target name="clear-all">
+	<target name="clear-alerts">
 		<engine-send literal="com.jtech.alert.RemoveAlerts()" port="${correlator.port}"/>
 	</target>
 	
@@ -77,6 +77,8 @@
 	</target>
 
 	<target name="usage" >
+		<echo message=""/>
+		<echo message=""/>
 		<echo message=""/>
 	</target>
 </project>

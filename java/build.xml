@@ -27,22 +27,7 @@
 		<include name="**/iaf/*.class" />
 	</patternset>
 
-	<target name="prepare">	       
-		<uptodate targetfile="${jar-file}" property="uptodate">
-			<srcfiles dir="./src" includes="**.java"/>
-			<srcfiles dir="./src">
-				<patternset refid="jar-contents"/>
-			</srcfiles>
-			<srcfiles dir="${lib-dir}">
-				<patternset refid="libs"/>
-			</srcfiles>
-			<srcfiles dir="${apama-lib-dir}">
-				<patternset refid="apama-libs"/>
-			</srcfiles>
-		</uptodate>
-	</target>
-
-	<target name="compile" depends="prepare" unless="uptodate">
+	<target name="compile">
 		<javac srcdir="./src" destdir="./src" debug="true">
 			<classpath>
 				<fileset dir="${lib-dir}">
@@ -55,7 +40,7 @@
 		</javac>
 	</target>
 
-	<target name="jar" depends="compile" unless="uptodate">
+	<target name="jar" depends="compile">
 		<jar jarfile="${jar-file}">
 			<fileset dir="./src">
 				<patternset refid="jar-contents"/>

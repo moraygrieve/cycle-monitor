@@ -190,6 +190,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 
 				logger.info("Sending downstream transport event to data codec: "+normalisedEvent);
 
+				
 				TimestampSet timestampSet = new TimestampSet();
 				decoder.sendTransportEvent(normalisedEvent, timestampSet);
 				totalReceived++;
