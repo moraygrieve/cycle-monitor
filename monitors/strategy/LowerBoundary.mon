@@ -2,28 +2,28 @@ package com.jtech.alert;
 using com.jtech.source.StationUpdate;
 
 event LowerBoundary {
-	constant string  TYPE:="LOWER_BOUNDARY";
+	constant string  TYPE :="LOWER_BOUNDARY";
 	constant string  COLOR:="red";
 
-	IAlertStrategy this;
+	AlertStrategy base;
 	float _threshold;
 	
 	action init(integer id, string city, float threshold, IAlertManager manager) returns IAlertStrategy {    
 		_threshold := threshold;
 		
-		this := (new AlertStrategy).init(id, city, manager);
+		IAlertStrategy this := base.init(id, city, TYPE, COLOR, manager);
 		this.check := check;
 		return this;
 	}
 
 	//implementation of required actions
 	action check(StationUpdate update) {
-		float ratio:=update.docked.toFloat() / (update.docked+update.empty).toFloat();
-		if (not this.getAlerted() and ratio <= 0.1) then {
-			this.alert(update, TYPE, "Ratio is " + ratio.formatFixed(2), COLOR);
+		float ratio := update.docked.toFloat()/(update.docked+update.empty).toFloat();
+		if (not base.getAlerted() and ratio <= 0.1) then {
+			base.alert(update, "Ratio is " + ratio.formatFixed(2));
 		}
-		else if (this.getAlerted() and ratio > 0.1) then {
-			this.clear(update, TYPE);
+		else if (base.getAlerted() and ratio > 0.1) then {
+			base.clear();
 		}
 	}
 }

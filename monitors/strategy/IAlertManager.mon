@@ -3,5 +3,5 @@ using com.jtech.source.StationUpdate;
 
 event IAlertManager {
 	action <StationUpdate,string,string,string> addAlert;
-	action <StationUpdate,string> clearAlert;
+	action <string,integer,string> clearAlert;
 }

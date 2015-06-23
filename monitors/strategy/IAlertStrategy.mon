@@ -2,11 +2,5 @@ package com.jtech.alert;
 using com.jtech.source.StationUpdate;
 
 event IAlertStrategy {
-	action <> returns integer getId;
-	action <> returns string  getCity;
-	action <> returns boolean getAlerted;
-	
 	action <StationUpdate> check;
-	action <StationUpdate, string,string,string> alert;
-	action <StationUpdate, string> clear;
 }

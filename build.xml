@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Cycle Monitor application build file" default="usage" basedir=".">
 
-	<!-- Import the apama macros, this will also set some standard properties -->
+	<!-- import the apama macros, this will also set some standard properties -->
 	<import file="apama-macros.xml" />
 
-	<!-- Get a reference to the environemnt, and import default properties -->
+	<!-- get a reference to the environemnt, and import default properties -->
 	<property environment="env" />
 	<property file="build.properties" />
 
-	<!-- Import the filelist for correlator injection -->
+	<!-- import the filelist for correlator injection -->
 	<import file="build-filelists.xml" />
 
-	<!-- Initialise, including file tailoring into the build directory -->
+	<!-- initialise, including file tailoring into the build directory -->
 	<target name="init">
 		<init/>
 		<tstamp />
 		<mkdir dir="${log.dir}" />
 	</target>
 
-	<!-- Top level start and stop tasks -->
+	<!-- top level start and stop tasks -->
 	<target name="start" depends="init, adapters, correlator" >
 		<engine-send file="build/ADBC.evt" />
 	</target>
@@ -29,7 +29,7 @@
 
 	<target name="stop" depends="stop-correlator, stop-adapters" />
 
-	<!-- Correlator start, stop and load tasks -->
+	<!-- correlator start, stop and load tasks -->
 	<target name="start-correlator">
 		<start-correlator port="${correlator.port}" console="false" java="true"
 			log="${log.dir}${file.separator}correlator.log"  
@@ -52,7 +52,7 @@
 		<kill-correlator port="${correlator.port}" failonerror="false"/>
 	</target>
 
-	<!-- City bikes adapter start and stop -->
+	<!-- adapters start and stop -->
 	<target name="start-adapters">
 		<start-iaf port="${city-bikes.port}" config="build/city-bikes.xml" log="${log.dir}${file.separator}city-bikes.log" console="false"/>
 		<start-iaf port="${city-bikes-adbc.port}" config="build/city-bikes-adbc.xml" log="${log.dir}${file.separator}city-bikes-adbc.log" console="false"/>
@@ -63,7 +63,12 @@
 		<kill-iaf port="${city-bikes-adbc.port}" failonerror="false"/>
 	</target>
 
-	<!-- Clean tasks -->
+	<!-- utility tasks -->
+	<target name="clear-all">
+		<engine-send literal="com.jtech.aler.RemoveAlerts()" port="${correlator.port}"/>
+	</target>
+	
+	<!-- clean tasks -->
 	<target name="clean">
 		<delete dir="${build.dir}" />
 		<delete includeemptydirs="true">

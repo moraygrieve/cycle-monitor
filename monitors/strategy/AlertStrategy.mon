@@ -6,37 +6,38 @@ event AlertStrategy {
 	
 	integer _id;
 	string  _city;
+	string  _type;
+	string  _color;
 	boolean _alerted;
 	IAlertManager _manager;
 	
-    action init(integer id, string city, IAlertManager manager) returns IAlertStrategy {
+    action init(integer id, string city, string type, string color, IAlertManager manager) returns IAlertStrategy {
         _id := id;
         _city := city;
+        _type := type;
+        _color := color;
         _manager := manager;
-		
+	
+    	on all RemoveAlerts() {
+    		if (_alerted) then { clear(); }
+    	}
+    	
 		this := new IAlertStrategy;
-		this.getId := getId;
-		this.getCity := getCity;
-		this.getAlerted := getAlerted;
 		this.check := check;
-		this.alert := alert;
-		this.clear := clear;
 		return this;
 	}
 	
-	//implement in extending strategy (abstract)
+	//abstract implementations
 	action check(StationUpdate update) {}
 
 	//base implementations
-	action getId() returns integer { return _id; }
-	action getCity() returns string { return _city; }
 	action getAlerted() returns boolean { return _alerted; }
-	action alert(StationUpdate update, string type, string message, string color) {
+	action alert(StationUpdate update, string message) {
 		_alerted := true;
-		_manager.addAlert(update, type, message, color);
+		_manager.addAlert(update, _type, message, _color);
 	}
-	action clear(StationUpdate update, string type) {
+	action clear() {
 		_alerted := false;
-		_manager.clearAlert(update, type);
-	}
+		_manager.clearAlert(_city, _id, _type);
+	}	
 }
