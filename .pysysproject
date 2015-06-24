@@ -10,12 +10,12 @@
 	<!-- Set Apama environment -->
 	<property name="APAMA_LIBRARY_VERSION"   value="${env.APAMA_LIBRARY_VERSION}"/>
 	<property name="APAMA_HOME"              value="${env.APAMA_HOME}"/>
-	<property name="APAMA_CORRELATOR_HOME"   value="${env.APAMA_HOME}"/>
-	<property name="APAMA_DEV_HOME"          value="${env.APAMA_HOME}"/>
-	<property name="APAMA_MANAGEMENT_HOME"   value="${env.APAMA_HOME}"/>
-	<property name="APAMA_COMMON_JRE"        value="${env.APAMA_HOME}/third_party/jre"/>
-	<property name="APAMA_MODELER_HOME"      value="${env.APAMA_HOME}"/>
-	<property name="APAMA_LICENCE"           value="${env.APAMA_HOME}/etc/license.txt"/>
+	<property name="APAMA_CORRELATOR_HOME"   value="${env.APAMA_CORRELATOR_HOME}"/>
+	<property name="APAMA_DEV_HOME"          value="${env.APAMA_DEV_HOME}"/>
+	<property name="APAMA_MANAGEMENT_HOME"   value="${env.APAMA_MANAGEMENT_HOME}"/>
+	<property name="APAMA_COMMON_JRE"        value="${env.APAMA_COMMON_JRE}"/>
+	<property name="APAMA_MODELER_HOME"      value="${env.APAMA_MODELER_HOME}"/>
+	<property name="APAMA_WORK"              value="${env.APAMA_WORK}"/>
 	
 	<!-- set up python path -->
 	<path value="python" relative="true"/>

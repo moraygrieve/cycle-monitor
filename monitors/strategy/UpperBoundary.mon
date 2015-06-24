@@ -18,7 +18,7 @@ event UpperBoundary {
     
     //implementation of required actions
 	action check(StationUpdate update) {
-		if (not base.getAlerted() and update.ratio >= _threshold) then {
+		if (not base.getAlerted() and update.ratio > _threshold) then {
 			base.alert(update, "Ratio is " + update.ratio.formatFixed(2));
 		}
 		else if (base.getAlerted() and update.ratio <= _threshold) then {

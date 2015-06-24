@@ -12,21 +12,32 @@ event RateThreshold {
 	AlertStrategy base;
 	float _threshold;
 	float _duration;
-	
+
 	action init(integer id, string city, float threshold, float duration, IAlertManager manager) returns IAlertStrategy {    
 		_threshold := threshold;
 		_duration := duration;
 		listen();
-		
+
 		IAlertStrategy this := base.init(id, city, TYPE, COLOR, manager);
 		return this;
 	}
-	
+
 	action listen() {
+		StationUpdate lastUpdate;
 		Result result;
-	    from u in all StationUpdate(id=base._id, city=base._city) within _duration
-          select Result((last(u.ratio)-first(u.ratio)),(last(u.timestamp)-first(u.timestamp))):result {
-        	  log "Gradient is " + (result.dx/result.dy).toString();
-          }  
+		
+		stream<StationUpdate> updates := all StationUpdate(id=base._id, city=base._city);
+		from u in updates retain 1  select u : lastUpdate
+		  
+		from u in updates within _duration
+		  select Result((last(u.ratio)-first(u.ratio)),(last(u.timestamp)-first(u.timestamp))):result {
+			  float rate:=(result.dx/result.dy);
+			  if (not base.getAlerted() and rate > _threshold) then {
+				  base.alert(lastUpdate, "Rate threshold is " + rate.formatFixed(2));
+			  }
+			  else if (base.getAlerted() and rate <= _threshold) then {
+				  base.clear();
+			  }
+		  }  
 	}
 }
