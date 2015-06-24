@@ -4,9 +4,8 @@ from com.jtech.basetest import CycleMonitorTest
 
 class PySysTest(CycleMonitorTest):
 	def execute(self):
-		correlator = self.startCorrelator();
-		self.initialise(correlator)
-		self.startADBCAdapter(correlator, insert='insert.sql')
+		self.start(inserts='insert.sql')
+		self.wait(5.0)
 
 	def validate(self):
 		pass

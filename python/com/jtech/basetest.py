@@ -1,17 +1,23 @@
 from pysys.constants import *
 from pysys.basetest import BaseTest
-from pysys.utils.filecopy import filecopy
+from pysys.utils.filereplace import replace
 from apama.correlator import CorrelatorHelper
 from apama.iaf import IAFHelper
 from com.jtech.filelist import FileListParser
 
 class CycleMonitorTest(BaseTest):
-  
-	def startCorrelator(self):
+ 
+	def start(self, inserts=None):
+		#start the correlator and adapters
 		correlator = CorrelatorHelper(self)
 		correlator.start(logfile='correlator.log')
-		return correlator
-
+		self.settApplicationLogFile(correlator, 'application.log', 'com.jtech')
+		adbc = self.startADBCAdapter(correlator, inserts)
+		
+		#initialise the application
+		self.initialise(correlator)
+		correlator.send(filenames='ADBC.evt',filedir=self.output)
+		
 	def initialise(self, correlator):
 		parser=FileListParser(os.path.join(self.project.root, 'build-filelists.xml'), self.project.root, {'${apama.home}':PROJECT.APAMA_HOME})
 		self.inject(correlator, parser.getFileList('apama.scenarios'))
@@ -21,15 +27,17 @@ class CycleMonitorTest(BaseTest):
 		self.inject(correlator, parser.getFileList('source'))
 		self.inject(correlator, parser.getFileList('strategy'))
 		
+	def settApplicationLogFile(self, correlator, logfile, package):
+		correlator.manage(arguments=['-r', 'setApplicationLogFile %s %s'%(os.path.join(self.output,logfile),package)])
+
 	def inject(self, correlator, fileList, **xargs):
 		for entry in fileList:
 			filedir,filenames=entry
 			correlator.injectMonitorscript(filenames=filenames, filedir=filedir)
 
-	def startADBCAdapter(self, correlator, schema=None, insert=None):
+	def startADBCAdapter(self, correlator, insert=None):
 		# create the sqlite store
-		if not schema: schema = os.path.join(PROJECT.root,'test','utils','scripts','schema.sql')
-		else:  schema = os.path.join(self.input, schema)
+		schema = os.path.join(PROJECT.root,'test','utils','scripts','schema.sql')
 		
 		if not insert: insert = os.path.join(PROJECT.root,'test','utils','scripts','insert.sql')
 		else: insert = os.path.join(self.input, insert)
@@ -41,15 +49,17 @@ class CycleMonitorTest(BaseTest):
 		self.adbcAdapter = IAFHelper(self)
 		database_url = 'jdbc:sqlite:%s' % os.path.join(self.output, 'store.db')
 		replaceDict = {'${basedir}':'%s' % PROJECT.root,
+					'${apama.home}':'%s' % PROJECT.APAMA_HOME,
+					'${correlator.port}':'%d' % correlator.port,
 					'${ADBC_DATABASE_URL}': database_url.replace('\\', '\\\\'),
 					'${ADBC_DRIVER}': 'org.sqlite.JDBC',
 					'${ADBC_DRIVER_JAR}':'sqlite-jdbc-3.7.2.jar',
-					'${apama.home}':'%s' % PROJECT.APAMA_HOME,
-					'${correlator.port}':'%d' % correlator.port }
+					'${ADBC_USERNAME}':'',
+					'${ADBC_PASSWORD}':''}
 
 		# copy the required static xml elements to the output directory 
-		for include in ['ADBC-static-codecs.xml', 'ADBC-static.xml', 'ADBC-application.xml']:
-			filecopy(os.path.join(PROJECT.root, 'config', include), os.path.join(self.output, include))
+		for include in ['ADBC-static-codecs.xml', 'ADBC-static.xml', 'ADBC-application.xml', 'ADBC.evt']:
+			replace(os.path.join(PROJECT.root, 'config', include), os.path.join(self.output, include), replaceDict)
 		
 		# start the adapter
 		return self.adbcAdapter.start(configdir=os.path.join(PROJECT.root, 'config'), configname='city-bikes-adbc.xml', 
