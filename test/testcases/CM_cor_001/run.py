@@ -17,5 +17,10 @@ class PySysTest(CycleMonitorTest):
 		self.startCityBikesAdapter(self.correlator, 'London', 'http://localhost:%d/city-bikes.json'%self.httpPort, '* * * * *')
 		self.initialiseApplication(self.correlator)
 		
+		#wait for scenario printer
+		self.waitForSignal('jython.out', expr='ADDED', condition='>=1')
+		
 	def validate(self):
-		pass
+		exprList=[]
+		exprList.append('ADDED:    id=1, ratio=0.014')
+		self.assertOrderedGrep('jython.out', exprList=exprList)

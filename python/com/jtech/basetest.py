@@ -38,7 +38,10 @@ class CycleMonitorTest(BaseTest):
 	def startCorrelator(self):
 		'''Start a correlator and set logging, return correlator object handle. '''
 		self.correlator = CorrelatorHelper(self)
+		self.log.info('Allocating port %s for correlator'%self.correlator.port)
 		self.correlator.start(logfile='correlator.log')
+		self.correlator.receive('correlator_input.log', channels=['com.apama.input'])
+		self.correlator.receive('correlator_output.log')
 		self.settApplicationLogFile(self.correlator, 'application.log', 'com.jtech')
 		
 	def initialiseApplication(self, correlator):
@@ -51,7 +54,7 @@ class CycleMonitorTest(BaseTest):
 		self.inject(correlator, parser.getFileList('source'))
 		self.inject(correlator, parser.getFileList('strategy'))
 		correlator.send(filenames='ADBC.evt',filedir=self.output)
-		self.waitForSignal('application.log', expr='loaded', timeout=20)
+		self.waitForSignal('correlator_output.log', expr='com.jtech.source.Start', timeout=20)
 
 	def startADBCAdapter(self, correlator, insert=None):
 		'''Start IAF running the ADBC adapter for sqlite, return process handle. '''

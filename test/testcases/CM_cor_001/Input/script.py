@@ -3,7 +3,7 @@ from com.jtech.scenario_printer import ScenarioDefinitionFinder
 
 if __name__ == '__main__':
 	try:
-		ScenarioDefinitionFinder('localhost',int(sys.argv[1]),'DV_StationAlert',['id','name','docked'])
+		ScenarioDefinitionFinder('localhost',int(sys.argv[1]),'DV_StationAlert',['id','ratio'])
 		obj = threading.Event()
 		obj.wait()
 	except:

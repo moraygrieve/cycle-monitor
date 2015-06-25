@@ -8,7 +8,7 @@ class ScenarioInstancePrinter():
 	'''Print out instance details of a scenario definition. '''
 	def __init__(self, definition, filter):
 		self.instances={}
-		self.params = list(set(definition.getOutputParameterNames()) & set(filter))
+		self.params = list(set(filter) & set(definition.getOutputParameterNames()))
 		for instance in definition.getInstances(): self.nhandlerImpl('ADDED:   ', instance)
 	
 		definition.addListener(ScenarioDefinition.PROPERTY_INSTANCE_ADDED,   self.handler('ADDED:   ', self.nhandlerImpl))
@@ -38,8 +38,10 @@ class ScenarioDefinitionFinder():
 	def handlerImpl(self, evt, name, filter):
 		if (IScenarioService.PROPERTY_SCENARIO_DISCOVERY_STATUS==evt.getPropertyName() and evt.getNewValue()==DiscoveryStatusEnum.COMPLETE):
 			self.discovered = True
+			print 'Discovery is complete'
 			if hasattr(self, 'definition'): ScenarioInstancePrinter(self.definition, filter)
  
 		if (IScenarioService.PROPERTY_SCENARIO_ADDED==evt.getPropertyName() and evt.getNewValue().getId()==name):
 			self.definition = evt.getNewValue()
+			print 'Scenario definition %s is loaded'%name
 			if hasattr(self, 'discovered'): ScenarioInstancePrinter(self.definition, filter)
