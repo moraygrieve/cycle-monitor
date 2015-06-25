@@ -16,6 +16,10 @@
 	<property name="APAMA_COMMON_JRE"        value="${env.APAMA_COMMON_JRE}"/>
 	<property name="APAMA_MODELER_HOME"      value="${env.APAMA_MODELER_HOME}"/>
 	<property name="APAMA_WORK"              value="${env.APAMA_WORK}"/>
+
+	<!-- Path specific properties -->
+	<property name="JYTHON_HOME"             value="\Java\jython2.7.0"/>
+	<property name="SQLITE3_EXE"             value="\Tools\sqlite3\sqlite3.exe"/>
 	
 	<!-- set up python path -->
 	<path value="python" relative="true"/>
