@@ -4,14 +4,18 @@ from com.jtech.basetest import CycleMonitorTest
 
 class PySysTest(CycleMonitorTest):
 	def execute(self):
-		server = self.startHTTPServer()
+		#start server and set stations
+		self.startHTTPServer()
 		station = self.addStation(1,'Hyde Park',51512303,-159988)
-		station.update(6,397,'2015-06-24 12:10:00'))
-		self.dumpStations()
-
-		correlator = self.startCorrelator()
-		adbc = self.startADBCAdapter(correlator, insert='insert.sql')
-		self.initialiseApplication(correlator)
-
+		station.update(6,397,'2015-06-24 12:10:00')
+		self.dumpStations(file='city-bikes.json')
+		
+		#start the application
+		self.startCorrelator()
+		self.startJython(script='script.py', scriptArgs=['%d'%self.correlator.port])
+		self.startADBCAdapter(self.correlator, insert='insert.sql')
+		self.startCityBikesAdapter(self.correlator, 'London', 'http://localhost:%d/city-bikes.json'%self.httpPort, '* * * * *')
+		self.initialiseApplication(self.correlator)
+		
 	def validate(self):
 		pass

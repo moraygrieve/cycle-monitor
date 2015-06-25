@@ -1,3 +1,5 @@
+import sys, json
+
 from pysys.constants import *
 from pysys.basetest import BaseTest
 from pysys.utils.filereplace import replace
@@ -5,28 +7,40 @@ from pysys.utils.allocport import allocateTCPPort
 from apama.iaf import IAFHelper
 from apama.correlator import CorrelatorHelper
 from com.jtech.filelist import FileListParser
-from com.jtech.filelist import Station
+from com.jtech.station import Station
 
 class CycleMonitorTest(BaseTest):
 	stations=[]
 	
-	def addStation(self,id,name,lat,ln):
+	def setup(self):
+		'''Override BaseTest setup. '''
+		BaseTest.setup(self)
+		self.jython_classpath = os.path.join(PROJECT.JYTHON_HOME, 'jython.jar')
+		self.addToJythonClassPath(os.path.join(PROJECT.APAMA_HOME,'lib','engine_client%s.jar'%PROJECT.APAMA_LIBRARY_VERSION))
+		self.addToJythonClassPath(os.path.join(PROJECT.APAMA_HOME,'lib','util%s.jar'%PROJECT.APAMA_LIBRARY_VERSION))
+		
+	def addToJythonClassPath(self, path):
+		'''Path builder for for jython. '''
+		self.jython_classpath = '%s%s%s' % (self.jython_classpath, ENVSEPERATOR, path)
+		
+	def addStation(self,id,name,lat,lng):
+		'''Add a station to the list of station, return the station object. '''
 		station = Station(id,name,lat,lng)
-		station.append(station)
+		self.stations.append(station)
 		return station
 	
-	def dumpStations(self):
-		with open(os.path.join(self.output, "city-bikes.json"), "w") as fp:
-			for station in station:
+	def dumpStations(self, file):
+		'''Write the current list of stations to file in JSON. '''
+		with open(os.path.join(self.output, file), 'w') as fp:
+			for station in self.stations:
 				json.dump([station.__dict__], fp, indent=4)
 
 	def startCorrelator(self):
 		'''Start a correlator and set logging, return correlator object handle. '''
-		correlator = CorrelatorHelper(self)
-		correlator.start(logfile='correlator.log')
-		self.settApplicationLogFile(correlator, 'application.log', 'com.jtech')
-		return correlator
-
+		self.correlator = CorrelatorHelper(self)
+		self.correlator.start(logfile='correlator.log')
+		self.settApplicationLogFile(self.correlator, 'application.log', 'com.jtech')
+		
 	def initialiseApplication(self, correlator):
 		'''Initialise the application. '''
 		parser=FileListParser(os.path.join(self.project.root, 'build-filelists.xml'), self.project.root, {'${apama.home}':PROJECT.APAMA_HOME})
@@ -65,7 +79,20 @@ class CycleMonitorTest(BaseTest):
 		
 		return self.adbcAdapter.start(configdir=os.path.join(PROJECT.root, 'config'), configname='city-bikes-adbc.xml', 
 		logfile='adbc_adapter.log', replace=replaceDict)
+	
+	def startCityBikesAdapter(self, correlator, city, data_url, schedule):
+		'''Start IAF running the City Bikes adapter, return process handle. '''
+		self.cityBikesAdapter = IAFHelper(self)
+		replaceDict = {'${basedir}':'%s' % PROJECT.root,
+					'${apama.home}':'%s' % PROJECT.APAMA_HOME,
+					'${correlator.port}':'%d' % correlator.port,
+					'${city-name}': city,
+					'${data-url}': data_url,
+					'${polling-schedule}': schedule}
 
+		return self.cityBikesAdapter.start(configdir=os.path.join(PROJECT.root, 'config'), configname='city-bikes.xml', 
+		logfile='city-bikes_adapter.log', replace=replaceDict)
+		
 	def startHTTPServer(self):
 		'''Start HTTP server serving files from output directory, setting port as self.httpPort. '''
 		command = sys.executable
@@ -85,6 +112,29 @@ class CycleMonitorTest(BaseTest):
 		arguments.append('%d'%self.httpPort)
 
 		return self.startProcess(command, arguments, os.environ, self.output, BACKGROUND, 300, dstdout, dstderr, displayName)
+		
+	def startJython(self, script, scriptArgs=None):
+		command = os.path.join(PROJECT.APAMA_COMMON_JRE, 'bin', 'java')
+		displayName = 'jython'
+
+		# set the default stdout and stderr
+		instances = self.getInstanceCount(displayName)  
+		dstdout = "%s/jython.out"%self.output
+		dstderr = "%s/jython.err"%self.output
+		if instances: dstdout  = "%s.%d" % (dstdout, instances)
+		if instances: dstderr  = "%s.%d" % (dstderr, instances)
+
+		# setup args
+		args=[]
+		args.extend(['-classpath', self.jython_classpath])
+		args.append('-Dpython.home=%s' % PROJECT.JYTHON_HOME)
+		args.append('-Dpython.path=%s' % os.path.join(PROJECT.root,'python'))
+		args.append('org.python.util.jython')
+		args.append(os.path.join(self.input, script))
+		if scriptArgs is not None: args.extend(scriptArgs)
+
+		# run the process and return the handle
+		return self.startProcess(command, args, os.environ, self.output, BACKGROUND, 0, dstdout, dstderr, displayName)
 		
 	def settApplicationLogFile(self, correlator, logfile, package):
 		'''Set the correlator application logfile. '''
