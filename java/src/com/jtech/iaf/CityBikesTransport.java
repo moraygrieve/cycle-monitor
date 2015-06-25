@@ -183,7 +183,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 				normalisedEvent.addQuick("lat", lat.toString());
 				normalisedEvent.addQuick("lng", lng.toString());
 				normalisedEvent.addQuick("updated", time);
-				normalisedEvent.addQuick("ratio", String.valueOf(Double.valueOf(avail)/Double.valueOf((avail+empty))));
+				normalisedEvent.addQuick("ratio", String.format("%.2f",Double.valueOf(avail)/Double.valueOf((avail+empty))));
 				normalisedEvent.addQuick("docked", avail.toString());
 				normalisedEvent.addQuick("empty", empty.toString());
 				normalisedEvent.addQuick("timestamp", String.valueOf(System.currentTimeMillis()/1000));

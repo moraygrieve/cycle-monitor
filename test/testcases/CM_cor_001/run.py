@@ -12,7 +12,7 @@ class PySysTest(CycleMonitorTest):
 		
 		#start the application
 		self.startCorrelator()
-		self.startJython(script='script.py', scriptArgs=['%d'%self.correlator.port])
+		self.startJython(script='printer.py', scriptArgs=['%d'%self.correlator.port])
 		self.startADBCAdapter(self.correlator, insert='insert.sql')
 		self.startCityBikesAdapter(self.correlator, 'London', 'http://localhost:%d/city-bikes.json'%self.httpPort, '* * * * *')
 		self.initialiseApplication(self.correlator)
@@ -22,5 +22,5 @@ class PySysTest(CycleMonitorTest):
 		
 	def validate(self):
 		exprList=[]
-		exprList.append('ADDED:    id=1, ratio=0.014')
+		exprList.append('ADDED:    id=1, ratio=0.01')
 		self.assertOrderedGrep('jython.out', exprList=exprList)
