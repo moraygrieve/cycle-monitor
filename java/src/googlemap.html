@@ -38,9 +38,9 @@ map_canvas {
         document.map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
         document.infoWindow = new google.maps.InfoWindow;
 
-        document.drawStation = function drawStation(id, lat, long, color, title, scale) {
+        document.drawStation = function drawStation(id, lat, lng, color, title, scale) {
             m = new google.maps.Marker({
-                position:  new google.maps.LatLng(lat, long),
+                position:  new google.maps.LatLng(lat, lng),
                 map: document.map,
                 icon: {
                     path: google.maps.SymbolPath.CIRCLE,
@@ -61,7 +61,14 @@ map_canvas {
                 document.infoWindow.open(document.map);
             });
         }
-       
+        
+        document.showDocumentWindow = function showDocumentWindow(title,lat,lng) {
+        	var content = '<p>'+title+'</p>'
+        	document.infoWindow.setContent(content);
+            document.infoWindow.setPosition(new google.maps.LatLng(lat, lng));
+            document.infoWindow.open(document.map);
+        }
+        
         document.clearMarkers = function clearMarkers() {
         	for (var key in markers) {
         	    markers[key].setMap(null);

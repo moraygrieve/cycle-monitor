@@ -8,6 +8,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Worker;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
 
@@ -17,12 +19,17 @@ import com.jtech.ui.model.StationAlertTable;
 public class MapController {
 	private final WebEngine webEngine;
 	private volatile boolean loaded;
-	private final Map<String, StationAlertEntry> stations = new HashMap<String, StationAlertEntry>();
+	private final Map<Long, StationAlertEntry> stations = new HashMap<Long, StationAlertEntry>();
 
 	public MapController(Controller controller, final StationAlertTable stationAlertTable) {
 		final URL urlGoogleMaps = getClass().getClassLoader().getResource("googlemap.html");
 		webEngine = controller.webViewPanel.getEngine();
 
+		controller.webViewPanel.setOnDragDetected(new EventHandler<MouseEvent>() {
+	            //workaround for google maps API bug
+				public void handle(MouseEvent t) {}
+	        });
+		
 		webEngine.load(urlGoogleMaps.toExternalForm());
 		webEngine.getLoadWorker().stateProperty().addListener(
 				new ChangeListener<Worker.State>() {
@@ -33,7 +40,7 @@ public class MapController {
 							int index=0;
 							while (index<stationAlertTable.getDataCache().size()) {
 								StationAlertEntry entry = stationAlertTable.getDataCache().get(index);
-								stations.put(getKey(entry), entry);
+								stations.put(entry.getId(), entry);
 								drawStation(stationAlertTable.getDataCache().get(index));
 								index++;
 							}
@@ -52,13 +59,13 @@ public class MapController {
 					else {
 						for (StationAlertEntry remitem : c.getRemoved()) {
 							if (stations.containsKey(remitem.getId())) {
-								stations.remove(getKey(remitem));
+								stations.remove(remitem.getId());
 								deleteStation(remitem);
 							}
 						}
 						for (StationAlertEntry additem : c.getAddedSubList()) {
 							if (!stations.containsKey(additem.getId())) {
-								stations.put(getKey(additem), additem);
+								stations.put(additem.getId(), additem);
 								drawStation(additem);
 							}
 						}
@@ -67,9 +74,10 @@ public class MapController {
 			}
 		});
 	}
-
-	private String getKey(StationAlertEntry entry) {
-		return entry.getId()+entry.getType();
+	
+	public void showDocumentWindow(StationAlertEntry entry) {
+		webEngine.executeScript("document.showDocumentWindow('"+getStationTitle(entry)+"',"+
+				entry.getStationLat() + "," + entry.getStationLng()+")");
 	}
 	
 	private void drawStation(StationAlertEntry entry) {

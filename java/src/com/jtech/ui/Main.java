@@ -34,8 +34,8 @@ public class Main extends Application {
 			stage.setScene(scene);
 			stage.show();
 
-			new MapController(controller, stationUpdateTable);
-			new TableController(controller, stationUpdateTable);
+			MapController mapController = new MapController(controller, stationUpdateTable);
+			new TableController(controller, mapController, stationUpdateTable);
 	
 			logger.info("Calling update connection");
 			sService.updateConnection("localhost");
@@ -43,6 +43,5 @@ public class Main extends Application {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-
 	}
 }

@@ -5,9 +5,13 @@ import java.util.Date;
 
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
@@ -16,12 +20,23 @@ import com.jtech.ui.model.StationAlertTable;
 
 public class TableController {
 
-	public TableController(final Controller controller, StationAlertTable stationAlertTable) {
+	public TableController(final Controller controller, final MapController mapController, 
+			StationAlertTable stationAlertTable) {
 		controller.idColumn.setCellValueFactory(new PropertyValueFactory<StationAlertEntry, Long>("stationId"));
 		controller.typeColumn.setCellValueFactory(new PropertyValueFactory<StationAlertEntry, String>("type"));
 		controller.messageColumn.setCellValueFactory(new PropertyValueFactory<StationAlertEntry, String>("message"));	  
 		controller.timestampColumn.setCellValueFactory(new PropertyValueFactory<StationAlertEntry, Double>("timestamp"));
 		controller.stationAlertTable.setItems(stationAlertTable.getDataCache());    
+		
+		controller.stationAlertTable.setOnMouseClicked(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent event) {
+		        if (event.getClickCount() == 2) {
+		            StationAlertEntry entry = controller.stationAlertTable.getSelectionModel().getSelectedItem();
+		            System.out.println("Selected entry id " + entry.getId());
+		            mapController.showDocumentWindow(entry);
+		        }
+			}
+		});
 		
 		controller.typeColumn.setCellFactory(new Callback<TableColumn<StationAlertEntry, String>, TableCell<StationAlertEntry, String>>() {
 			public TableCell<StationAlertEntry, String> call(TableColumn<StationAlertEntry, String> tradesEntryStringTableColumn) {
