@@ -44,9 +44,9 @@
                               <TableView fx:id="stationAlertTable" layoutX="108.0" prefHeight="369.0" prefWidth="416.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
                                   <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
-                                  <TableColumn fx:id="cityColumn" prefWidth="75.0" text="City" />
                                     <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
                                     <TableColumn fx:id="messageColumn" prefWidth="75.0" text="Message" />
+                                  <TableColumn fx:id="timestampColumn" prefWidth="75.0" text="Timestamp" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

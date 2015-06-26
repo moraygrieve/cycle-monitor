@@ -15,6 +15,7 @@ public class StationAlertEntry extends IScenarioEntry {
 	SimpleDoubleProperty stationLng = new SimpleDoubleProperty();
 	SimpleLongProperty   numDocked = new SimpleLongProperty();
 	SimpleLongProperty   numEmpty = new SimpleLongProperty();
+	SimpleDoubleProperty timestamp = new SimpleDoubleProperty();
 	SimpleStringProperty type = new SimpleStringProperty();
 	SimpleStringProperty message = new SimpleStringProperty();
 	SimpleStringProperty color = new SimpleStringProperty();
@@ -63,6 +64,12 @@ public class StationAlertEntry extends IScenarioEntry {
 	public SimpleLongProperty stationNumEmpty() { return numEmpty; }
 	@Setter(name="empty", type="integer") public void setNumEmpty(long empty) {
 		this.numEmpty.set(empty);
+	}
+	
+	public double getTimestamp() { return timestamp.get(); }
+	public SimpleDoubleProperty typeTimestamp() { return timestamp; }
+	@Setter(name="timestamp", type="string") public void setTimestamp(double timestamp) {
+		this.timestamp.set(timestamp);
 	}
 	
 	public String getType() { return type.get(); }

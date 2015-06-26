@@ -11,7 +11,7 @@ public class Controller {
     @FXML WebView webViewPanel;
     @FXML TableView<StationAlertEntry> stationAlertTable;
     @FXML TableColumn<StationAlertEntry, Long> idColumn;
-    @FXML TableColumn<StationAlertEntry, String> cityColumn;
+    @FXML TableColumn<StationAlertEntry, Double> timestampColumn;
     @FXML TableColumn<StationAlertEntry, String> typeColumn;
     @FXML TableColumn<StationAlertEntry, String> messageColumn;
     

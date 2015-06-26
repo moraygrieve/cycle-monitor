@@ -52,8 +52,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 		updateProperties(properties, timestampConfig);
 	}
 
-	public synchronized void updateProperties(
-			EventTransportProperty[] properties, TimestampConfig timestampConfig)
+	public synchronized void updateProperties(EventTransportProperty[] properties, TimestampConfig timestampConfig)
 			throws TransportException {
 		super.updateProperties(properties, timestampConfig);
 
@@ -117,11 +116,13 @@ public class CityBikesTransport extends AbstractEventTransport {
 			started = true;
 			exService = Executors.newSingleThreadExecutor();
 			scheduler = new Scheduler();
-			
+
 			if (pollingSchedule != null) {
 				poll();
 				scheduler.schedule(pollingSchedule, new Runnable() {
-					public void run() { poll(); }
+					public void run() {
+						poll();
+					}
 				});
 				scheduler.start();
 			}
@@ -164,8 +165,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 		try {
 			URL page = new URL(dataURL);
 			URLConnection urlc = (URLConnection) page.openConnection();
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					urlc.getInputStream()));
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
 			JSONParser parser = new JSONParser();
 			return (JSONArray) parser.parse(br);
 		} catch (Exception e) {
@@ -187,9 +187,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 
 				Pattern regex = Pattern.compile("^(\\d+)\\s?-\\s?(.*)");
 				Matcher regexMatcher = regex.matcher(name);
-				while (regexMatcher.find()) {
-					name = regexMatcher.group(2);
-				}
+				while (regexMatcher.find()) { name = regexMatcher.group(2); }
 
 				Double lat = Double.valueOf((Long) entry.get("lat")) / 1000000d;
 				Double lng = Double.valueOf((Long) entry.get("lng")) / 1000000d;
@@ -204,19 +202,12 @@ public class CityBikesTransport extends AbstractEventTransport {
 				normalisedEvent.addQuick("lat", lat.toString());
 				normalisedEvent.addQuick("lng", lng.toString());
 				normalisedEvent.addQuick("updated", time);
-				normalisedEvent.addQuick(
-						"ratio",
-						String.format(
-								"%.2f",
-								Double.valueOf(avail)
-										/ Double.valueOf((avail + empty))));
+				normalisedEvent.addQuick("ratio",String.format("%.2f",Double.valueOf(avail)/ Double.valueOf((avail + empty))));
 				normalisedEvent.addQuick("docked", avail.toString());
 				normalisedEvent.addQuick("empty", empty.toString());
-				normalisedEvent.addQuick("timestamp",
-						String.valueOf(System.currentTimeMillis() / 1000));
+				normalisedEvent.addQuick("timestamp",String.valueOf(System.currentTimeMillis() / 1000));
 
-				logger.info("Sending downstream transport event to data codec: "
-						+ normalisedEvent);
+				logger.info("Sending downstream transport event to data codec: "+ normalisedEvent);
 
 				TimestampSet timestampSet = new TimestampSet();
 				decoder.sendTransportEvent(normalisedEvent, timestampSet);
