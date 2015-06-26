@@ -3,29 +3,21 @@ package com.jtech.ui;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import com.jtech.ui.model.StationAlertTable;
-import com.jtech.ui.model.StationAlertEntry;
-
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Worker;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
+
+import com.jtech.ui.model.StationAlertEntry;
+import com.jtech.ui.model.StationAlertTable;
 
 public class MapController {
 	private final WebEngine webEngine;
 	private volatile boolean loaded;
-	private final Map<Long, StationAlertEntry> stations = new HashMap<Long, StationAlertEntry>();
+	private final Map<String, StationAlertEntry> stations = new HashMap<String, StationAlertEntry>();
 
 	public MapController(Controller controller, final StationAlertTable stationAlertTable) {
 		final URL urlGoogleMaps = getClass().getClassLoader().getResource("googlemap.html");
@@ -40,7 +32,8 @@ public class MapController {
 
 							int index=0;
 							while (index<stationAlertTable.getDataCache().size()) {
-								stations.put(stationAlertTable.getDataCache().get(index).getId(), stationAlertTable.getDataCache().get(index));
+								StationAlertEntry entry = stationAlertTable.getDataCache().get(index);
+								stations.put(getKey(entry), entry);
 								drawStation(stationAlertTable.getDataCache().get(index));
 								index++;
 							}
@@ -59,13 +52,13 @@ public class MapController {
 					else {
 						for (StationAlertEntry remitem : c.getRemoved()) {
 							if (stations.containsKey(remitem.getId())) {
-								stations.remove(remitem.getId());
+								stations.remove(getKey(remitem));
 								deleteStation(remitem);
 							}
 						}
 						for (StationAlertEntry additem : c.getAddedSubList()) {
 							if (!stations.containsKey(additem.getId())) {
-								stations.put(additem.getId(), additem);
+								stations.put(getKey(additem), additem);
 								drawStation(additem);
 							}
 						}
@@ -75,6 +68,10 @@ public class MapController {
 		});
 	}
 
+	private String getKey(StationAlertEntry entry) {
+		return entry.getId()+entry.getType();
+	}
+	
 	private void drawStation(StationAlertEntry entry) {
 		webEngine.executeScript("document.drawStation(" + entry.getId() + "," + entry.getStationLat() + "," + entry.getStationLng() + 
 				",'"+entry.getColor()+"','"+getStationTitle(entry)+"',6.0)");

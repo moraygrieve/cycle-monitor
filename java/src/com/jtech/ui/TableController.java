@@ -1,18 +1,15 @@
 package com.jtech.ui;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 import javafx.scene.paint.Color;
+import javafx.util.Callback;
 
 import com.jtech.ui.model.StationAlertEntry;
 import com.jtech.ui.model.StationAlertTable;

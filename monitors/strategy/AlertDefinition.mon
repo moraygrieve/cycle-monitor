@@ -37,7 +37,7 @@ event Alert {
 	action getDVFieldValues() returns sequence<string> { return self.getFieldValues(); }
 	action getDVKeyFields() returns sequence<string> {
 		sequence<string> ret := new sequence<string>;
-		ret := ["city","id"];
+		ret := ["city","id","type"];
 		return ret;
 	}
 	action getDVKeyFieldValues() returns sequence<string> {

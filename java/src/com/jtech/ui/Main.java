@@ -1,17 +1,15 @@
 package com.jtech.ui;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.jtech.ui.model.StationAlertTable;
-import com.jtech.ui.model.StationAlertEntry;
 import com.jtech.ui.scenario.ScenarioService;
 
 public class Main extends Application {
