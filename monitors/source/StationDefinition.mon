@@ -1,6 +1,8 @@
 package com.jtech.source;
 
 event Start { }
+event Stop { }
+event Poll { }
 
 event StationUpdate {
 	string city;

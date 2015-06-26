@@ -8,6 +8,11 @@ import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,10 +42,11 @@ public class CityBikesTransport extends AbstractEventTransport {
 	private EventDecoder decoder;
 	private String cityName;
 	private String dataURL;
-	private String pollingSchedule;
+	private String pollingSchedule=null;
 	private volatile boolean started;
 	private volatile long totalSent;
 	private volatile long totalReceived;
+	private ExecutorService exService;;
 
 	public CityBikesTransport(String name, EventTransportProperty[] properties,
 			TimestampConfig timestampConfig) throws TransportException 
@@ -113,16 +119,23 @@ public class CityBikesTransport extends AbstractEventTransport {
 		NormalisedEvent normalisedEvent = (NormalisedEvent) event;
 		String type = normalisedEvent.findValue("__type");
 		if ( type!=null && type.equals("Start") ) {
-			logger.info("Received request to start polling ...");
+			logger.info("Received request to start");
 			started = true;
-			poll();
-
-			Scheduler s = new Scheduler();
-			s.schedule(pollingSchedule, new Runnable() {
-				public void run() { poll(); }
-			});
-			s.start();
+			exService = Executors.newSingleThreadExecutor();
 		}
+		else if ( type!=null && type.equals("Stop") ) {
+			logger.info("Received request to stop");
+			started = false;
+			exService.shutdownNow();
+		}
+		else if ( type!=null && type.equals("Poll") ) {
+			if (started) {
+				logger.info("Received request to poll for data");
+				exService.execute(new Runnable() {
+					public void run() { poll(); }
+				});	
+			}
+		}	
 	}
 
 	@Override

@@ -30,7 +30,24 @@
 				<map transport="__type" type="string" default="Start" />
 			</mapping-rules>
 		</event>
-
+		<event name="Stop" package="com.jtech.source" direction="upstream"
+			inject="false" encoder="JNullCodec">
+			<id-rules>
+				<upstream />
+			</id-rules>
+			<mapping-rules>
+				<map transport="__type" type="string" default="Stop" />
+			</mapping-rules>
+		</event>
+		<event name="Poll" package="com.jtech.source" direction="upstream"
+			inject="false" encoder="JNullCodec">
+			<id-rules>
+				<upstream />
+			</id-rules>
+			<mapping-rules>
+				<map transport="__type" type="string" default="Poll" />
+			</mapping-rules>
+		</event>
 		<event name="StationUpdate" package="com.jtech.source"
 			direction="downstream" inject="false" encoder="JNullCodec">
 			<id-rules>
@@ -48,7 +65,8 @@
 				<map apama="docked" transport="docked" type="integer" default="0" />
 				<map apama="empty" transport="empty" type="integer" default="0" />
 				<map apama="active" transport="active" type="boolean" default="false" />
-				<map apama="timestamp" transport="timestamp" type="float" default="0.0" />
+				<map apama="timestamp" transport="timestamp" type="float"
+					default="0.0" />
 			</mapping-rules>
 		</event>
 	</mapping>
