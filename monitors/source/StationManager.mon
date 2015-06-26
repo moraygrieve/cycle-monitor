@@ -7,9 +7,6 @@ monitor StationManager {
 		log "Station manager loaded" at INFO;
 		
 		// start the adapter when db is loaded
-		on DBLoaded() {  
-			emit Start() to "CITY-BIKES"; 	
-			emit Poll() to "CITY-BIKES"; 	
-		}
+		on DBLoaded() { emit Start() to "CITY-BIKES"; }
 	}
 }
