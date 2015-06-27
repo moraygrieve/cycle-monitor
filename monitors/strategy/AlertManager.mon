@@ -65,6 +65,6 @@ monitor AlertManager {
 	
 	action clearAlert(string city, integer id, string type) {
 		log "Removing alert for"+id.toString()+","+city+","+type at INFO;
-		dvHelper.remove((Alert(city,id,"",0.0,0.0,0.0,0,0,0.0,type,"","")).iface());
+		dvHelper.remove(((new Alert).init(city,id,type)).iface());
 	}
 }

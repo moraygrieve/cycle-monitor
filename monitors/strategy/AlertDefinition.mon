@@ -16,6 +16,14 @@ event Alert {
 	string message;
 	string color;
 	
+	action init(string city, integer id, string type) returns Alert {
+		Alert alert := new Alert;
+		alert.city := city;
+		alert.id := id;
+		alert.type := type;
+		return alert;
+	}
+	
 	action iface() returns com.jtech.util.IKeyedDataView {
 		com.jtech.util.IKeyedDataView this := new com.jtech.util.IKeyedDataView;
 		this.getDVName := getDVName;
