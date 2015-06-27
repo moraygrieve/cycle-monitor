@@ -25,6 +25,7 @@ event DBLoader {
 
 	action upperBoundaryConfig() returns dictionary< DBKey, DBBoundaryAlert > { return boundaryLoader.getUpperCache(); }
 	action lowerBoundaryConfig() returns dictionary< DBKey, DBBoundaryAlert > { return boundaryLoader.getLowerCache(); }
+	action rateThreholdConfig() returns dictionary< DBKey, DBRateAlert > { return rateLoader.getCache(); }
 	
 	action onError(string message) {
 		log message at ERROR;

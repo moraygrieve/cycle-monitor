@@ -26,16 +26,23 @@ event CreateLowerBoundaryAlert {
 	float threshold;
 }
 
-event DBBoundaryAlert {
+event CreateRateThresholdAlert {
 	integer id;
 	string city;
+	float threshold;
+	float duration;
+}
+
+event DBBoundaryAlert {
+	string city;
+	integer id;
 	float threshold;
 	boolean upper;
 	
 	action fromResult(dictionary<string, string> data) returns DBBoundaryAlert {
 		DBBoundaryAlert alert := new DBBoundaryAlert; 
-		alert.id := data.getOr("id", "-1").toInteger();
 		alert.city := data.getOr("city","");
+		alert.id := data.getOr("id", "-1").toInteger();
 		alert.threshold := data.getOr("threshold", "-1.0").toFloat();
 		if (data.getOr("upper", "true")="1") then { alert.upper:= true; }
 		return alert;
@@ -47,16 +54,16 @@ event DBBoundaryAlert {
 }
 
 event DBRateAlert {
+	string city;
 	integer id;
-	string name;
-	float change;
+	float percent;
 	float duration;
 	
 	action fromResult(dictionary<string, string> data) returns DBRateAlert {
 		DBRateAlert alert := new DBRateAlert; 
+		alert.city := data.getOr("city","");
 		alert.id := data.getOr("id", "-1").toInteger();
-		alert.name := data.getOr("name","");
-		alert.change := data.getOr("change", "1.0").toFloat();
+		alert.percent := data.getOr("percent", "1.0").toFloat();
 		alert.duration := data.getOr("duration", "60.0").toFloat();
 		return alert;
 	}

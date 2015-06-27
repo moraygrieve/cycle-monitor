@@ -20,6 +20,7 @@ monitor DBManager {
 		log "Database is loaded, creating strategies";
 		createUpperBoundaries();
 		createLowerBoundaries();
+		createRateThreshold();
 		route DBLoaded();
 	}
 	
@@ -34,6 +35,13 @@ monitor DBManager {
 		DBBoundaryAlert value; 
 		for value in cacheLoader.lowerBoundaryConfig().values() {
 			route CreateLowerBoundaryAlert(value.id, value.city, value.threshold);
+		}
+	}
+	
+	action createRateThreshold() {
+		DBRateAlert value; 
+		for value in cacheLoader.rateThreholdConfig().values() {
+			route CreateRateThresholdAlert(value.id, value.city, value.percent, value.duration);
 		}
 	}
 }

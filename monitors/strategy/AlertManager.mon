@@ -2,6 +2,7 @@ package com.jtech.alert;
 using com.jtech.config.DBKey;
 using com.jtech.config.CreateUpperBoundaryAlert;
 using com.jtech.config.CreateLowerBoundaryAlert;
+using com.jtech.config.CreateRateThresholdAlert;
 using com.jtech.source.StationUpdate;
 
 monitor AlertManager {
@@ -22,7 +23,8 @@ monitor AlertManager {
 		//handle create requests
 		createUpperBoundary();
 		createLowerBoundary();
-
+		createRateThreshold();
+		
 		//pass updates to the relevant strategies
 		StationUpdate stationUpdate;
 		on all StationUpdate():stationUpdate {
@@ -54,6 +56,17 @@ monitor AlertManager {
 				strategies.add(key, new sequence<IAlertStrategy> );
 			}
 			strategies[key].append( (new LowerBoundary).init(lba.id, lba.city, lba.threshold, this) );
+		}
+	}
+	
+	action createRateThreshold() {
+		CreateRateThresholdAlert rta;
+		on all CreateRateThresholdAlert():rta {
+			DBKey key := DBKey(rta.city, rta.id);
+			if not strategies.hasKey(key) then {
+				strategies.add(key, new sequence<IAlertStrategy> );
+			}
+			strategies[key].append( (new RateThreshold).init(rta.id, rta.city, rta.threshold, rta.duration, this) );
 		}
 	}
 
