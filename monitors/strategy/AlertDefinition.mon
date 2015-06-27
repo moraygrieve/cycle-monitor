@@ -2,6 +2,12 @@ package com.jtech.alert;
 
 event RemoveAlerts {}
 
+event RemoveAlert {
+	string city;
+	integer id;
+	string type;
+}
+
 event Alert {
 	string city;
 	integer id;

@@ -16,11 +16,9 @@ event AlertStrategy {
         _type := type;
         _color := color;
         _manager := manager;
-	
-    	on all RemoveAlerts() {
-    		if (_alerted) then { clear(); }
-    	}
-    	
+        
+        setupRemoveListener();
+        
 		this := new IAlertStrategy;
 		this.check := check;
 		return this;
@@ -31,12 +29,23 @@ event AlertStrategy {
 
 	//base implementations
 	action getAlerted() returns boolean { return _alerted; }
+	
 	action alert(StationUpdate update, string message) {
 		_alerted := true;
 		_manager.addAlert(update, _type, message, _color);
 	}
+	
 	action clear() {
 		_alerted := false;
 		_manager.clearAlert(_city, _id, _type);
-	}	
+	}
+	
+	action setupRemoveListener() {
+		on all (RemoveAlerts() or RemoveAlert(_city,_id,_type) ){
+    		if (_alerted) then { 
+    			_alerted := false;
+    			clear(); 
+    		}
+    	}	
+	}
 }

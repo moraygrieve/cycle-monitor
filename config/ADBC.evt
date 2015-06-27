@@ -1,1 +1,1 @@
-com.jtech.config.DBConfig("com.apama.adbc.JDBC","${ADBC_DATABASE_URL}","${ADBC_USERNAME}","${ADBC_PASSWORD}")
+com.jtech.config.DBConfig("com.apama.adbc.JDBC","${adbc.database-url}","${adbc.username}","${adbc.password}")

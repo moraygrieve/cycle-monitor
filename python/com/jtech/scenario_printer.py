@@ -8,7 +8,7 @@ class ScenarioInstancePrinter():
 	'''Print out instance details of a scenario definition. '''
 	def __init__(self, definition, filter):
 		self.instances={}
-		self.params = list(set(filter) & set(definition.getOutputParameterNames()))
+		self.params = [x for x in filter if x in definition.getOutputParameterNames()]
 		for instance in definition.getInstances(): self.nhandlerImpl('ADDED:   ', instance)
 	
 		definition.addListener(ScenarioDefinition.PROPERTY_INSTANCE_ADDED,   self.handler('ADDED:   ', self.nhandlerImpl))

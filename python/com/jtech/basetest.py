@@ -53,7 +53,7 @@ class CycleMonitorTest(BaseTest):
 		self.inject(correlator, parser.getFileList('configuration'))
 		self.inject(correlator, parser.getFileList('source'))
 		self.inject(correlator, parser.getFileList('strategy'))
-		correlator.send(filenames='ADBC.evt',filedir=self.output)
+		correlator.send(filenames='adbc.evt',filedir=self.output)
 		self.waitForSignal('correlator_output.log', expr='com.jtech.source.Start', timeout=20)
 
 	def startADBCAdapter(self, correlator, insert=None):
@@ -71,16 +71,16 @@ class CycleMonitorTest(BaseTest):
 		replaceDict = {'${basedir}':'%s' % PROJECT.root,
 					'${apama.home}':'%s' % PROJECT.APAMA_HOME,
 					'${correlator.port}':'%d' % correlator.port,
-					'${ADBC_DATABASE_URL}': database_url.replace('\\', '\\\\'),
-					'${ADBC_DRIVER}': 'org.sqlite.JDBC',
-					'${ADBC_DRIVER_JAR}':'sqlite-jdbc-3.7.2.jar',
-					'${ADBC_USERNAME}':'',
-					'${ADBC_PASSWORD}':''}
+					'${adbc.database-url}': database_url.replace('\\', '\\\\'),
+					'${adbc.driver}': 'org.sqlite.JDBC',
+					'${adbc.driver-jar}':'sqlite-jdbc-3.7.2.jar',
+					'${adbc.username}':'',
+					'${adbc.password}':''}
 
-		for include in ['ADBC-static-codecs.xml', 'ADBC-static.xml', 'ADBC-application.xml', 'ADBC.evt']:
+		for include in ['ADBC-static-codecs.xml', 'ADBC-static.xml', 'ADBC-application.xml', 'adbc.evt']:
 			replace(os.path.join(PROJECT.root, 'config', include), os.path.join(self.output, include), replaceDict)
 		
-		return self.adbcAdapter.start(configdir=os.path.join(PROJECT.root, 'config'), configname='city-bikes-adbc.xml', 
+		return self.adbcAdapter.start(configdir=os.path.join(PROJECT.root, 'config'), configname='adbc.xml', 
 		logfile='adbc_adapter.log', replace=replaceDict)
 	
 	def startCityBikesAdapter(self, correlator, city, data_url, schedule):

@@ -54,13 +54,13 @@
 
 	<!-- adapters start and stop -->
 	<target name="start-adapters">
-		<start-iaf port="${city-bikes.port}" config="build/city-bikes.xml" log="${log.dir}${file.separator}city-bikes.log" console="false"/>
-		<start-iaf port="${city-bikes-adbc.port}" config="build/city-bikes-adbc.xml" log="${log.dir}${file.separator}city-bikes-adbc.log" console="false"/>
+		<start-iaf port="${adapter.city-bikes.port}" config="build/city-bikes.xml" log="${log.dir}${file.separator}city-bikes.log" console="false"/>
+		<start-iaf port="${adapter.adbc.port}" config="build/adbc.xml" log="${log.dir}${file.separator}city-bikes-adbc.log" console="false"/>
 	</target>
 
 	<target name="stop-adapters">
-		<kill-iaf port="${city-bikes.port}" failonerror="false"/>
-		<kill-iaf port="${city-bikes-adbc.port}" failonerror="false"/>
+		<kill-iaf port="${adapter.city-bikes.port}" failonerror="false"/>
+		<kill-iaf port="${adapter.adbc.port}" failonerror="false"/>
 	</target>
 
 	<!-- utility tasks -->
@@ -68,6 +68,10 @@
 		<engine-send literal="com.jtech.alert.RemoveAlerts()" port="${correlator.port}"/>
 	</target>
 	
+	<target name="clear-alert">
+		<engine-send literal="com.jtech.alert.RemoveAlert(&quot;${city}&quot;,${id},&quot;${type}&quot;)" port="${correlator.port}"/>
+	</target>
+			
 	<!-- clean tasks -->
 	<target name="clean">
 		<delete dir="${build.dir}" />
@@ -75,11 +79,15 @@
 			<fileset dir="${log.dir}" includes="**/*" />
 		</delete>
 	</target>
-
-	<target name="usage" >
+	
+	<target name="usage">
+		<echo message="Usage: ant [ target ]"/>
+		<echo message="Were targets are:"/>
 		<echo message=""/>
-		<echo message=""/>
-		<echo message=""/>
+		<echo message="start:  starts all components"/>
+		<echo message="stop:   stops all components"/>
+		<echo message="clean:  cleans log directory"/>
+				
 	</target>
 </project>
 

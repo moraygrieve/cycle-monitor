@@ -6,7 +6,7 @@
 	<plugin-logging   level="INFO"/>	<!-- Log level for ADBC adapter -->
 
 	<java>
-		<classpath path="${basedir}/java/lib/${ADBC_DRIVER_JAR}" />
+		<classpath path="${basedir}/java/lib/${adbc.driver-jar}" />
 	</java>
 
 	<transports>
@@ -16,10 +16,10 @@
 			<property name="JavaDataSource" value="true"/>
 			<property name="JarName" value="${apama.home}/adapters/lib/ADBC-JDBC.jar"/>
 			<property name="ClassName" value="com.apama.adbc.datasource.JDBCDataSource"/>
-			<property name="DatabaseURL" value="${ADBC_DATABASE_URL}" />
+			<property name="DatabaseURL" value="${adbc.database-url}" />
 			
 			<!-- JDBC data source settings -->
-			<property name="Driver" value="${ADBC_DRIVER}" />
+			<property name="Driver" value="${adbc.driver}" />
 			<property name="StoreBatchSize" value="100"/>
 			<property name="StoreCommitInterval" value="0.0"/>
 			<property name="AutoCommit" value="false"/>

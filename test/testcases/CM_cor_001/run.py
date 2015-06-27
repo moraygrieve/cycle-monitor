@@ -22,5 +22,5 @@ class PySysTest(CycleMonitorTest):
 		
 	def validate(self):
 		exprList=[]
-		exprList.append('ADDED:    id=1, ratio=0.01')
+		exprList.append('ADDED:    id=1, ratio=0.01, type=LOWER_BOUNDARY')
 		self.assertOrderedGrep('jython.out', exprList=exprList)
