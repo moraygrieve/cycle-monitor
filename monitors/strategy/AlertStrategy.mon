@@ -25,6 +25,7 @@ event AlertStrategy {
 	string  _city;
 	string  _type;
 	string  _color;
+	string _prefix;
 	boolean _alerted;
 	IAlertManager _manager;
 	
@@ -35,8 +36,11 @@ event AlertStrategy {
         _color := color;
         _manager := manager;
         
+        _prefix := "["+_city+"."+_id.toString()+"."+_type+"] ".intern();
+        log _prefix+" created strategy instance";
+    	
         setupRemoveListener();
-        
+
 		this := new IAlertStrategy;
 		this.check := check;
 		return this;

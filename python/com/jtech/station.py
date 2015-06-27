@@ -24,6 +24,6 @@ class Station:
 		self.lng=lng
  
 	def update(self,bikes,free,time):
-		self.bikes=bikes
-		self.free=free
+		self.bikes=bikes #number of bikes in the station
+		self.free=free   #number of free slots
 		self.timestamp=time

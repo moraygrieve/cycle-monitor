@@ -34,6 +34,5 @@ public class Controller {
     @FXML TableColumn<StationAlertEntry, String> messageColumn;
     
     @FXML
-    void initialize() {
-    }
+    void initialize() {}
 }

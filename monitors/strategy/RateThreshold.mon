@@ -56,7 +56,7 @@ event RateThreshold {
 				change := ( (result.last-result.first)/(result.first) ).abs(); 
 				checkForAlert(change);
 			}
-			log "change="+change.toString()+",result="+result.toString()+",last="+_current.toString();
+			log base._prefix+"change="+change.toString()+",result="+result.toString()+",last="+_current.toString() at DEBUG;
 		}
 	} 
 

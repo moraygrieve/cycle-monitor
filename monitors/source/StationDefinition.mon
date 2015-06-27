@@ -33,4 +33,8 @@ event StationUpdate {
 	integer empty;
 	boolean active;
 	float timestamp;
+	
+	action pprint() returns string {
+		return " | ".join(self.getFieldValues());
+	}
 }

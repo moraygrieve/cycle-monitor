@@ -6,8 +6,10 @@ class PySysTest(CycleMonitorTest):
 	def execute(self):
 		#start server and set stations
 		self.startHTTPServer()
-		station = self.addStation(1,'Hyde Park',51512303,-159988)
-		station.update(6,397,'2015-06-24 12:10:00')
+		station1 = self.addStation(1,'Hyde Park',51512303,-159988)
+		station2 = self.addStation(2,'Regent Street',51512304,-159980)
+		station1.update(2,20,'2015-06-24 12:10:00')
+		station2.update(20,2,'2015-06-24 12:10:00')
 		self.dumpStations(file='city-bikes.json')
 		
 		#start the application
@@ -18,9 +20,10 @@ class PySysTest(CycleMonitorTest):
 		self.initialiseApplication(self.correlator)
 		
 		#wait for scenario printer
-		self.waitForSignal('jython.out', expr='ADDED', condition='>=1')
+		self.waitForSignal('jython.out', expr='ADDED', condition='>=2', timeout=5)
 		
 	def validate(self):
 		exprList=[]
-		exprList.append('ADDED:    id=1, ratio=0.01, type=LOWER_BOUNDARY')
+		exprList.append('ADDED:    id=1, ratio=0.09, type=LOWER_BOUNDARY')
+		exprList.append('ADDED:    id=2, ratio=0.91, type=UPPER_BOUNDARY')
 		self.assertOrderedGrep('jython.out', exprList=exprList)

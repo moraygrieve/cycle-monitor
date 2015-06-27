@@ -49,18 +49,18 @@ class CycleMonitorTest(BaseTest):
 	
 	def dumpStations(self, file):
 		'''Write the current list of stations to file in JSON. '''
-		with open(os.path.join(self.output, file), 'w') as fp:
-			for station in self.stations:
-				json.dump([station.__dict__], fp, indent=4)
+		with open(os.path.join(self.output, file), 'w') as fp:	
+			json.dump([station.__dict__ for station in self.stations], fp, indent=4)
 
 	def startCorrelator(self):
 		'''Start a correlator and set logging, return correlator object handle. '''
 		self.correlator = CorrelatorHelper(self)
 		self.log.info('Allocating port %s for correlator'%self.correlator.port)
-		self.correlator.start(logfile='correlator.log')
+		self.correlator.start(logfile='correlator.log', arguments=['--inputLog',os.path.join(self.output,'correlator-input.log')])
 		self.correlator.receive('correlator_input.log', channels=['com.apama.input'])
 		self.correlator.receive('correlator_output.log')
-		self.settApplicationLogFile(self.correlator, 'application.log', 'com.jtech')
+		self.setApplicationLogFile(self.correlator, 'application.log', 'com.jtech')
+		self.setApplicationLogLevel(self.correlator, 'DEBUG', 'com.jtech')
 		
 	def initialiseApplication(self, correlator):
 		'''Initialise the application. '''
@@ -157,9 +157,13 @@ class CycleMonitorTest(BaseTest):
 		# run the process and return the handle
 		return self.startProcess(command, args, os.environ, self.output, BACKGROUND, 0, dstdout, dstderr, displayName)
 		
-	def settApplicationLogFile(self, correlator, logfile, package):
-		'''Set the correlator application logfile. '''
+	def setApplicationLogFile(self, correlator, logfile, package):
+		'''Set the correlator application log file. '''
 		correlator.manage(arguments=['-r', 'setApplicationLogFile %s %s'%(os.path.join(self.output,logfile),package)])
+	
+	def setApplicationLogLevel(self, correlator, level, package):
+		'''Set the correlator application log level. '''
+		correlator.manage(arguments=['-r', 'setApplicationLogLevel %s %s'%(level,package)])
 
 	def inject(self, correlator, fileList, **xargs):
 		'''Inject a file list. '''
