@@ -16,14 +16,43 @@
 #
 # Contact: moray.grieve@me.com
 
-import sys, SimpleHTTPServer, BaseHTTPServer
- 
-if __name__=="__main__":
-	port = int(sys.argv[1])
+import os, sys, SimpleHTTPServer, BaseHTTPServer
+import posixpath
+import urllib
 
+class RequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+    def translate_path(self, path):
+        root = os.getcwd()
+        for pattern, rootdir in ROUTES:
+            if path.startswith(pattern):
+                path = path[len(pattern):]
+                root = rootdir
+                break
+        
+        path = path.split('?',1)[0]
+        path = path.split('#',1)[0]
+        path = posixpath.normpath(urllib.unquote(path))
+        words = path.split('/')
+        words = filter(None, words)
+        
+        path = root
+        for word in words:
+            drive, word = os.path.splitdrive(word)
+            head, word = os.path.split(word)
+            if word in (os.curdir, os.pardir):
+                continue
+            path = os.path.join(path, word)
+
+        return path
+
+if __name__=="__main__":
+	global ROUTES
+	ROUTES=(['',sys.argv[1]],)
+	port = int(sys.argv[2])
+	
 	# configure httpd parameters
 	server_addr = ('localhost', port)
-	request_handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+	request_handler = RequestHandler
  
 	# instantiate a server object
 	httpd = BaseHTTPServer.HTTPServer (server_addr, request_handler)

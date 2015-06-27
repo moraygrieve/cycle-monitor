@@ -114,11 +114,13 @@ class CycleMonitorTest(BaseTest):
 		return self.cityBikesAdapter.start(configdir=os.path.join(PROJECT.root, 'config'), configname='city-bikes.xml', 
 		logfile='city-bikes_adapter.log', replace=replaceDict)
 		
-	def startHTTPServer(self):
+	def startHTTPServer(self, dir=None):
 		'''Start HTTP server serving files from output directory, setting port as self.httpPort. '''
 		command = sys.executable
 		displayName = 'http-server'
 
+		if dir is None: dir=self.output
+		
 		instances = self.getInstanceCount(displayName)
 		dstdout = os.path.join(self.output, 'http-server.out')
 		dstderr = os.path.join(self.output, 'http-server.err')
@@ -130,6 +132,7 @@ class CycleMonitorTest(BaseTest):
 		
 		arguments = []
 		arguments.append(os.path.join(PROJECT.root,'python','com','jtech','httpserver.py'))
+		arguments.append('%s'%dir)
 		arguments.append('%d'%self.httpPort)
 
 		return self.startProcess(command, arguments, os.environ, self.output, BACKGROUND, 300, dstdout, dstderr, displayName)

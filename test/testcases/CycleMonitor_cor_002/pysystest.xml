@@ -2,9 +2,9 @@
 <pysystest type="auto" state="runnable">
     
   <description> 
-    <title>Check lower and upper boundary alerts, using presaved json and HTTP server</title>    
+    <title>Check lower and upper boundary alerts, using json dump and HTTP server</title>    
     <purpose><![CDATA[
-Run with the HTTP server serving pre-saved json output. 
+Run with the HTTP server serving json created programatically within the testcase. 
 ]]>
     </purpose>
   </description>

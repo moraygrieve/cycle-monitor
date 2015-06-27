@@ -46,7 +46,6 @@ monitor AlertManager {
 		//pass updates to the relevant strategies
 		StationUpdate stationUpdate;
 		on all StationUpdate():stationUpdate {
-			log "Received station update: " + stationUpdate.pprint() at DEBUG;
 			DBKey key := DBKey(stationUpdate.city, stationUpdate.id);
 			if (strategies.hasKey(key)) then {
 				IAlertStrategy strategy; for strategy in strategies[key] {

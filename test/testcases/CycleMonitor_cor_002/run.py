@@ -5,8 +5,13 @@ from com.jtech.basetest import CycleMonitorTest
 class PySysTest(CycleMonitorTest):
 	def execute(self):
 		#start server and set stations
-		self.startHTTPServer(dir=self.input)
-
+		self.startHTTPServer()
+		station1 = self.addStation(1,'Hyde Park',51512303,-159988)
+		station2 = self.addStation(2,'Regent Street',51512304,-159980)
+		station1.update(2,20,'2015-06-24 12:10:00')
+		station2.update(20,2,'2015-06-24 12:10:00')
+		self.dumpStations(file='city-bikes.json')
+		
 		#start the application
 		self.startCorrelator()
 		self.startJython(script='printer.py', scriptArgs=['%d'%self.correlator.port])
