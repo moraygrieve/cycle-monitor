@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -27,17 +28,17 @@ public class TableController {
 		controller.messageColumn.setCellValueFactory(new PropertyValueFactory<StationAlertEntry, String>("message"));	  
 		controller.timestampColumn.setCellValueFactory(new PropertyValueFactory<StationAlertEntry, Double>("timestamp"));
 		controller.stationAlertTable.setItems(stationAlertTable.getDataCache());    
-		
+
 		controller.stationAlertTable.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent event) {
-		        if (event.getClickCount() == 2) {
-		            StationAlertEntry entry = controller.stationAlertTable.getSelectionModel().getSelectedItem();
-		            System.out.println("Selected entry id " + entry.getId());
-		            mapController.showDocumentWindow(entry);
-		        }
+				if (event.getClickCount() == 2) {
+					StationAlertEntry entry = controller.stationAlertTable.getSelectionModel().getSelectedItem();
+					System.out.println("Selected entry id " + entry.getId());
+					mapController.showDocumentWindow(entry);
+				}
 			}
 		});
-		
+
 		controller.typeColumn.setCellFactory(new Callback<TableColumn<StationAlertEntry, String>, TableCell<StationAlertEntry, String>>() {
 			public TableCell<StationAlertEntry, String> call(TableColumn<StationAlertEntry, String> tradesEntryStringTableColumn) {
 				final TableCell<StationAlertEntry, String> cell = new TableCell<StationAlertEntry, String>() {
@@ -59,7 +60,7 @@ public class TableController {
 				return cell;
 			}
 		});
-		
+
 		controller.timestampColumn.setCellFactory(new Callback<TableColumn<StationAlertEntry, Double>, TableCell<StationAlertEntry, Double>>() {
 			public TableCell<StationAlertEntry, Double> call(TableColumn<StationAlertEntry, Double> tradesEntryStringTableColumn) {
 				final TableCell<StationAlertEntry, Double> cell = new TableCell<StationAlertEntry, Double>() {
@@ -79,22 +80,42 @@ public class TableController {
 				return cell;
 			}
 		});
-		
+
+		controller.messageColumn.setCellFactory(new Callback<TableColumn<StationAlertEntry, String>, TableCell<StationAlertEntry, String>>() {
+			public TableCell<StationAlertEntry, String> call(TableColumn<StationAlertEntry, String> tradesEntryStringTableColumn) {
+				final TableCell<StationAlertEntry, String> cell = new TableCell<StationAlertEntry, String>() {
+					protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						if (!isEmpty()) {
+							setTooltip(new Tooltip(item));
+							setText(item);
+						} else {
+							setText(null);
+							setTextFill(null);
+							setStyle(null);
+							return;
+						}
+					}
+				};
+				return cell;
+			}
+		});
+
 		stationAlertTable.getDataCache().addListener(new ListChangeListener<StationAlertEntry>() {
-            public void onChanged(Change<? extends StationAlertEntry> paramChange) {
-                while (paramChange.next()) {
-                    if (paramChange.wasAdded() && paramChange.getAddedSize() > 0) {
-                        Platform.runLater(new Runnable() {
-                            public void run() {
-                                controller.stationAlertTable.getSortOrder().clear();
-                                controller.stationAlertTable.getSortOrder().add(controller.timestampColumn);
-                                controller.timestampColumn.setSortType(TableColumn.SortType.DESCENDING);
-                                controller.timestampColumn.setSortable(true);
-                            }
-                        });
-                    }
-                }
-            }
-        });
+			public void onChanged(Change<? extends StationAlertEntry> paramChange) {
+				while (paramChange.next()) {
+					if (paramChange.wasAdded() && paramChange.getAddedSize() > 0) {
+						Platform.runLater(new Runnable() {
+							public void run() {
+								controller.stationAlertTable.getSortOrder().clear();
+								controller.stationAlertTable.getSortOrder().add(controller.timestampColumn);
+								controller.timestampColumn.setSortType(TableColumn.SortType.DESCENDING);
+								controller.timestampColumn.setSortable(true);
+							}
+						});
+					}
+				}
+			}
+		});
 	}	
 }
