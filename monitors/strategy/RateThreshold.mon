@@ -1,10 +1,28 @@
+// Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+// This file is part of the Cycle Monitor example application.
+//
+// Cycle Monitor is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// Cycle Monitor is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with City Monitor.  If not, see <http://www.gnu.org/licenses/>.
+//
+// Contact: moray.grieve@me.com
+
 package com.jtech.alert;
 using com.apama.aggregates.first;
 using com.apama.aggregates.last;
 using com.jtech.source.StationUpdate;
 
 event Result { float first; float last; }
-event Data { float ratio;  }
+event Data { string city; integer id; float ratio;  }
 
 event RateThreshold {
 	constant string  TYPE :="RATE_THRESHOLD";
@@ -26,18 +44,19 @@ event RateThreshold {
 	//implementation of required actions
 	action check(StationUpdate update) {
 		_current := update;
-		route Data(update.ratio);
+		route Data(base._city, base._id, update.ratio);
 	}
 
 	action streamListener() {
 		Result result;
-		from u in all Data() within _duration
+		from u in all Data(city=base._city, id=base._id) within _duration
 		  select Result(first(u.ratio),last(u.ratio)):result {
 			float change:=0.0;
 			if ( not (result.first=result.last or result.first.isNaN() or result.last.isNaN()) ) then {
 				change := ( (result.last-result.first)/(result.first) ).abs(); 
 				checkForAlert(change);
 			}
+			log "change="+change.toString()+",result="+result.toString()+",last="+_current.toString();
 		}
 	} 
 

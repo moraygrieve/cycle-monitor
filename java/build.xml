@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 
+ Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+ This file is part of the Cycle Monitor example application.
+
+ Cycle Monitor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ Cycle Monitor is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with City Monitor.  If not, see <http://www.gnu.org/licenses/>.
+
+ Contact: moray.grieve@me.com
+-->
 <project name="City bikes transport" default="jar" basedir=".">
 	<property environment="env"/>
 	<property name="jar-file"      value="${basedir}/lib/city-bikes-adapter.jar"/>
@@ -7,22 +26,22 @@
 	<property name="apama-home"    value="${env.APAMA_HOME}"/>
 	<property name="apama-lib-dir" value="${apama-home}/lib"/>
 	<property name="apama-version" value="${env.APAMA_LIBRARY_VERSION}"/>
-	
+
 	<fail unless="env.APAMA_LIBRARY_VERSION" message="Please run the bin/apama_env script before attempting to build this sample."/>
-	
+
 	<patternset id="libs">
 		<include name="json-simple-1.1.jar"/>
 		<include name="cron4j-2.2.5.jar"/>
 		<include name="log4j-1.2.16.jar"/>
 		<include name="jfxrt.jar"/>
 	</patternset>
-	
+
 	<patternset id="apama-libs">
 		<include name="jplugin_public${apama-version}.jar"/>
 		<include name="util${apama-version}.jar"/>
 		<include name="engine_client${apama-version}.jar"/>
 	</patternset>
-		
+
 	<patternset id="jar-contents">
 		<include name="**/iaf/*.class" />
 	</patternset>
