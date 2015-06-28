@@ -1,2 +1,10 @@
-com.jtech.source.StationUpdate("London",1,"Hyde Park",51.512303,-0.159988,0.09,2,20,false,1435476177)
-com.jtech.source.StationUpdate("London",2,"Regent Street",51.512304,-0.15998,0.91,20,2,false,1435476177)
+&SETTIME(1435483110)
+com.jtech.source.StationUpdate("London",1,"Hyde Park",51.512303,-0.159988,0.8,24,6,false,1435483110)
+
+&TIME(1435483130)
+com.jtech.source.StationUpdate("London",1,"Hyde Park",51.512303,-0.159988,0.7333,22,8,false,1435483130)
+
+&TIME(1435483140)
+com.jtech.source.StationUpdate("London",1,"Hyde Park",51.512303,-0.159988,0.6666,20,10,false,1435483140)
+
+&TIME(1435483180)

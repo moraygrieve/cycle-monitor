@@ -15,14 +15,15 @@ class PySysTest(CycleMonitorTest):
 		self.waitForSignal('jython.out', expr='ADDED', condition='>=2', timeout=5)
 		
 		#delete named alert
-		self.sendLiteral(self.correlator, 'com.jtech.alert.RemoveAlert("London", 1, "LOWER_BOUNDARY")')
-		self.waitForSignal('jython.out', expr='REMOVED', condition='==1', timeout=5)
+		self.sendLiteral(self.correlator, 'com.jtech.alert.RemoveAlerts()')
+		self.waitForSignal('jython.out', expr='REMOVED', condition='==2', timeout=5)
 		
 	def validate(self):
 		exprList=[]
 		exprList.append('ADDED:    id=1, ratio=0.09, type=LOWER_BOUNDARY')
 		exprList.append('ADDED:    id=2, ratio=0.91, type=UPPER_BOUNDARY')
+		exprList.append('REMOVED:  id=2, ratio=0.91, type=UPPER_BOUNDARY')
 		exprList.append('REMOVED:  id=1, ratio=0.09, type=LOWER_BOUNDARY')
 		self.assertOrderedGrep('jython.out', exprList=exprList)
 		
-		self.assertLineCount('jython.out', expr='REMOVED', condition='==1')
+		self.assertLineCount('jython.out', expr='REMOVED', condition='==2')

@@ -1,2 +1,1 @@
-INSERT into boundary_alert_config VALUES ('London', 1, 0, 0.3);
-INSERT into boundary_alert_config VALUES ('London', 2, 1, 0.6);
+INSERT into rate_alert_config VALUES ('London', 1, 0.1, 60);

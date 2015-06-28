@@ -2,7 +2,7 @@
 <pysystest type="auto" state="runnable">
     
   <description> 
-    <title>Check rate threshold alert, addition and removal</title>    
+    <title>Check lower boundary alert removal when goes out of alerted</title>    
     <purpose><![CDATA[
 ]]>
     </purpose>

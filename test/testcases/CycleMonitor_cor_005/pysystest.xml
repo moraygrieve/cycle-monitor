@@ -2,7 +2,7 @@
 <pysystest type="auto" state="runnable">
     
   <description> 
-    <title>Check removal of single alert</title>    
+    <title>Check upper boundary alert removal when goes out of alerted</title>    
     <purpose><![CDATA[
 ]]>
     </purpose>
