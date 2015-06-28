@@ -194,10 +194,6 @@ public class CityBikesTransport extends AbstractEventTransport {
 
 	private void processJSON(JSONArray jsonArray) {
 		try {
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Calendar cal = Calendar.getInstance();
-			String time = dateFormat.format(cal.getTime());
-
 			for (Object o : jsonArray) {
 				JSONObject entry = (JSONObject) o;
 				Long id = (Long) entry.get("id");
@@ -211,6 +207,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 				Double lng = Double.valueOf((Long) entry.get("lng")) / 1000000d;
 				Long avail = (Long) entry.get("bikes");
 				Long empty = (Long) entry.get("free");
+				String updated = (String) entry.get("timestamp");
 
 				NormalisedEvent normalisedEvent = new NormalisedEvent();
 				normalisedEvent.addQuick("__type", "__station_update");
@@ -219,7 +216,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 				normalisedEvent.addQuick("name", name);
 				normalisedEvent.addQuick("lat", lat.toString());
 				normalisedEvent.addQuick("lng", lng.toString());
-				normalisedEvent.addQuick("updated", time);
+				normalisedEvent.addQuick("updated", updated);
 				normalisedEvent.addQuick("ratio",String.format("%.2f",Double.valueOf(avail)/ Double.valueOf((avail + empty))));
 				normalisedEvent.addQuick("docked", avail.toString());
 				normalisedEvent.addQuick("empty", empty.toString());
