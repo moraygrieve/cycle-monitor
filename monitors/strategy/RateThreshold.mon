@@ -34,11 +34,12 @@ event RateThreshold {
 	StationUpdate current;
 
 	action init(integer id, string city, float threshold, float duration, IAlertManager manager) returns IAlertStrategy {    
+		IAlertStrategy this := base.init(id, city, TYPE, COLOR, manager);
+		this.check := check;
+	
 		self.threshold := threshold;
 		self.duration := duration;
 		setupStreamListener();
-		
-		IAlertStrategy this := base.init(id, city, TYPE, COLOR, manager);
 		return this;
 	}
 
@@ -55,9 +56,9 @@ event RateThreshold {
 			float change:=0.0;
 			if ( not (result.first=result.last or result.first.isNaN() or result.last.isNaN()) ) then {
 				change := ( (result.last-result.first)/(result.first) ).abs(); 
+				log base.prefix+"Change="+change.formatFixed(3)+",first="+result.first.toString()+",last="+result.last.toString() at DEBUG;
 				checkForAlert(change);
 			}
-			log base.prefix+"Change="+change.toString()+",result="+result.toString()+",last="+current.toString() at DEBUG;
 		}
 	} 
 

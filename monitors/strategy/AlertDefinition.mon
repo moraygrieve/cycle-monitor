@@ -74,7 +74,7 @@ event Alert {
 	}
 	action getDVKeyFieldValues() returns sequence<string> {
 		sequence<string> ret := new sequence<string>;
-		ret := [city,id.toString()];
+		ret := [city,id.toString(),type];
 		return ret;
 	}
 }

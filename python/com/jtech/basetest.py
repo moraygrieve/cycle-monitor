@@ -52,11 +52,14 @@ class CycleMonitorTest(BaseTest):
 		with open(os.path.join(self.output, file), 'w') as fp:	
 			json.dump([station.__dict__ for station in self.stations], fp, indent=4)
 
-	def startCorrelator(self):
+	def startCorrelator(self, xclock=False):
 		'''Start a correlator and set logging, return correlator object handle. '''
 		self.correlator = CorrelatorHelper(self)
 		self.log.info('Allocating port %s for correlator'%self.correlator.port)
-		self.correlator.start(logfile='correlator.log', arguments=['--inputLog',os.path.join(self.output,'correlator-input.log')])
+		
+		arguments = ['--inputLog',os.path.join(self.output,'correlator-input.log')]
+		if xclock: arguments.append('-Xclock')
+		self.correlator.start(logfile='correlator.log', arguments=arguments)
 		self.correlator.receive('correlator_input.log', channels=['com.apama.input'])
 		self.correlator.receive('correlator_output.log')
 		self.setApplicationLogFile(self.correlator, 'application.log', 'com.jtech')
@@ -137,8 +140,9 @@ class CycleMonitorTest(BaseTest):
 
 		return self.startProcess(command, arguments, os.environ, self.output, BACKGROUND, 300, dstdout, dstderr, displayName)
 		
-	def startScenarioPrinter(self, correlator):
-		self.startJython(script='printer.py', filedir=os.path.join(PROJECT.root,'test','utils','scripts'), scriptArgs=['%d'%correlator.port])
+	def startScenarioPrinter(self, correlator, filedir=None):
+		if filedir is None: filedir=os.path.join(PROJECT.root,'test','utils','scripts')
+		self.startJython(script='printer.py', filedir=filedir, scriptArgs=['%d'%correlator.port])
 	
 	def startJython(self, script, filedir=None, scriptArgs=None):
 		command = os.path.join(PROJECT.APAMA_COMMON_JRE, 'bin', 'java')

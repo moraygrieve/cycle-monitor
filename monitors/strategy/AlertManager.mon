@@ -56,7 +56,7 @@ monitor AlertManager {
 	}
 
 	action addAlert(IAlertStrategy strategy, StationUpdate update, string message) {
-		strategy.pprint("Adding alert to strategy");
+		strategy.pprint(message+", adding alert to strategy");
 		dvHelper.add((Alert(update.city, update.id, update.name, update.lat, update.lng, 
 		                    update.ratio, update.docked, update.empty, update.timestamp, 
 		                    strategy.getType(), message, strategy.getColor())).iface());

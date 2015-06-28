@@ -27,10 +27,10 @@ event UpperBoundary {
 	float threshold;
 	
 	action init(integer id, string city, float threshold, IAlertManager manager) returns IAlertStrategy {    
-		threshold := threshold;
-		
 		IAlertStrategy this := base.init(id, city, TYPE, COLOR, manager);
 		this.check := check;
+		
+		self.threshold := threshold;
 		return this;
 	}
     

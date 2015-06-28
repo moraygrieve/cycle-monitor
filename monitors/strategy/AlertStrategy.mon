@@ -37,7 +37,7 @@ event AlertStrategy {
         self.manager := manager;
         __setupRemoveListener();
         
-        prefix := "["+city+"."+id.toString()+"."+type+"] ".intern();
+        prefix := "["+city+"."+id.toString()+"."+type+"] ";
         log prefix+"Created strategy instance";
     	
 		this := new IAlertStrategy;
