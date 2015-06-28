@@ -201,3 +201,8 @@ class CycleMonitorTest(BaseTest):
 		arguments.append('.quit')
     
 		self.startProcess(command, arguments, os.environ, self.output, FOREGROUND, 300, dstdout, dstderr, displayName)
+
+	def sendLiteral(self, correlator, literal):
+		with open(os.path.join(self.output,'sendliteral.evt'),'w') as file:
+			file.write(literal)
+		correlator.send(os.path.join(self.output,'sendliteral.evt'))
