@@ -55,13 +55,22 @@ monitor AlertManager {
 		}
 	}
 
+	action addAlert(IAlertStrategy strategy, StationUpdate update, string message) {
+		strategy.pprint("Adding alert to strategy");
+		dvHelper.add((Alert(update.city, update.id, update.name, update.lat, update.lng, 
+		                    update.ratio, update.docked, update.empty, update.timestamp, 
+		                    strategy.getType(), message, strategy.getColor())).iface());
+	}
+	
+	action clearAlert(IAlertStrategy strategy) {
+		strategy.pprint("Removing alert from strategy");
+		dvHelper.remove(((new Alert).init(strategy.getCity(),strategy.getId(),strategy.getType())).iface());
+	}
+
 	action createUpperBoundary() {
 		CreateUpperBoundaryAlert uba;
 		on all CreateUpperBoundaryAlert():uba {
-			DBKey key := DBKey(uba.city, uba.id);
-			if not strategies.hasKey(key) then {
-				strategies.add(key, new sequence<IAlertStrategy> );
-			}
+			DBKey key := getKey(uba.city, uba.id);
 			strategies[key].append( (new UpperBoundary).init(uba.id, uba.city, uba.threshold, this) );
 		}
 	}
@@ -69,10 +78,7 @@ monitor AlertManager {
 	action createLowerBoundary() {
 		CreateLowerBoundaryAlert lba;
 		on all CreateLowerBoundaryAlert():lba {
-			DBKey key := DBKey(lba.city, lba.id);
-			if not strategies.hasKey(key) then {
-				strategies.add(key, new sequence<IAlertStrategy> );
-			}
+			DBKey key := getKey(lba.city, lba.id);
 			strategies[key].append( (new LowerBoundary).init(lba.id, lba.city, lba.threshold, this) );
 		}
 	}
@@ -80,22 +86,16 @@ monitor AlertManager {
 	action createRateThreshold() {
 		CreateRateThresholdAlert rta;
 		on all CreateRateThresholdAlert():rta {
-			DBKey key := DBKey(rta.city, rta.id);
-			if not strategies.hasKey(key) then {
-				strategies.add(key, new sequence<IAlertStrategy> );
-			}
+			DBKey key := getKey(rta.city, rta.id);
 			strategies[key].append( (new RateThreshold).init(rta.id, rta.city, rta.threshold, rta.duration, this) );
 		}
 	}
-
-	action addAlert(StationUpdate update, string type, string message, string color) {
-		log "Adding alert for "+update.id.toString()+","+update.city+","+type at INFO;
-		dvHelper.add((Alert(update.city, update.id, update.name, update.lat, update.lng, 
-		                    update.ratio, update.docked, update.empty, update.timestamp, type, message, color)).iface());
-	}
 	
-	action clearAlert(string city, integer id, string type) {
-		log "Removing alert for"+id.toString()+","+city+","+type at INFO;
-		dvHelper.remove(((new Alert).init(city,id,type)).iface());
+	action getKey(string city, integer id) returns DBKey {
+		DBKey key := DBKey(city, id);
+		if not strategies.hasKey(key) then {
+			strategies.add(key, new sequence<IAlertStrategy> );
+		}
+		return key;
 	}
 }

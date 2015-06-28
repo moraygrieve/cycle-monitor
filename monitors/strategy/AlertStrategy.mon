@@ -21,51 +21,61 @@ using com.jtech.source.StationUpdate;
 
 event AlertStrategy { 
 	IAlertStrategy this;
-	integer _id;
-	string  _city;
-	string  _type;
-	string  _color;
-	string _prefix;
-	boolean _alerted;
-	IAlertManager _manager;
+	integer id;
+	string  city;
+	string  type;
+	string  color;
+	string  prefix;
+	boolean alerted;
+	IAlertManager manager;
 	
     action init(integer id, string city, string type, string color, IAlertManager manager) returns IAlertStrategy {
-        _id := id;
-        _city := city;
-        _type := type;
-        _color := color;
-        _manager := manager;
+        self.id := id;
+        self.city := city;
+        self.type := type;
+        self.color := color;
+        self.manager := manager;
+        __setupRemoveListener();
         
-        _prefix := "["+_city+"."+_id.toString()+"."+_type+"] ".intern();
-        log _prefix+" created strategy instance";
+        prefix := "["+city+"."+id.toString()+"."+type+"] ".intern();
+        log prefix+"Created strategy instance";
     	
-        setupRemoveListener();
-
 		this := new IAlertStrategy;
+		this.getCity := getCity;
+		this.getId := getId;
+		this.getType := getType;
+		this.getColor := getColor;
 		this.check := check;
+		this.pprint := pprint;
 		return this;
 	}
 	
-	//abstract implementations
-	action check(StationUpdate update) {}
-
 	//base implementations
-	action getAlerted() returns boolean { return _alerted; }
+	action pprint(string message) {log prefix+message;}
+	action getCity() returns string { return city; }
+	action getId() returns integer { return id; }
+	action getType() returns string { return type; }
+	action getColor() returns string { return color; }
+
+	//abstract (implement in extending event)
+	action check(StationUpdate update) {}
 	
+	//methods on the base (visible to extending event)
 	action alert(StationUpdate update, string message) {
-		_alerted := true;
-		_manager.addAlert(update, _type, message, _color);
+		alerted := true;
+		manager.addAlert(this, update, message);
 	}
 	
 	action clear() {
-		_alerted := false;
-		_manager.clearAlert(_city, _id, _type);
+		alerted := false;
+		manager.clearAlert(this);
 	}
 	
-	action setupRemoveListener() {
-		on all (RemoveAlerts() or RemoveAlert(_city,_id,_type) ){
-    		if (_alerted) then { 
-    			_alerted := false;
+	//called within the base only
+	action __setupRemoveListener() {
+		on all (RemoveAlerts() or RemoveAlert(city,id,type) ){
+    		if (alerted) then { 
+    			alerted := false;
     			clear(); 
     		}
     	}	

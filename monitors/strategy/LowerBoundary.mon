@@ -24,10 +24,10 @@ event LowerBoundary {
 	constant string  COLOR:="red";
 
 	AlertStrategy base;
-	float _threshold;
+	float threshold;
 	
 	action init(integer id, string city, float threshold, IAlertManager manager) returns IAlertStrategy {    
-		_threshold := threshold;
+		self.threshold := threshold;
 		
 		IAlertStrategy this := base.init(id, city, TYPE, COLOR, manager);
 		this.check := check;
@@ -36,11 +36,11 @@ event LowerBoundary {
 
 	//implementation of required actions
 	action check(StationUpdate update) {
-		log base._prefix+" current ratio is " + update.ratio.toString() at DEBUG;
-		if (not base.getAlerted() and update.ratio < _threshold) then {
-			base.alert(update, "Ratio of " + update.ratio.formatFixed(2) + " exceeds limit " + _threshold.toString());
+		log base.prefix+"Current ratio is " + update.ratio.toString() at DEBUG;
+		if (not base.alerted and update.ratio < threshold) then {
+			base.alert(update, "Ratio of " + update.ratio.formatFixed(2) + " exceeds limit " + threshold.toString());
 		}
-		else if (base.getAlerted() and update.ratio >= _threshold) then {
+		else if (base.alerted and update.ratio >= threshold) then {
 			base.clear();
 		}
 	}

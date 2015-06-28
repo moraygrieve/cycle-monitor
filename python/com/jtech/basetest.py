@@ -137,10 +137,15 @@ class CycleMonitorTest(BaseTest):
 
 		return self.startProcess(command, arguments, os.environ, self.output, BACKGROUND, 300, dstdout, dstderr, displayName)
 		
-	def startJython(self, script, scriptArgs=None):
+	def startScenarioPrinter(self, correlator):
+		self.startJython(script='printer.py', filedir=os.path.join(PROJECT.root,'test','utils','scripts'), scriptArgs=['%d'%correlator.port])
+	
+	def startJython(self, script, filedir=None, scriptArgs=None):
 		command = os.path.join(PROJECT.APAMA_COMMON_JRE, 'bin', 'java')
 		displayName = 'jython'
 
+		if filedir is None: filedir=self.input
+		
 		# set the default stdout and stderr
 		instances = self.getInstanceCount(displayName)  
 		dstdout = "%s/jython.out"%self.output
@@ -154,7 +159,7 @@ class CycleMonitorTest(BaseTest):
 		args.append('-Dpython.home=%s' % PROJECT.JYTHON_HOME)
 		args.append('-Dpython.path=%s' % os.path.join(PROJECT.root,'python'))
 		args.append('org.python.util.jython')
-		args.append(os.path.join(self.input, script))
+		args.append(os.path.join(self.input, os.path.join(filedir,script)))
 		if scriptArgs is not None: args.extend(scriptArgs)
 
 		# run the process and return the handle

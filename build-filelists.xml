@@ -56,8 +56,8 @@
 	</filelist>
 
 	<filelist id="strategy">
-		<file name="monitors/strategy/IAlertManager.mon" />
 		<file name="monitors/strategy/IAlertStrategy.mon" />
+		<file name="monitors/strategy/IAlertManager.mon" />
 		<file name="monitors/strategy/AlertDefinition.mon" />
 		<file name="monitors/strategy/AlertStrategy.mon" />
 		<file name="monitors/strategy/UpperBoundary.mon" />

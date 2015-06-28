@@ -29,42 +29,43 @@ event RateThreshold {
 	constant string  COLOR:="yellow";
 
 	AlertStrategy base;
-	float _threshold;
-	float _duration;
-	StationUpdate _current;
+	float threshold;
+	float duration;
+	StationUpdate current;
 
 	action init(integer id, string city, float threshold, float duration, IAlertManager manager) returns IAlertStrategy {    
-		_threshold := threshold;
-		_duration := duration;
-
+		self.threshold := threshold;
+		self.duration := duration;
+		setupStreamListener();
+		
 		IAlertStrategy this := base.init(id, city, TYPE, COLOR, manager);
 		return this;
 	}
 
 	//implementation of required actions
 	action check(StationUpdate update) {
-		_current := update;
-		route Data(base._city, base._id, update.ratio);
+		current := update;
+		route Data(base.city, base.id, update.ratio);
 	}
 
-	action streamListener() {
+	action setupStreamListener() {
 		Result result;
-		from u in all Data(city=base._city, id=base._id) within _duration
+		from u in all Data(city=base.city, id=base.id) within duration
 		  select Result(first(u.ratio),last(u.ratio)):result {
 			float change:=0.0;
 			if ( not (result.first=result.last or result.first.isNaN() or result.last.isNaN()) ) then {
 				change := ( (result.last-result.first)/(result.first) ).abs(); 
 				checkForAlert(change);
 			}
-			log base._prefix+"change="+change.toString()+",result="+result.toString()+",last="+_current.toString() at DEBUG;
+			log base.prefix+"Change="+change.toString()+",result="+result.toString()+",last="+current.toString() at DEBUG;
 		}
 	} 
 
 	action checkForAlert(float change) {
-		if (not base.getAlerted() and change > _threshold) then {
-			base.alert(_current, "Change of " +change.formatFixed(2) + " exceeds limit " + _threshold.toString());
+		if (not base.alerted and change > threshold) then {
+			base.alert(current, "Change of " +change.formatFixed(2) + " exceeds limit " + threshold.toString());
 		}
-		else if (base.getAlerted() and change <= _threshold) then {
+		else if (base.alerted and change <= threshold) then {
 			base.clear();
 		}
 	}

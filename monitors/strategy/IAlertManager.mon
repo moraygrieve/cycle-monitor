@@ -20,6 +20,6 @@ package com.jtech.alert;
 using com.jtech.source.StationUpdate;
 
 event IAlertManager {
-	action <StationUpdate,string,string,string> addAlert;
-	action <string,integer,string> clearAlert;
+	action <IAlertStrategy, StationUpdate, string> addAlert;
+	action <IAlertStrategy> clearAlert;
 }

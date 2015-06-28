@@ -14,7 +14,7 @@ class PySysTest(CycleMonitorTest):
 		
 		#start the application
 		self.startCorrelator()
-		self.startJython(script='printer.py', scriptArgs=['%d'%self.correlator.port])
+		self.startScenarioPrinter(self.correlator)
 		self.startADBCAdapter(self.correlator, insert='insert.sql')
 		self.startCityBikesAdapter(self.correlator, 'London', 'http://localhost:%d/city-bikes.json'%self.httpPort, '* * * * *')
 		self.initialiseApplication(self.correlator)
