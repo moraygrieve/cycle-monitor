@@ -49,8 +49,15 @@ class CycleMonitorTest(BaseTest):
 	
 	def dumpStations(self, file):
 		'''Write the current list of stations to file in JSON. '''
-		with open(os.path.join(self.output, file), 'w') as fp:	
+		with open(os.path.join(self.output, file), 'w') as fp:
 			json.dump([station.__dict__ for station in self.stations], fp, indent=4)
+
+	def dumpStationsAndPoll(self, file):
+		'''Write the current list of stations to file in JSON, and force a poll on the adapter through the correlator. '''
+		self.dumpStations(file)
+		with open(os.path.join(self.output, 'poll.mon'),'w') as fp:
+			fp.write('monitor Poll { action onload{ emit com.jtech.source.Poll() to "CITY-BIKES"; } }')
+		self.correlator.injectMonitorscript('poll.mon', filedir=self.output)
 
 	def startCorrelator(self, xclock=False):
 		'''Start a correlator and set logging, return correlator object handle. '''

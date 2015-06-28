@@ -135,7 +135,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 			exService = Executors.newSingleThreadExecutor();
 			scheduler = new Scheduler();
 
-			if (pollingSchedule != null) {
+			if (pollingSchedule != null && pollingSchedule.equals("none")) {
 				poll();
 				scheduler.schedule(pollingSchedule, new Runnable() {
 					public void run() {
@@ -159,10 +159,12 @@ public class CityBikesTransport extends AbstractEventTransport {
 
 	@Override
 	public void start() throws TransportException {
+		logger.info("Adapter start called");
 	}
 
 	@Override
 	public void stop() throws TransportException {
+		logger.info("Adapter stop called");
 		started = false;
 	}
 

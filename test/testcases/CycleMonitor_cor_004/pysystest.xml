@@ -2,7 +2,7 @@
 <pysystest type="auto" state="runnable">
     
   <description> 
-    <title>Check lower boundary alert removal when goes out of alerted</title>    
+    <title>Check lower boundary alert removal, using json dump and poll and HTTP server</title>    
     <purpose><![CDATA[
 ]]>
     </purpose>
