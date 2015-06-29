@@ -151,6 +151,11 @@ class CycleMonitorTest(BaseTest):
 		if filedir is None: filedir=os.path.join(PROJECT.root,'test','utils','scripts')
 		self.startJython(script='printer.py', filedir=filedir, scriptArgs=['%d'%correlator.port])
 	
+	def startScenarioPrinter(self, correlator, dvname='DV_StationAlert', fields=None):
+		if fields is None: fields=['id','ratio','type']
+		filedir=os.path.join(PROJECT.root,'test','utils','scripts')
+		self.startJython(script='printer.py', filedir=filedir, scriptArgs=['%d'%correlator.port,dvname,','.join(fields)])
+	
 	def startJython(self, script, filedir=None, scriptArgs=None):
 		command = os.path.join(PROJECT.APAMA_COMMON_JRE, 'bin', 'java')
 		displayName = 'jython'

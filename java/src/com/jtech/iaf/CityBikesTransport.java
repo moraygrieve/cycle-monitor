@@ -135,7 +135,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 			exService = Executors.newSingleThreadExecutor();
 			scheduler = new Scheduler();
 
-			if (pollingSchedule != null && pollingSchedule.equals("none")) {
+			if (pollingSchedule != null && !pollingSchedule.equals("none")) {
 				poll();
 				scheduler.schedule(pollingSchedule, new Runnable() {
 					public void run() {

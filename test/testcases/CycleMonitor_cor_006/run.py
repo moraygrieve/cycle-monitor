@@ -6,7 +6,7 @@ class PySysTest(CycleMonitorTest):
 	def execute(self):
 		#start the application
 		self.startCorrelator(xclock=True)
-		self.startScenarioPrinter(self.correlator, filedir=self.input)
+		self.startScenarioPrinter(self.correlator, fields=['id','ratio','message'])
 		self.startADBCAdapter(self.correlator, insert='insert.sql')
 		self.initialiseApplication(self.correlator)
 		self.correlator.send('updates.evt')

@@ -42,7 +42,7 @@ event RateThreshold {
 		setupStreamListener();
 		return this;
 	}
-
+	
 	//implementation of required actions
 	action check(StationUpdate update) {
 		current := update;

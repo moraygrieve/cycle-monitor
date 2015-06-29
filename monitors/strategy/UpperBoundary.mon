@@ -36,7 +36,7 @@ event UpperBoundary {
     
     //implementation of required actions
 	action check(StationUpdate update) {
-		log base.prefix+"Current ratio is " + update.ratio.toString() at DEBUG;
+		log base.prefix+"Ratio" + update.ratio.toString() at DEBUG;
 		if (not base.alerted and update.ratio > threshold) then {
 			base.alert(update, "Ratio of " + update.ratio.formatFixed(2) + " exceeds limit " + threshold.toString());
 		}
