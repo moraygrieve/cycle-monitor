@@ -28,11 +28,11 @@ from com.jtech.filelist import FileListParser
 from com.jtech.station import Station
 
 class CycleMonitorTest(BaseTest):
-	stations=[]
-	
+
 	def setup(self):
 		'''Override BaseTest setup. '''
 		BaseTest.setup(self)
+		self.stations=[]
 		self.jython_classpath = os.path.join(PROJECT.JYTHON_HOME, 'jython.jar')
 		self.addToJythonClassPath(os.path.join(PROJECT.APAMA_HOME,'lib','engine_client%s.jar'%PROJECT.APAMA_LIBRARY_VERSION))
 		self.addToJythonClassPath(os.path.join(PROJECT.APAMA_HOME,'lib','util%s.jar'%PROJECT.APAMA_LIBRARY_VERSION))

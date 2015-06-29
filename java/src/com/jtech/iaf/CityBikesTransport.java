@@ -56,8 +56,8 @@ public class CityBikesTransport extends AbstractEventTransport {
 	private EventDecoder decoder;
 	private String cityName;
 	private String dataURL;
-	private String pollingSchedule = null;
-	private volatile boolean started;
+	private String pollingSchedule;
+	private volatile boolean startRequested;
 	private volatile long totalSent;
 	private volatile long totalReceived;
 	private Scheduler scheduler;
@@ -100,7 +100,7 @@ public class CityBikesTransport extends AbstractEventTransport {
 
 	@Override
 	public TransportStatus getStatus() {
-		String status = (started) ? "Plugin is started" : "Plugin is stopped";
+		String status = (startRequested) ? "Plugin is started" : "Plugin is stopped";
 		return new TransportStatus(status, totalReceived, totalSent);
 	}
 
@@ -129,14 +129,14 @@ public class CityBikesTransport extends AbstractEventTransport {
 		NormalisedEvent normalisedEvent = (NormalisedEvent) event;
 		String type = normalisedEvent.findValue("__type");
 		if (type != null && type.equals("Start")) {
-			if (started) return;
+			if (startRequested) return;
 			logger.info("Received request to start");
-			started = true;
+			startRequested = true;
 			exService = Executors.newSingleThreadExecutor();
 			scheduler = new Scheduler();
-
-			if (pollingSchedule != null && !pollingSchedule.equals("none")) {
-				poll();
+			poll();
+			
+			if (pollingSchedule != null && !pollingSchedule.equals("none")) {	
 				scheduler.schedule(pollingSchedule, new Runnable() {
 					public void run() {
 						poll();
@@ -145,13 +145,13 @@ public class CityBikesTransport extends AbstractEventTransport {
 				scheduler.start();
 			}
 		} else if (type != null && type.equals("Stop")) {
-			if (!started) return;
+			if (!startRequested) return;
 			logger.info("Received request to stop");
-			started = false;
+			startRequested = false;
 			exService.shutdownNow();
 			scheduler.stop();
 		} else if (type != null && type.equals("Poll")) {
-			if (!started) return;
+			if (!startRequested) return;
 			logger.info("Received request to poll for data");
 			poll();
 		}
@@ -160,12 +160,12 @@ public class CityBikesTransport extends AbstractEventTransport {
 	@Override
 	public void start() throws TransportException {
 		logger.info("Adapter start called");
+		if (startRequested) poll(); 
 	}
 
 	@Override
 	public void stop() throws TransportException {
 		logger.info("Adapter stop called");
-		started = false;
 	}
 
 	@Override

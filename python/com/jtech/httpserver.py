@@ -56,6 +56,7 @@ if __name__=="__main__":
  
 	# instantiate a server object
 	httpd = BaseHTTPServer.HTTPServer (server_addr, request_handler)
+	print "Started HTTP server"
  
 	# start serving pages
 	httpd.serve_forever ()

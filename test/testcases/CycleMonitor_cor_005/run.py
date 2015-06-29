@@ -9,7 +9,7 @@ class PySysTest(CycleMonitorTest):
 		station = self.addStation(2,'Regent Street',51512304,-159980)
 		station.update(20,0,'2015-06-24 12:10:00')
 		self.dumpStations(file='city-bikes.json')
-		
+
 		#start the application (adapter polls on request only)
 		self.startCorrelator()
 		self.startScenarioPrinter(self.correlator)
