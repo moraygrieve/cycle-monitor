@@ -1,0 +1,18 @@
+package com.jtech;
+
+event Foo{
+	integer i;
+}
+
+monitor FooBar {
+	integer numFoo;
+	
+	action onload {
+		Foo foo;
+		on all Foo():foo {
+			numFoo:=numFoo+1;
+			log "Got a a Foo event " + foo.toString() at INFO;
+			log "Number of Foo events received is " + numFoo.toString() at DEBUG;
+		}
+	}
+}
