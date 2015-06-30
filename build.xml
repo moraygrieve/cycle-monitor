@@ -104,10 +104,12 @@
 		<echo message="Usage: ant [ target ]"/>
 		<echo message="Were targets are:"/>
 		<echo message=""/>
-		<echo message="start:  starts all components"/>
-		<echo message="stop:   stops all components"/>
-		<echo message="clean:  cleans log directory"/>
-				
+		<echo message="start:         starts all components"/>
+		<echo message="stop:          stops all components"/>
+		<echo message="clean:         cleans log directory"/>
+		<echo message="clear-alerts   clears all alerts" />
+		<echo message="clear-alert    clears a single alert"/>
+		<echo message="               e.g. ant clear-alert Dcity=[city] -Did=[id] -Dtype=[type]" />
 	</target>
 </project>
 

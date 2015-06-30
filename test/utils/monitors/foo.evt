@@ -1,0 +1,20 @@
+BATCH 0
+com.jtech.Foo(1)
+
+BATCH 100
+com.jtech.Foo(2)
+
+BATCH 200
+com.jtech.Foo(3)
+
+BATCH 300
+com.jtech.Foo(4)
+
+BATCH 400
+com.jtech.Foo(5)
+
+BATCH 500
+com.jtech.Foo(6)
+
+BATCH 600
+com.jtech.Foo(7)
