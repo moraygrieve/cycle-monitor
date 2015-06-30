@@ -53,7 +53,7 @@
 	<target name="start-correlator">
 		<start-correlator port="${correlator.port}" console="false" java="true"
 			log="${log.dir}${file.separator}correlator.log"  
-			inputLog="${log.dir}${file.separator}correlator-input.log"  />
+			inputLog="${log.dir}${file.separator}correlator-input.log"  extraArgs="-g"/>
 		<set-application-log-file  port="${correlator.port}" 
 			package="com.jtech" filename="${log.dir}${file.separator}application.log" 
 		/>
@@ -95,6 +95,7 @@
 	<!-- clean tasks -->
 	<target name="clean">
 		<delete dir="${build.dir}" />
+		<delete dir="target" />
 		<delete includeemptydirs="true">
 			<fileset dir="${log.dir}" includes="**/*" />
 		</delete>
