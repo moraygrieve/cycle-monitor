@@ -16,6 +16,6 @@ class PySysTest(CycleMonitorTest):
 		
 	def validate(self):
 		exprList=[]
-		exprList.append('ADDED:    id=1, ratio=0.6666, message=Change of 0.17 exceeds limit .1')
+		exprList.append('ADDED:    id=1, ratio=0.6666, message=Change of 0.13 exceeds limit .1')
 		exprList.append('REMOVED:  id=1')
 		self.assertOrderedGrep('jython.out', exprList=exprList)

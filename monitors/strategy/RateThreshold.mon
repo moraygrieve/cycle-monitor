@@ -55,7 +55,7 @@ event RateThreshold {
 		  select Result(first(u.ratio),last(u.ratio)):result {
 			float change:=0.0;
 			if ( not (result.first=result.last or result.first.isNaN() or result.last.isNaN()) ) then {
-				change := ( (result.last-result.first)/(result.first) ).abs(); 
+				change := (result.last-result.first).abs(); 
 				log base.prefix+"Change="+change.formatFixed(3)+",first="+result.first.toString()+",last="+result.last.toString() at DEBUG;
 				checkForAlert(change);
 			}
