@@ -17,7 +17,7 @@
 	<property name="APAMA_MODELER_HOME"      value="${env.APAMA_MODELER_HOME}"/>
 	<property name="APAMA_WORK"              value="${env.APAMA_WORK}"/>
 
-	<!-- Path specific properties -->
+	<!-- Path specific properties (external dependencies to this project)-->
 	<property name="JYTHON_HOME"             value="\Java\jython2.7.0"/>
 	<property name="SQLITE3_EXE"             value="\Tools\sqlite3\sqlite3.exe"/>
 	

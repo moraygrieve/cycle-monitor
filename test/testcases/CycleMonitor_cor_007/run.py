@@ -16,8 +16,8 @@ class PySysTest(CycleMonitorTest):
 		
 	def validate(self):
 		exprList=[]
-		exprList.append('ADDED:    id=2, type=RATE_THRESHOLD')
 		exprList.append('ADDED:    id=2, type=UPPER_BOUNDARY')
+		exprList.append('ADDED:    id=2, type=RATE_THRESHOLD')
 		exprList.append('REMOVED:  id=2, type=UPPER_BOUNDARY')
 		self.assertOrderedGrep('jython.out', exprList=exprList)
 
