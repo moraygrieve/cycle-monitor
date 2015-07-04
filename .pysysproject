@@ -21,17 +21,17 @@
 	<property name="JYTHON_HOME"             value="\Java\jython2.7.0"/>
 	<property name="SQLITE3_EXE"             value="\Tools\sqlite3\sqlite3.exe"/>
 	
-	<!-- set up python path -->
+	<!-- Set up python path to the source files in the project -->
 	<path value="python" relative="true"/>
 
+	<!-- Set the output format to stdout -->
 	<formatters>
 		<formatter name="stdout" messagefmt="%(asctime)s %(levelname)-5s %(message)s" datefmt="%Y:%m:%d %H:%M:%S"/>	
 	</formatters>
 	
+	<!-- Write output to target/pysys-reports in Junit style -->
 	<writers>
-		<writer classname="JUnitXMLResultsWriter" module="pysys.writer">
-			<property name="outputDir" value="${rootdir}/pysys-reports"/>
-		</writer>
+		<writer classname="JUnitXMLResultsWriter" module="pysys.writer" />
 	</writers>
 		
 </pysysproject>
