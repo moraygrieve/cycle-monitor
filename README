@@ -110,9 +110,9 @@ reported in the Eclipse console, perform a "Project -> Clean" from the main menu
 and repeat. In a later release the UI will be put into a separate project and 
 Maven'ised for better build and launch. 
 
+
 6.Testing the application
 -------------------------
-
 Testing of the application is performed using PySys. It should be noted that PySys
 is a system test framework, not a unit test framework, and thus is used to script the 
 execution of the system end-to-end. To do this all end-points are simulated within 
@@ -130,4 +130,6 @@ input data to that required. Addition and removal of dataview entries are monito
 through a scenario_printer module, which uses Jython to wrap the Apama Engine Client 
 libraries. Simplicity of the application facilitates easy simulation, though this is 
 not atypical of the approach used in more complex applications, e.g. for algorithmic 
-trading. 
+trading. Note also that full simulation using a local HTTP server is not always 
+required, and in some cases, e.g. when we want to control the temporal aspect of the 
+test, we use direct event files to simulate the flow into the Apama EPL engine.  
