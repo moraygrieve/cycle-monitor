@@ -133,3 +133,9 @@ not atypical of the approach used in more complex applications, e.g. for algorit
 trading. Note also that full simulation using a local HTTP server is not always 
 required, and in some cases, e.g. when we want to control the temporal aspect of the 
 test, we use direct event files to simulate the flow into the Apama EPL engine.  
+
+The .pysysproject file is set up to add the python directory to the base PYTHONPATH. 
+As such all utilities in this location should automatically be located when running 
+the tests. To run the tests, in any location within the project root directory, run
+the pysys launcher to print, run, or clean the testcases. For more information on 
+PySys, see http://www.slideshare.net/MorayGrieve/pysys-testframework. 
