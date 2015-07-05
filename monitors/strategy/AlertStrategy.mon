@@ -1,20 +1,20 @@
-// Cycle Monitor, Copyright (C) 2015  M.B.Grieve
-// This file is part of the Cycle Monitor example application.
-//
-// Cycle Monitor is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+//Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+//This file is part of the Cycle Monitor example application.
 
-// Cycle Monitor is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
+//Cycle Monitor is free software: you can redistribute it and/or modify
+//it under the terms of the GNU General Public License as published by
+//the Free Software Foundation, either version 3 of the License, or
+//(at your option) any later version.
 
-// You should have received a copy of the GNU General Public License
-// along with City Monitor.  If not, see <http://www.gnu.org/licenses/>.
-//
-// Contact: moray.grieve@me.com
+//Cycle Monitor is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+
+//You should have received a copy of the GNU General Public License
+//along with City Monitor.  If not, see <http://www.gnu.org/licenses/>.
+
+//Contact: moray.grieve@me.com
 
 package com.jtech.alert;
 using com.jtech.source.StationUpdate;
@@ -28,18 +28,18 @@ event AlertStrategy {
 	string  prefix;
 	boolean alerted;
 	IAlertManager manager;
-	
-    action init(integer id, string city, string type, string color, IAlertManager manager) returns IAlertStrategy {
-        self.id := id;
-        self.city := city;
-        self.type := type;
-        self.color := color;
-        self.manager := manager;
-        __setupRemoveListener();
-        
-        prefix := "["+city+"."+id.toString()+"."+type+"] ";
-        log prefix+"Created strategy instance";
-    	
+
+	action init(integer id, string city, string type, string color, IAlertManager manager) returns IAlertStrategy {
+		self.id := id;
+		self.city := city;
+		self.type := type;
+		self.color := color;
+		self.manager := manager;
+		__setupRemoveListener();
+
+		prefix := "["+city+"."+id.toString()+"."+type+"] ";
+		log prefix+"Created strategy instance";
+
 		this := new IAlertStrategy;
 		this.getCity := getCity;
 		this.getId := getId;
@@ -49,7 +49,7 @@ event AlertStrategy {
 		this.pprint := pprint;
 		return this;
 	}
-	
+
 	//base implementations
 	action pprint(string message) {log prefix+message;}
 	action getCity() returns string { return city; }
@@ -59,25 +59,25 @@ event AlertStrategy {
 
 	//abstract (implement in extending event)
 	action check(StationUpdate update) {}
-	
+
 	//methods on the base (visible to extending event)
 	action alert(StationUpdate update, string message) {
 		alerted := true;
 		manager.addAlert(this, update, message);
 	}
-	
+
 	action clear() {
 		alerted := false;
 		manager.clearAlert(this);
 	}
-	
+
 	//called within the base only
 	action __setupRemoveListener() {
 		on all (RemoveAlerts() or RemoveAlert(city,id,type) ){
-    		if (alerted) then { 
-    			alerted := false;
-    			clear(); 
-    		}
-    	}	
+			if (alerted) then { 
+				alerted := false;
+				clear(); 
+			}
+		}	
 	}
 }
