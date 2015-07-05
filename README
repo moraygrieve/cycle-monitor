@@ -110,5 +110,24 @@ reported in the Eclipse console, perform a "Project -> Clean" from the main menu
 and repeat. In a later release the UI will be put into a separate project and 
 Maven'ised for better build and launch. 
 
-6.Running the tests
--------------------
+6.Testing the application
+-------------------------
+
+Testing of the application is performed using PySys. It should be noted that PySys
+is a system test framework, not a unit test framework, and thus is used to script the 
+execution of the system end-to-end. To do this all end-points are simulated within 
+each test, such that we have full control of all data into the application, and full 
+visibility of all data out of the application. The end points simulated are;
+
+a. configuration from the RDBMS
+b. streaming data from the CityBikes API
+c. alerts sent to the UI through dataview instances
+
+To simulate these, when running the system end-to-end in the tests, each test runs the 
+ADBC adapter configured for a local DB created and confined within the test. A local 
+HTTP server is started serving JSON created and controlled by each test, to limit the 
+input data to that required. Addition and removal of dataview entries are monitored 
+through a scenario_printer module, which uses Jython to wrap the Apama Engine Client 
+libraries. Simplicity of the application facilitates easy simulation, though this is 
+not atypical of the approach used in more complex applications, e.g. for algorithmic 
+trading. 
