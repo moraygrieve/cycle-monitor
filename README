@@ -15,7 +15,7 @@ presents an analytics framework to alert on the status of cycle docking stations
 such as when the number of available cycles in a station falls below or rises above
 a configured threshold, or when the rate of change of available cycles exceeds a 
 configured threshold. It makes use of the CityBikes API available to the public 
-at http://api.citybik.es.
+at http://api.citybik.es. 
  
 
 2.Dependencies
@@ -53,11 +53,31 @@ although this is an optional dependency as any RDBMS can be used via the Apama
 ADBC adapter. For more information see http://dev.mysql.com/downloads.
 
 
-3.Building the Application
+3. Project Contents
+-------------------
+A brief schematic of relevant portions of the project contents is given below. 
+Please note this is not an exhaustive list. 
+
+    cycle-monitor   
+         ├── .pysysproject            PySys project configuration
+         ├──  build.xml               Top level build for running the application
+         ├──  build.properties        Parameterisation of the application
+         ├──  config/                 Adapter configuration and initialisation
+         ├──  java/                   Adapter and UI source and build
+         │     ├── build.xml            Ant build file
+         │     ├── lib                  Dependent libraries
+         │     └── src                  Java source
+         ├──  monitors/               Apama EPL for the application
+         ├──  python/                 Python utilities and base test
+         ├──  store/                  Sqlite DB if not using a RDBMS
+         └──  test/                   Testcases, data and utilities
+       
+
+4.Building the Application
 --------------------------
 
-4.Running the Application
+5.Running the Application
 --------------------------
 
-5.Running the tests
+6.Running the tests
 -------------------
