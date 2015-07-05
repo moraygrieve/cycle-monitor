@@ -75,9 +75,40 @@ Please note this is not an exhaustive list.
 
 4.Building the Application
 --------------------------
+To build the adapter for polling the CityBikes API, in an Apama command prompt, 
+navigate to the java directory in the project root and run the below command;
 
+  $ ant jar 
+
+For building (and running) the UI, a JRE7 should be used to avoid inter-operability 
+issues between JavaFX and the GoogleMaps API. For more detail on setting the project 
+JRE in Eclipse, see http://help.eclipse.org. 
+
+  
 5.Running the Application
 --------------------------
+Prior to running the application, you should determine whether you want to run 
+with configuration data store in an external RDBMS, e.g. MySQL, or whether you 
+want to use the sqlite DB supplied. If the former, the schema and content should 
+be created in the RDBMS - see the test/utils/scripts directory which contain 
+some example SQL. The build.properties file in the project root directory is 
+currently configured for MySQL, though also contains the required properties to 
+run against the supplied sqlite DB. You should edit these properties for the 
+RDMBS of choice. 
+
+To run up the application, in the project root directory run the below command;
+
+  $ ant start 
+
+For a full list of available commands, run the usage task using the below command;
+
+  $ ant usage
+  
+To run the UI, in Eclipse select the Main.java class in the java/src/com/jtech/ui
+folder, right click, and select "Run As -> Java Application". Should errors be 
+reported in the Eclipse console, perform a "Project -> Clean" from the main menu 
+and repeat. In a later release the UI will be put into a separate project and 
+Maven'ised for better build and launch. 
 
 6.Running the tests
 -------------------
