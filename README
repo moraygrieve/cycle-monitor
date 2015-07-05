@@ -1,0 +1,55 @@
+Cycle Monitor Example Apama Application, v1.0 (July 2015)
+=========================================================
+
+1.Introduction
+--------------
+The Cyle Monitor application is an example application built using the Software AG
+Apama product. It is intended to exemplify a typical Apama application, in a very 
+simplified manner. It is licensed under the GNU General Public Licence and as such 
+is distributed in the hope that it will be useful, but without any warranty, without 
+even the implied warranty of merchantability or fitness for a particular purpose.
+
+
+2.Dependencies
+--------------
+The following dependencies are required to build and run the example application;
+
+Apama: 
+The application was built using Software AG Apama, version 5.3. The application
+should run on earlier versions of the platform, although please note that PySys
+is only shipped with Apama versions 5.1 and later. For more details on Apama see
+https://www.softwareag.com/corporate/products/az/apama/default.asp.
+
+PySys: 
+PySys is used to demonstrate testing of the application, and is included in the 
+Apama distribution post Apama 5.1. Should you have an earlier version of Apama, 
+PySys and it's dependencies are detailed on the SourceForge website. For more 
+information see http://sourceforge.net/projects/pysys/files/pysys/0.9.2.
+
+Jython:
+JyThon 2.7.0 is used to script usage of the Apama Engine Client libraries, in 
+particular the scenario service to log changes in dataview instances. This is a 
+common approach used where Java libraries are wrapped and scripted within testing. 
+Jython should be installed on the local machine, and its location referenced in the 
+.pysysproject file. For more details see http://www.jython.org/downloads.html. 
+
+Sqlite:
+Sqlite 3.8.10 is used in the testing of the application to create local database 
+tables that can be populated within the confines of each test. Sqlite can also be
+used as the main database instance to use, should you not have other RDBMS systems
+available. For more details see https://sqlite.org/download.html.
+
+MySQL Community Server:
+MySQL 5.6 is used as the RDBMS to store configuration data for the application, 
+although this is an optional dependency as any RDBMS can be used via the Apama 
+ADBC adapter. For more information see http://dev.mysql.com/downloads.
+
+
+3.Building the Application
+--------------------------
+
+4.Running the Application
+--------------------------
+
+5.Running the tests
+-------------------
