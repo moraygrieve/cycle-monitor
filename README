@@ -3,12 +3,20 @@ Cycle Monitor Example Apama Application, v1.0 (July 2015)
 
 1.Introduction
 --------------
-The Cyle Monitor application is an example application built using the Software AG
-Apama product. It is intended to exemplify a typical Apama application, in a very 
-simplified manner. It is licensed under the GNU General Public Licence and as such 
-is distributed in the hope that it will be useful, but without any warranty, without 
+Cycle Monitor is an example application built using the Software AG Apama product. 
+It is intended to exemplify a typical Apama application, in a very simplified 
+manner. It is licensed under the GNU General Public Licence and as such is 
+distributed in the hope that it will be useful, but without any warranty, without 
 even the implied warranty of merchantability or fitness for a particular purpose.
 
+The application domain is travel logistics, in particular cycle hire schemes, 
+e.g. Santander Cycles London https://tfl.gov.uk/modes/cycling/santander-cycles. It 
+presents an analytics framework to alert on the status of cycle docking stations, 
+such as when the number of available cycles in a station falls below or rises above
+a configured threshold, or when the rate of change of available cycles exceeds a 
+configured threshold. It makes use of the CityBikes API available to the public 
+at http://api.citybik.es.
+ 
 
 2.Dependencies
 --------------
