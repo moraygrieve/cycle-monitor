@@ -96,11 +96,13 @@ currently configured for MySQL, though also contains the required properties to
 run against the supplied sqlite DB. You should edit these properties for the 
 RDMBS of choice. 
 
-To run up the application, in the project root directory run the below command;
+To run up the application, in an Apama command prompt, in the project root 
+directory run the below command;
 
   $ ant start 
 
-For a full list of available commands, run the usage task using the below command;
+For a full list of available commands, run the usage task using the below 
+command;
 
   $ ant usage
   
