@@ -4,7 +4,7 @@ Cycle Monitor Example Apama Application, v1.0 (July 2015)
 1.Introduction
 --------------
 Cycle Monitor is an example application built using the Software AG Apama product. 
-It is intended to exemplify a typical Apama application, in a very simplified 
+It is intended to exemplify a typical Apama project setup, in a very simplified 
 manner. It is licensed under the GNU General Public Licence and as such is 
 distributed in the hope that it will be useful, but without any warranty, without 
 even the implied warranty of merchantability or fitness for a particular purpose.
