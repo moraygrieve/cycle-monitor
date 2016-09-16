@@ -1,4 +1,4 @@
-Cycle Monitor Example Apama Application, v1.0 (July 2015)
+Cycle Monitor Example Apama Application, v1.1 (Sept 2016)
 =========================================================
 
 1.Introduction
@@ -23,7 +23,7 @@ at http://api.citybik.es.
 The following dependencies are required to build and run the example application;
 
 Apama: 
-The application was built using Software AG Apama, version 5.3. The application
+The application was built using Software AG Apama, version 9.10. The application
 should run on earlier versions of the platform, although please note that PySys
 is only shipped with Apama versions 5.1 and later. For more details on Apama see
 https://www.softwareag.com/corporate/products/az/apama/default.asp.
@@ -141,3 +141,11 @@ As such all utilities in this location should automatically be located when runn
 the tests. To run the tests, in any location within the project root directory, run
 the pysys launcher to print, run, or clean the testcases. For more information on 
 PySys, see http://www.slideshare.net/MorayGrieve/pysys-testframework. 
+
+
+7.Release History
+-----------------
+
+1.0 to 1.1 (Sept 2016):
+  - Updated the application to run against Apama 9.10 Community Edition
+  - Updated the city bikes adapter to run as a connectivity plugin

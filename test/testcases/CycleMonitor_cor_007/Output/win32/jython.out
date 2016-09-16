@@ -1,0 +1,13 @@
+2016-09-16 10:04:33,905 INFO  [MainThread] - Log4JLogger.initLoggingSystem() - Created a ConsoleAppender.
+2016-09-16 10:04:33,921 INFO  [MainThread] - Log4JLogger.initLoggingSystem() - Configured logging based on APAMA_LOG system properties.
+2016-09-16 10:04:33,921 INFO  [MainThread] - Log4JLogger.initLoggingSystem() - Default log level will be: WARN
+Press any key to stop ...Discovery is complete
+Scenario definition DV_StationAlert is loaded
+ADDED:    id=2, type=UPPER_BOUNDARY
+UPDATED:  id=2, type=UPPER_BOUNDARY
+ADDED:    id=2, type=RATE_THRESHOLD
+UPDATED:  id=2, type=RATE_THRESHOLD
+REMOVED:  id=2, type=UPPER_BOUNDARY
+2016-09-16 10:04:47,406 ERROR [Apama messaging connection pool-1-thread-6 - HandleRequest: id=16, name= disconnectSender] - EngineClientBean$Consumer$ConsumerEventConsumer.disconnect() - (uniqueName: "EventService1.channel1") Disconnected by the engine: Other party requested disconnection
+2016-09-16 10:04:47,421 ERROR [Apama messaging connection pool-1-thread-6 - HandleRequest: id=16, name= disconnectSender] - EngineClientBean$Consumer$ConsumerEventConsumer.disconnect() - (uniqueName: "EventService1.channel4") Disconnected by the engine: Other party requested disconnection
+2016-09-16 10:04:47,421 ERROR [Apama messaging connection pool-1-thread-6 - HandleRequest: id=16, name= disconnectSender] - EngineClientBean$Consumer$ConsumerEventConsumer.disconnect() - (uniqueName: "EventService1.channel3") Disconnected by the engine: Other party requested disconnection

@@ -1,4 +1,4 @@
-// Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+// Cycle Monitor, Copyright (C) 2016  M.B.Grieve
 // This file is part of the Cycle Monitor example application.
 //
 // Cycle Monitor is free software: you can redistribute it and/or modify
@@ -18,17 +18,17 @@
 
 package com.jtech.ui;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.jtech.ui.model.StationAlertTable;
 import com.jtech.ui.scenario.ScenarioService;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class Main extends Application {
 	private static final Logger logger = LogManager.getLogger("Application");

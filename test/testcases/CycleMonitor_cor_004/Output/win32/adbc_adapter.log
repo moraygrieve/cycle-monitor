@@ -1,0 +1,89 @@
+2016-09-16 10:03:31.171 ERROR [5632] - libXML error: XPointer evaluation failed: #xpointer(//event)
+
+2016-09-16 10:03:31.171 ERROR [5632] - Error processing inclusions
+2016-09-16 10:03:31.187 ##### [5632] - Log moving to adbc_adapter.log
+2016-09-16 10:03:31.874 INFO  [5632] - Adding transport ADBC-JDBC
+2016-09-16 10:03:31.874 INFO  [5632] - Loading library ADBC-JDBC
+2016-09-16 10:03:31.874 ##### [5632] - ADBC Transport v9.10.0.3.284318 (build rel/9.10.0.x@284318 on amd64-win)
+2016-09-16 10:03:31.874 INFO  [5632] - Listening on the com.apama.adbc channel (for discovery only)
+2016-09-16 10:03:31.874 INFO  [5632] - Listening on the com.apama.adbc.JDBC channel (datasource ServiceId)
+2016-09-16 10:03:31.874 ##### [5632] - ADBC Java data source framework v9.10.0.3.284318 (build rel/9.10.0.x@284318 on amd64-win)
+2016-09-16 10:03:31.874 INFO  [5632] - Starting JVM with options:
+2016-09-16 10:03:31.874 INFO  [5632] -   -Djava.class.path=C:\SoftwareAG\Apama/adapters/lib/ADBCDataSource.jar;C:\SoftwareAG\Apama/lib/ap-iaf-extension-api.jar;C:\Users\moray\Development\cycle-monitor/java/lib/sqlite-jdbc-3.7.2.jar
+2016-09-16 10:03:31.874 INFO  [5632] -   -DAPAMA_LOG_IMPL=com.apama.iaf.plugin.internal.IAFLoggerImpl
+2016-09-16 10:03:31.874 INFO  [5632] -   -Xrs
+2016-09-16 10:03:32.975 ##### [5632] - Java virtual machine created - Java HotSpot(TM) 64-Bit Server VM 1.8.0_71-b15.
+2016-09-16 10:03:32.975 INFO  [5632] - Setting JVM system properties:
+2016-09-16 10:03:33.100 ##### [5632] - Java maximum heap size = 742 MB
+2016-09-16 10:03:33.100 ##### [5632] - JPlugin framework ready
+2016-09-16 10:03:33.147 ##### [5632] - JDBCDataSource: ADBC JDBCDataSource v9.10.0.3.284318 (build rel/9.10.0.x@284318)
+2016-09-16 10:03:33.147 INFO  [5632] - JDBCDataSource: Property 'Driver' using value org.sqlite.JDBC
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'StoreBatchSize' using default value 100
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'ColumnNameCase' using default value lower
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'NumericSeparatorLocale' using default value 
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'AutoCommit' using default value false
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'CloseDatabaseIfDisconnected' using default value false
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'StoreCommitInterval' using default value 0.0
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'TransactionIsolationLevel' using default value Default
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'AlternateDiscoveryQuery' using default value 
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'InputQueueSize' using default value 20000
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'OutputQueueSize' using default value 20000
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'FlowControlHighWater' using default value 15000
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'FlowControlLowWater' using default value 6000
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'LogOutboundEvents' using default value false
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'LogInboundEvents' using default value false
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'LogCommands' using default value true
+2016-09-16 10:03:33.147 INFO  [5632] - Property 'LogQueries' using default value true
+2016-09-16 10:03:33.147 INFO  [5632] - Query and Command threadpools using 4 threads
+2016-09-16 10:03:33.147 INFO  [5632] - Adding codec NullCodec
+2016-09-16 10:03:33.147 INFO  [5632] - Loading library NullCodec
+2016-09-16 10:03:33.162 INFO  [5632] - NullCodec: Updating properties
+2016-09-16 10:03:33.162 INFO  [5632] - IAF will make a maximum of 1 connections to each <sink>
+2016-09-16 10:03:33.162 INFO  [5632] - IAF connecting to receiver on localhost:51738
+2016-09-16 10:03:34.444 INFO  [5632] - IAF connected to receiver correlator (on port 51738) at 127.0.0.1:51738, on localhost:51738
+2016-09-16 10:03:34.444 INFO  [5632] - IAF connecting to sender on localhost:51738
+2016-09-16 10:03:34.491 INFO  [5632] - IAF connected to sender correlator (on port 51738) at 127.0.0.1:51738, on localhost:51738
+2016-09-16 10:03:34.491 ##### [5632] - Choosing default output queue interval of 10 because there is only one CPU
+2016-09-16 10:03:34.491 INFO  [5632] - Will log queue size every 5.000000 seconds
+2016-09-16 10:03:34.491 INFO  [5632] - Server socket opened listening on 0.0.0.0:40628
+2016-09-16 10:03:34.491 INFO  [5632] - Component ID: iaf (iaf/6330853146874118478/6330853146874118478)
+2016-09-16 10:03:34.491 INFO  [5632] - IAF running on port 40628
+2016-09-16 10:03:34.491 ##### [5632] - IAF v9.10.0.3.284318 (build rel/9.10.0.x@284318 on amd64-win) started
+2016-09-16 10:03:34.491 ##### [5632] - Running as user 'moray'
+2016-09-16 10:03:34.491 ##### [5632] - Running on host 'WIN-0RKCERDGPP2'
+2016-09-16 10:03:34.491 ##### [5632] - Running on platform 'Windows 8'.
+2016-09-16 10:03:34.491 ##### [5632] - Running on CPU 'GenuineIntel family 6 model 5 stepping 1 Intel(R) Core(TM) i5-4278U CPU @ 2.60GHz'.
+2016-09-16 10:03:34.491 ##### [5632] - Running with process Id 4248.
+2016-09-16 10:03:34.491 ##### [5632] - Running with 3071.49MB of physical memory.
+2016-09-16 10:03:34.616 INFO  [5392] - UpstreamDispatcher thread started
+2016-09-16 10:03:34.616 INFO  [3024] - DownstreamSerializer_1 thread started
+2016-09-16 10:03:34.616 INFO  [5012] - DownstreamSerializer_2 thread started
+2016-09-16 10:03:34.631 INFO  [3220] - Timer thread started
+2016-09-16 10:03:34.631 INFO  [4508] - Database closer thread started
+2016-09-16 10:03:35.475 WARN  [3128] - More threads are sending events than the IAF's limit on parallel connections. The IAF will use one connection for multiple threads.  Adjust parallelConnectionLimit if more parallelism is needed
+2016-09-16 10:03:36.537 INFO  [5392] - Connection 1474016613147000 - SQLite (3.7.2)
+2016-09-16 10:03:36.537 INFO  [4644] - Query (3) started.
+2016-09-16 10:03:36.553 INFO  [4644] - Query (3) completed.
+2016-09-16 10:03:36.553 INFO  [4644] - Query (4) started.
+2016-09-16 10:03:36.553 INFO  [4644] - Query (4) completed.
+2016-09-16 10:03:36.553 INFO  [4112] - Store thread started (1474016613147000)
+2016-09-16 10:03:36.553 INFO  [4112] - Store thread stopped (1474016613147000)
+2016-09-16 10:03:36.631 INFO  [5392] - Connection 1474016613147000 closed
+2016-09-16 10:03:37.084 ##### [4552] - Shutting down iaf in response to client (127.0.0.1:52899) request: Shutdown requested by test
+2016-09-16 10:03:37.084 INFO  [5392] - UpstreamDispatcher thread stopped
+2016-09-16 10:03:37.084 INFO  [3024] - DownstreamSerializer_1 thread stopped
+2016-09-16 10:03:37.084 INFO  [5012] - DownstreamSerializer_2 thread stopped
+2016-09-16 10:03:37.148 INFO  [3220] - Timer thread stopped
+2016-09-16 10:03:37.679 INFO  [4508] - Database closer thread stopped
+2016-09-16 10:03:37.695 INFO  [5632] - IAF disconnecting from sender on :0
+2016-09-16 10:03:37.695 INFO  [5632] - IAF disconnected from sender on :0
+2016-09-16 10:03:37.695 INFO  [5632] - IAF disconnecting from sender on localhost:51738
+2016-09-16 10:03:37.695 INFO  [5632] - IAF disconnected from sender on localhost:51738
+2016-09-16 10:03:37.695 INFO  [5632] - IAF disconnecting from receiver on localhost:51738
+2016-09-16 10:03:37.695 INFO  [5632] - IAF disconnected from receiver on localhost:51738
+2016-09-16 10:03:47.711 INFO  [5632] - Removing transport ADBC-JDBC
+2016-09-16 10:03:47.711 INFO  [5632] - Unloading library ADBC-JDBC
+2016-09-16 10:03:47.711 INFO  [5632] - Removing codec NullCodec
+2016-09-16 10:03:47.711 INFO  [5632] - Unloading library NullCodec
+2016-09-16 10:03:47.711 ##### [5632] - IAF v9.10.0.3.284318 (build rel/9.10.0.x@284318 on amd64-win) shutting down
+2016-09-16 10:03:47.711 INFO  [5632] - IAF shutdown is complete

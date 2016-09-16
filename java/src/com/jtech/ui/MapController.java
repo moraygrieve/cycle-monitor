@@ -1,4 +1,4 @@
-// Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+// Cycle Monitor, Copyright (C) 2016  M.B.Grieve
 // This file is part of the Cycle Monitor example application.
 //
 // Cycle Monitor is free software: you can redistribute it and/or modify
@@ -22,6 +22,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.jtech.ui.model.StationAlertEntry;
+import com.jtech.ui.model.StationAlertTable;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -30,9 +33,6 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
-
-import com.jtech.ui.model.StationAlertEntry;
-import com.jtech.ui.model.StationAlertTable;
 
 public class MapController {
 	private final WebEngine webEngine;

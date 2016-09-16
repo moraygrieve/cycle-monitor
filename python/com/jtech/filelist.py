@@ -1,4 +1,4 @@
-# Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+# Cycle Monitor, Copyright (C) 2016  M.B.Grieve
 # This file is part of the Cycle Monitor example application.
 #
 # Cycle Monitor is free software: you can redistribute it and/or modify

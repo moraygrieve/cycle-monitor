@@ -1,4 +1,4 @@
-// Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+// Cycle Monitor, Copyright (C) 2016  M.B.Grieve
 // This file is part of the Cycle Monitor example application.
 //
 // Cycle Monitor is free software: you can redistribute it and/or modify
@@ -18,6 +18,15 @@
 
 package com.jtech.ui.scenario;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.apama.EngineException;
 import com.apama.event.Event;
 import com.apama.services.event.IEventService;
@@ -25,14 +34,6 @@ import com.apama.services.scenario.DiscoveryStatusEnum;
 import com.apama.services.scenario.IScenarioService;
 import com.apama.services.scenario.ScenarioServiceFactory;
 import com.apama.services.scenario.internal.ScenarioDefinition;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ScenarioService {
     private static final Logger logger = LogManager.getLogger("ScenarioService");

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+ Cycle Monitor, Copyright (C) 2016  M.B.Grieve
  This file is part of the Cycle Monitor example application.
 
  Cycle Monitor is free software: you can redistribute it and/or modify
@@ -21,22 +21,22 @@
 -->
 <project name="Cycle Monitor application build file" default="usage" basedir=".">
 
-	<!-- import the apama macros, this will also set some standard properties -->
-	<import file="apama-macros.xml" />
-
 	<!-- get a reference to the environemnt, and import default properties -->
 	<property environment="env" />
 	<property file="build.properties" />
 
+	<!-- import the apama ant macros -->
+	<import file="${env.APAMA_HOME}/etc/apama-macros.xml" />
+
 	<!-- import the filelist for correlator injection -->
 	<import file="build-filelists.xml" />
 
-	<!-- initialise, including file tailoring into the build directory -->
 	<target name="init">
-		<init/>
+		<init />
 		<tstamp />
 		<mkdir dir="${log.dir}" />
 	</target>
+
 
 	<!-- top level start and stop tasks -->
 	<target name="start" depends="init, adapters, correlator" >
@@ -51,21 +51,27 @@
 
 	<!-- correlator start, stop and load tasks -->
 	<target name="start-correlator">
-		<start-correlator port="${correlator.port}" console="false" java="true"
+		<start-correlator port="${correlator.port}" connectivityConfig="build/connectors.yaml" 
+			console="false" java="true"
 			log="${log.dir}${file.separator}correlator.log"  
 			inputLog="${log.dir}${file.separator}correlator-input.log"  extraArgs="-g"/>
-		<set-application-log-file  port="${correlator.port}" 
-			package="com.jtech" filename="${log.dir}${file.separator}application.log" 
-		/>
+		<engine-management>
+			<arg line="--setApplicationLogLevel com.apama.dataview=WARN"/>
+		</engine-management>
+		<engine-management>
+			<arg line="--setApplicationLogFile com.jtech=${log.dir}${file.separator}application.log"/>
+		</engine-management>
 	</target>
 
 	<target name="inject-correlator" >
-		<engine-inject-filelistid filelistid="apama.scenarios" />
-		<engine-inject-filelistid filelistid="apama.adbc" />
-		<engine-inject-filelistid filelistid="utils" />
-		<engine-inject-filelistid filelistid="configuration" />
-		<engine-inject-filelistid filelistid="source" />
-		<engine-inject-filelistid filelistid="strategy" />
+		<engine-inject>
+			<filelist refid="apama.scenarios"/>
+			<filelist refid="apama.adbc"/>
+			<filelist refid="utils"/>
+			<filelist refid="configuration"/>
+			<filelist refid="source"/>
+			<filelist refid="strategy"/>
+		</engine-inject>
 	</target>
 
 	<target name="stop-correlator">
@@ -74,12 +80,10 @@
 
 	<!-- adapters start and stop -->
 	<target name="start-adapters">
-		<start-iaf port="${adapter.city-bikes.port}" config="build/city-bikes.xml" log="${log.dir}${file.separator}city-bikes.log" console="false"/>
 		<start-iaf port="${adapter.adbc.port}" config="build/adbc.xml" log="${log.dir}${file.separator}city-bikes-adbc.log" console="false"/>
 	</target>
 
 	<target name="stop-adapters">
-		<kill-iaf port="${adapter.city-bikes.port}" failonerror="false"/>
 		<kill-iaf port="${adapter.adbc.port}" failonerror="false"/>
 	</target>
 
@@ -87,11 +91,11 @@
 	<target name="clear-alerts">
 		<engine-send literal="com.jtech.alert.RemoveAlerts()" port="${correlator.port}"/>
 	</target>
-	
+
 	<target name="clear-alert">
 		<engine-send literal="com.jtech.alert.RemoveAlert(&quot;${city}&quot;,${id},&quot;${type}&quot;)" port="${correlator.port}"/>
 	</target>
-			
+
 	<!-- clean tasks -->
 	<target name="clean">
 		<delete dir="${build.dir}" />
@@ -100,7 +104,7 @@
 			<fileset dir="${log.dir}" includes="**/*" />
 		</delete>
 	</target>
-	
+
 	<target name="usage">
 		<echo message="Usage: ant [ target ]"/>
 		<echo message="Were targets are:"/>

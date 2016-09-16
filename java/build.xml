@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+ Cycle Monitor, Copyright (C) 2016  M.B.Grieve
  This file is part of the Cycle Monitor example application.
 
  Cycle Monitor is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 -->
 <project name="City bikes transport" default="jar" basedir=".">
 	<property environment="env"/>
-	<property name="jar-file"      value="${basedir}/lib/city-bikes-adapter.jar"/>
+	<property name="jar-file"      value="${basedir}/lib/city-bikes-connector.jar"/>
 	<property name="lib-dir"       value="./lib"/>
 	<property name="apama-home"    value="${env.APAMA_HOME}"/>
 	<property name="apama-lib-dir" value="${apama-home}/lib"/>
@@ -37,13 +37,12 @@
 	</patternset>
 
 	<patternset id="apama-libs">
-		<include name="jplugin_public${apama-version}.jar"/>
-		<include name="util${apama-version}.jar"/>
-		<include name="engine_client${apama-version}.jar"/>
+		<include name="connectivity-plugins-api.jar" />
+		<include name="ap-client.jar"/>
 	</patternset>
 
 	<patternset id="jar-contents">
-		<include name="**/iaf/*.class" />
+		<include name="**/plugin/*.class" />
 	</patternset>
 
 	<target name="compile">

@@ -1,4 +1,4 @@
-//Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+//Cycle Monitor, Copyright (C) 2016  M.B.Grieve
 //This file is part of the Cycle Monitor example application.
 
 //Cycle Monitor is free software: you can redistribute it and/or modify
@@ -18,6 +18,7 @@
 
 package com.jtech.source;
 using com.jtech.config.DBLoaded;
+using com.softwareag.connectivity.ConnectivityPlugins;
 
 monitor StationManager {
 
@@ -25,6 +26,12 @@ monitor StationManager {
 		log "Station manager loaded" at INFO;
 
 		// start the adapter when db is loaded
-		on DBLoaded() { emit Start() to "CITY-BIKES"; }
+		on DBLoaded() { 
+			log "The application is ready to initialise connectivity plugins";
+			(new ConnectivityPlugins).onApplicationInitialized();
+			
+			log "Requesting city bikes connector to start";
+			emit Start() to "CITY-BIKES";
+		}
 	}
 }

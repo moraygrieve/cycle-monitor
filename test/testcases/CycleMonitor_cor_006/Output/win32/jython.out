@@ -1,0 +1,12 @@
+2016-09-16 10:04:13,930 INFO  [MainThread] - Log4JLogger.initLoggingSystem() - Created a ConsoleAppender.
+2016-09-16 10:04:13,946 INFO  [MainThread] - Log4JLogger.initLoggingSystem() - Configured logging based on APAMA_LOG system properties.
+2016-09-16 10:04:13,946 INFO  [MainThread] - Log4JLogger.initLoggingSystem() - Default log level will be: WARN
+Press any key to stop ...2016-09-16 10:04:14,508 WARN  [Apama.ScenarioService.DiscoveryThread_1] - ScenarioService.handleReconnection() - Not sending initial Scenario Service com.apama.scenario.RequestScenarios event, because the event type is not loaded yet
+Discovery is complete
+Scenario definition DV_StationAlert is loaded
+ADDED:    id=1, ratio=0.6666, message=Change of 0.13 exceeds limit .1
+UPDATED:  id=1, ratio=0.6666, message=Change of 0.13 exceeds limit .1
+REMOVED:  id=1, ratio=0.6666, message=Change of 0.13 exceeds limit .1
+2016-09-16 10:04:28,743 ERROR [Apama messaging connection pool-1-thread-5 - HandleRequest: id=16, name= disconnectSender] - EngineClientBean$Consumer$ConsumerEventConsumer.disconnect() - (uniqueName: "EventService1.channel1") Disconnected by the engine: Other party requested disconnection
+2016-09-16 10:04:28,743 ERROR [Apama messaging connection pool-1-thread-5 - HandleRequest: id=16, name= disconnectSender] - EngineClientBean$Consumer$ConsumerEventConsumer.disconnect() - (uniqueName: "EventService1.channel3") Disconnected by the engine: Other party requested disconnection
+2016-09-16 10:04:28,743 ERROR [Apama messaging connection pool-1-thread-5 - HandleRequest: id=16, name= disconnectSender] - EngineClientBean$Consumer$ConsumerEventConsumer.disconnect() - (uniqueName: "EventService1.channel4") Disconnected by the engine: Other party requested disconnection

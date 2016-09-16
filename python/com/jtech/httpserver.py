@@ -1,4 +1,4 @@
-# Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+# Cycle Monitor, Copyright (C) 2016  M.B.Grieve
 # This file is part of the Cycle Monitor example application.
 #
 # Cycle Monitor is free software: you can redistribute it and/or modify
@@ -46,6 +46,7 @@ class RequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         return path
 
 if __name__=="__main__":
+	print "Initiating HTTP server"
 	global ROUTES
 	ROUTES=(['',sys.argv[1]],)
 	port = int(sys.argv[2])

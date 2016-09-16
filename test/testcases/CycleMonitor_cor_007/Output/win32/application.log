@@ -1,0 +1,27 @@
+2016-09-16 10:04:35.969 INFO  [5944] - com.jtech.source.StationManager [11] Station manager loaded
+2016-09-16 10:04:36.124 INFO  [5944] - com.jtech.alert.AlertManager [12] Alert manager loaded
+2016-09-16 10:04:36.360 CRIT  [5944] - com.jtech.config.DBManager [10] Starting loading for connection with parameters; 
+2016-09-16 10:04:36.360 INFO  [5944] - com.jtech.config.DBManager [10]   databaseURL: jdbc:sqlite:C:\Users\moray\Development\cycle-monitor\test\testcases\CycleMonitor_cor_007\Output\win32\store.db
+2016-09-16 10:04:36.360 INFO  [5944] - com.jtech.config.DBManager [10]   user: 
+2016-09-16 10:04:36.360 INFO  [5944] - com.jtech.config.DBManager [10]   password: 
+2016-09-16 10:04:36.360 INFO  [5944] - com.jtech.config.DBManager [10] Performing query for rate alert details; 
+2016-09-16 10:04:36.360 INFO  [5944] - com.jtech.config.DBManager [10] Performing query for boundary alert details; 
+2016-09-16 10:04:36.562 INFO  [5944] - com.jtech.config.DBManager [10] Query complete, rate alerts are; 
+2016-09-16 10:04:36.562 INFO  [5944] - com.jtech.config.DBManager [10]   Rate alert: London | 2 | .1 | 300
+2016-09-16 10:04:36.562 INFO  [5944] - com.jtech.config.DBManager [10] Query complete, boundary alerts are; 
+2016-09-16 10:04:36.562 INFO  [5944] - com.jtech.config.DBManager [10]   Upper Boundary alert: London | 2 | .78 | true
+2016-09-16 10:04:36.562 CRIT  [5944] - com.jtech.config.DBManager [10] Database is loaded, creating strategies
+2016-09-16 10:04:36.562 CRIT  [5944] - com.jtech.alert.AlertManager [12] [London.2.UPPER_BOUNDARY] Created strategy instance
+2016-09-16 10:04:36.562 CRIT  [5944] - com.jtech.alert.AlertManager [12] [London.2.RATE_THRESHOLD] Created strategy instance
+2016-09-16 10:04:36.562 CRIT  [5944] - com.jtech.source.StationManager [11] The application is ready to initialise connectivity plugins
+2016-09-16 10:04:36.562 CRIT  [5944] - com.jtech.source.StationManager [11] Requesting city bikes connector to start
+2016-09-16 10:04:37.000 DEBUG [5404] - com.jtech.alert.AlertManager [12] [London.2.UPPER_BOUNDARY] Ratio.6333
+2016-09-16 10:04:37.000 DEBUG [5404] - com.jtech.alert.AlertManager [12] [London.2.UPPER_BOUNDARY] Ratio.7333
+2016-09-16 10:04:37.000 DEBUG [5404] - com.jtech.alert.AlertManager [12] [London.2.RATE_THRESHOLD] Change=0.100,first=.6333,last=.7333
+2016-09-16 10:04:37.000 DEBUG [5404] - com.jtech.alert.AlertManager [12] [London.2.UPPER_BOUNDARY] Ratio.8
+2016-09-16 10:04:37.000 CRIT  [5404] - com.jtech.alert.AlertManager [12] [London.2.UPPER_BOUNDARY] Ratio of 0.80 exceeds limit .78, adding alert to strategy
+2016-09-16 10:04:37.000 DEBUG [5404] - com.jtech.alert.AlertManager [12] [London.2.RATE_THRESHOLD] Change=0.167,first=.6333,last=.8
+2016-09-16 10:04:37.000 CRIT  [5404] - com.jtech.alert.AlertManager [12] [London.2.RATE_THRESHOLD] Change of 0.17 exceeds limit .1, adding alert to strategy
+2016-09-16 10:04:37.000 DEBUG [5404] - com.jtech.alert.AlertManager [12] [London.2.UPPER_BOUNDARY] Ratio.7666
+2016-09-16 10:04:37.000 CRIT  [5404] - com.jtech.alert.AlertManager [12] [London.2.UPPER_BOUNDARY] Removing alert from strategy
+2016-09-16 10:04:37.000 DEBUG [5404] - com.jtech.alert.AlertManager [12] [London.2.RATE_THRESHOLD] Change=0.133,first=.6333,last=.7666

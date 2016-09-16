@@ -1,0 +1,356 @@
+2016-09-16 10:04:28.868 ##### [2920] - Correlator, version 9.10.0.3.284318 (build rel/9.10.0.x@284318 on amd64-win), started.
+2016-09-16 10:04:28.868 ##### [2920] - Running on host 'WIN-0RKCERDGPP2'.
+2016-09-16 10:04:28.868 ##### [2920] - Running on platform 'Windows 8'.
+2016-09-16 10:04:28.868 ##### [2920] - Running on CPU 'GenuineIntel family 6 model 5 stepping 1 Intel(R) Core(TM) i5-4278U CPU @ 2.60GHz'.
+2016-09-16 10:04:28.868 ##### [2920] - Running with process Id 352.
+2016-09-16 10:04:28.868 ##### [2920] - Running with 3071.49MB of physical memory.
+2016-09-16 10:04:28.868 ##### [2920] - There are 1 CPU(s)
+2016-09-16 10:04:28.868 ##### [2920] - Correlator command line: C:\SoftwareAG\Apama\bin\correlator -p 19239 -f correlator.log --inputLog C:\Users\moray\Development\cycle-monitor\test\testcases\CycleMonitor_cor_007\Output\win32\correlator-input.log -Xclock
+2016-09-16 10:04:28.868 ##### [2920] - Current Working Directory: C:\Users\moray\Development\cycle-monitor\test\testcases\CycleMonitor_cor_007\Output\win32
+2016-09-16 10:04:28.868 ##### [2920] - Current UTC time: 2016-09-16 09:04:28, local timezone: GMT Summer Time
+2016-09-16 10:04:28.868 ##### [2920] - Input value - port                     = 19239
+2016-09-16 10:04:28.868 ##### [2920] - Input value - output queue size        = 10000
+2016-09-16 10:04:28.868 ##### [2920] - Input value - output queue batch size  = 100
+2016-09-16 10:04:28.868 ##### [2920] - Input value - output queue mode        = blocking
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_HOME=C:\SoftwareAG\Apama
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_LIBRARY_VERSION=9.10
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_ENVSET=9.10:C:\SoftwareAG\Apama:amd64-win
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_CORRELATOR_HOME=C:\SoftwareAG\Apama
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_WORK=C:\Users\Public\SoftwareAG\ApamaWork_9.10
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_JRE=C:\SoftwareAG\jvm\jvm\jre
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_PLATFORM=amd64-win
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_MANAGEMENT_HOME=C:\SoftwareAG\Apama
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_COMMON_JRE=C:\SoftwareAG\jvm\jvm\jre
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_DEV_HOME=C:\SoftwareAG\Apama
+2016-09-16 10:04:28.868 ##### [2920] - Input value - environment variable     = APAMA_DASHBOARD_HOME=C:\SoftwareAG\Apama
+2016-09-16 10:04:28.868 ##### [2920] - Using memory allocator                 = TBB scalable allocator
+2016-09-16 10:04:28.868 CRIT  [2920] - *************************************************************************
+2016-09-16 10:04:28.868 CRIT  [2920] - License file not present at C:\Users\Public\SoftwareAG\ApamaWork_9.10/license/ApamaServerLicense.xml
+2016-09-16 10:04:28.868 CRIT  [2920] - * Without a license file the correlator has the following restrictions:
+2016-09-16 10:04:28.868 CRIT  [2920] - * 1024MB memory, 4 threads, 5 persistent EPL monitors, 20 contexts,
+2016-09-16 10:04:28.868 CRIT  [2920] - * 5 query definitions with 5 instances of each, 50 query partitions, non-reliable JMS connections, 
+2016-09-16 10:04:28.868 CRIT  [2920] - * no distributed memory store, and no Correlator Deployment Packages.
+2016-09-16 10:04:28.868 CRIT  [2920] - * Refer to the Apama license agreement and user documentation topic "Running Apama without
+2016-09-16 10:04:28.868 CRIT  [2920] - * a license file" for further information on the restrictions. 
+2016-09-16 10:04:28.868 CRIT  [2920] - * The correlator may stop without warning if the memory limit is breached.
+2016-09-16 10:04:28.868 CRIT  [2920] - * If using Java features, you may need to use -J-Xmx256M to limit the JVM's memory usage.
+2016-09-16 10:04:28.868 CRIT  [2920] - *************************************************************************
+2016-09-16 10:04:28.868 ##### [2920] - Input value - per receiver queue size  = 10 s
+2016-09-16 10:04:28.868 ##### [2920] - Input value - per receiver queue size  = 10240 kb
+2016-09-16 10:04:28.868 ##### [2920] - Input value - input queue size         = 20000
+2016-09-16 10:04:28.868 ##### [2920] - Java application support               = disabled
+2016-09-16 10:04:28.868 ##### [2920] - External clocking                      = enabled
+2016-09-16 10:04:28.868 ##### [2920] - Input value - logfile                  = correlator.log
+2016-09-16 10:04:28.868 ##### [2920] - Input value - loglevel                 = INFO
+2016-09-16 10:04:28.868 ##### [2920] - Input value - inputLog                = C:\Users\moray\Development\cycle-monitor\test\testcases\CycleMonitor_cor_007\Output\win32\correlator-input.log
+2016-09-16 10:04:28.868 ##### [2920] - Compiler optimizations                 = enabled - the debugger cannot be used; specify command line option "-g" to use it.
+2016-09-16 10:04:28.868 ##### [2920] - Using EPL runtime                      = interpreted
+2016-09-16 10:04:28.868 CRIT  [2920] - Opening new input log: C:\Users\moray\Development\cycle-monitor\test\testcases\CycleMonitor_cor_007\Output\win32\correlator-input.log
+2016-09-16 10:04:28.868 INFO  [2920] - Will log queue size every 5.000000 seconds
+2016-09-16 10:04:28.868 INFO  [2920] - Starting scheduler with 1 threads (determined from hardware)
+2016-09-16 10:04:28.868 INFO  [2920] - Server socket opened listening on 0.0.0.0:19239
+2016-09-16 10:04:28.868 ##### [2920] - Component ID: correlator (correlator/6330853382841991502/6330853382841991502)
+2016-09-16 10:04:28.868 ##### [2920] - Correlator, version 9.10.0.3.284318, running
+2016-09-16 10:04:29.071 INFO  [5232] - Receiver engine_receive (0000000002447220) (component ID 6330853387450483022/6330571912473772366) connected from 127.0.0.1:53028
+2016-09-16 10:04:29.071 INFO  [5232] - Receiver engine_receive (0000000002447220) initially subscribed to <no channels>
+2016-09-16 10:04:29.071 INFO  [5232] - Blocking receiver engine_receive (0000000002447220) will be blocked after 10.000000 seconds or 10240 kb if slow
+2016-09-16 10:04:29.071 INFO  [5192] - Receiver engine_receive (0000000002447220) unsubscribed from all channels
+2016-09-16 10:04:29.071 INFO  [3208] - Receiver engine_receive (0000000002447220) added subscriptions to [com.apama.input]
+2016-09-16 10:04:29.149 INFO  [5232] - Receiver engine_receive (000000000246B740) (component ID 6330853387292410190/6330571912315699534) connected from 127.0.0.1:53031
+2016-09-16 10:04:29.149 INFO  [5232] - Receiver engine_receive (000000000246B740) initially subscribed to <no channels>
+2016-09-16 10:04:29.149 INFO  [5232] - Blocking receiver engine_receive (000000000246B740) will be blocked after 10.000000 seconds or 10240 kb if slow
+2016-09-16 10:04:29.149 INFO  [3208] - Receiver engine_receive (000000000246B740) unsubscribed from all channels
+2016-09-16 10:04:29.149 INFO  [5192] - Receiver engine_receive (000000000246B740) added subscriptions to [<wildcard channel>]
+2016-09-16 10:04:29.196 WARN  [1812] - Changing the logging for package com.jtech to the file: C:\Users\moray\Development\cycle-monitor\test\testcases\CycleMonitor_cor_007\Output\win32\application.log
+2016-09-16 10:04:29.259 WARN  [1812] - Changing the logging for package com.jtech to Level: DEBUG
+2016-09-16 10:04:33.921 INFO  [5636] - Correlator Status: sm=0 nctx=1 ls=0 rq=0 eq=0 iq=0 oq=0 icq=0 lcn="<none>" lcq=0 lct=0.0 rx=0 tx=0 rt=0 nc=2 vm=32136 pm=18780 runq=0 si=6.5 so=0.0 srn="<none>" srq=0 (no license file)
+2016-09-16 10:04:34.046 INFO  [5232] - Sender iaf (iaf -p 21948 adbc.xml) (00000000024E0B60) (component ID 6330853400300519758/6330571929618776398) connected from 127.0.0.1:53037
+2016-09-16 10:04:34.077 INFO  [5232] - Receiver iaf (iaf -p 21948 adbc.xml) (00000000024E1D80) (component ID 6330853400300519758/6330290458937033038) connected from 127.0.0.1:53039
+2016-09-16 10:04:34.077 INFO  [5232] - Receiver iaf (iaf -p 21948 adbc.xml) (00000000024E1D80) initially subscribed to [com.apama.adbc,com.apama.adbc.JDBC]
+2016-09-16 10:04:34.077 INFO  [5232] - Blocking receiver iaf (iaf -p 21948 adbc.xml) (00000000024E1D80) will be blocked after 10.000000 seconds or 10240 kb if slow
+2016-09-16 10:04:34.390 INFO  [5232] - Sender engine_inject (00000000024DF6C0) (component ID 6330853408949436750/6330571933972726094) connected from 127.0.0.1:53042
+2016-09-16 10:04:34.483 INFO  [3136] - Added monitor com.apama.scenario.ScenarioService
+2016-09-16 10:04:34.483 INFO  [3136] - Added monitor com.apama.scenario.RequestInstancesHandler
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ScenarioServiceUpdaterMultipleInstances
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ScenarioServiceUpdaterSingleInstance
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ScenarioServiceUpdaterBase
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.CallbackHelper
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ScenarioServiceLibrary
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.AllConfiguration
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.GetAllConfiguration
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ScenarioProcessedUpdates
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.OperationCompleted
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Configuration
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.GetConfiguration
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ParallelStarting
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.RequestInstancesParallelDone
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.RequestInstancesParallel
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.FinishedScenarioRecovery
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.StartScenarioRecovery
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ScenarioFinished
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.RequestInstancesInternal
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.SendQueuedUpdatesNow
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ConfigureUpdates
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.SetThrottlingPeriod
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ScenarioServiceUnloaded
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ScenarioServiceLoaded
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Instance
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ScenarioUnloaded
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Scenario
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.RequestInstancesDone
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.RequestInstancesOnChannelByUser
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.RequestInstancesOnChannel
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.RequestScenariosAck
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.RequestScenariosDone
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.RequestScenarios
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.StateChange
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Acknowledge
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Update
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.InstanceDied
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Deleted
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Delete
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Edited
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Edit
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.ParentChildRelationship
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Created
+2016-09-16 10:04:34.483 INFO  [3136] - Added type com.apama.scenario.Create
+2016-09-16 10:04:34.483 INFO  [3136] - Injected MonitorScript from file C:\SoftwareAG\Apama\monitors\ScenarioService.mon (1a413becb65aa9dd103004efeee6943a), size 75056 bytes, compile time 0.08 seconds
+2016-09-16 10:04:34.483 INFO  [5944] - com.apama.scenario.ScenarioService [1] ScenarioService interface loaded. MetaData: {"interface.fileName":"ScenarioService.mon","interface.fullVersion":"rel/9.10.0.x@284318","interface.language":"MonitorScript","interface.name":"ScenarioService","interface.package":"com.apama.scenario","interface.vendor":"Apama","interface.version":"9.10.0.3.284318"}
+2016-09-16 10:04:34.499 INFO  [3136] - Added monitor com.apama.dataview.DataViewService_Interface
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewServiceUnloaded
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewItemException
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewException
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewFieldLookup
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewAllItemsDeleted
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewItemDeleted
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewItem
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewDefinitionDeleted
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewDefinition
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewDeleteAllItems
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewDeleteItem
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewUpdateItemDelta
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewUpdateItem
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewAddOrUpdateItem
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewAddItem
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewGetFieldLookup
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewDeleteDefinition
+2016-09-16 10:04:34.499 INFO  [3136] - Added type com.apama.dataview.DataViewAddDefinition
+2016-09-16 10:04:34.499 INFO  [3136] - Injected MonitorScript from file C:\SoftwareAG\Apama\monitors\DataViewService_Interface.mon (dfed00487a55dd1685cf98ebf0161b0b), size 20371 bytes, compile time 0.02 seconds
+2016-09-16 10:04:34.499 INFO  [5944] - com.apama.dataview.DataViewService_Interface [3] DataViewService interface loaded. MetaData: {"interface.fileName":"DataViewService_Interface.mon","interface.fullVersion":"rel/9.10.0.x@284318","interface.language":"MonitorScript","interface.name":"DataViewService_Interface","interface.package":"com.apama.dataview","interface.vendor":"Apama","interface.version":"9.10.0.3.284318"}
+2016-09-16 10:04:34.624 INFO  [3136] - Added monitor com.apama.dataview.DataViewService_Impl_Dict
+2016-09-16 10:04:34.624 INFO  [3136] - Injected MonitorScript from file C:\SoftwareAG\Apama\monitors\DataViewService_Impl_Dict.mon (02eda077f5b68f502a395b9e3e96067f), size 60823 bytes, compile time 0.13 seconds
+2016-09-16 10:04:34.624 INFO  [5944] - com.apama.dataview.DataViewService_Impl_Dict [4] DataViewService implementation loaded. MetaData: {"implementation.fileName":"DataViewService_Impl_Dict.mon","implementation.fullVersion":"rel/9.10.0.x@284318","implementation.language":"MonitorScript","implementation.name":"DataViewService_Impl_Dict","implementation.package":"com.apama.dataview","implementation.vendor":"Apama","implementation.version":"9.10.0.3.284318"}
+2016-09-16 10:04:34.624 INFO  [5192] - Sender engine_inject (00000000024DF6C0) (component ID 6330853408949436750/6330571933972726094) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:34.843 INFO  [5232] - Sender   (0000000008EDFF80) (component ID 14826551157598191489/14826550217000222593) connected from 127.0.0.1:53045
+2016-09-16 10:04:34.890 INFO  [5232] - Receiver   (0000000008DA37B0) (component ID 14826551157598191489/14826550217000222593) connected from 127.0.0.1:53045
+2016-09-16 10:04:34.890 INFO  [5232] - Receiver   (0000000008DA37B0) initially subscribed to <no channels>
+2016-09-16 10:04:34.890 INFO  [5232] - Blocking receiver   (0000000008DA37B0) will be blocked after 10.000000 seconds or 10240 kb if slow
+2016-09-16 10:04:34.890 INFO  [5192] - Receiver   (0000000008DA37B0) unsubscribed from all channels
+2016-09-16 10:04:34.905 INFO  [3208] - Receiver   (0000000008DA37B0) added subscriptions to [com.apama.scenario]
+2016-09-16 10:04:34.905 INFO  [3208] - Receiver   (0000000008DA37B0) added subscriptions to [com.apama.scenario.private_3620191172354113664_1474016674905]
+2016-09-16 10:04:34.984 INFO  [5232] - Sender engine_inject (0000000008EDF110) (component ID 6330853408960184654/6330571933983473998) connected from 127.0.0.1:53051
+2016-09-16 10:04:34.984 INFO  [5612] - Added monitor com.apama.statusreport.ParallelStatusSupport
+2016-09-16 10:04:34.984 INFO  [5612] - Added type com.apama.statusreport.UnsubscribeStatusToContext
+2016-09-16 10:04:34.984 INFO  [5612] - Added type com.apama.statusreport.SubscribeStatusToContext
+2016-09-16 10:04:34.984 INFO  [5612] - Added type com.apama.statusreport.StatusError
+2016-09-16 10:04:34.984 INFO  [5612] - Added type com.apama.statusreport.Status
+2016-09-16 10:04:34.984 INFO  [5612] - Added type com.apama.statusreport.UnsubscribeStatus
+2016-09-16 10:04:34.984 INFO  [5612] - Added type com.apama.statusreport.SubscribeStatus
+2016-09-16 10:04:34.984 INFO  [5612] - Injected MonitorScript from file C:\SoftwareAG\Apama\monitors\StatusSupport.mon (56b733a2cab9db394190917858cbe250), size 12328 bytes, compile time 0.00 seconds
+2016-09-16 10:04:34.984 INFO  [3208] - Sender engine_inject (0000000008EDF110) (component ID 6330853408960184654/6330571933983473998) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:35.063 INFO  [3208] - Receiver   (0000000008DA37B0) removed subscriptions to [com.apama.scenario.private_3620191172354113664_1474016674905]
+2016-09-16 10:04:35.124 INFO  [5232] - Sender engine_inject (0000000008C52090) (component ID 6330853413172052302/6330571938195341646) connected from 127.0.0.1:53054
+2016-09-16 10:04:35.155 INFO  [4272] - Added monitor com.apama.adapters.IAFStatusManager
+2016-09-16 10:04:35.155 INFO  [4272] - Added type com.apama.adapters.AdapterConnectionOpened
+2016-09-16 10:04:35.155 INFO  [4272] - Added type com.apama.adapters.AdapterConnectionClosed
+2016-09-16 10:04:35.155 INFO  [4272] - Added type com.apama.adapters.IAFStatusResponse_1
+2016-09-16 10:04:35.155 INFO  [4272] - Added type com.apama.adapters.IAFStatusRequest_1
+2016-09-16 10:04:35.155 INFO  [4272] - Added type com.apama.adapters.ConnectionOpened
+2016-09-16 10:04:35.155 INFO  [4272] - Added type com.apama.adapters.ConnectionClosed
+2016-09-16 10:04:35.155 INFO  [4272] - Added type com.apama.adapters.AdapterError
+2016-09-16 10:04:35.155 INFO  [4272] - Added type com.apama.adapters.AdapterUp
+2016-09-16 10:04:35.155 INFO  [4272] - Added type com.apama.adapters.AdapterStatusDeregister
+2016-09-16 10:04:35.155 INFO  [4272] - Added type com.apama.adapters.AdapterStatusRegister
+2016-09-16 10:04:35.155 INFO  [4272] - Injected MonitorScript from file C:\SoftwareAG\Apama\adapters\monitors\IAFStatusManager.mon (fe5eef398fc433fb9df48a56e79dcd39), size 35283 bytes, compile time 0.01 seconds
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StoreConfigurationAck
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.DeleteStoreConfiguration
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StopStoreConfiguration
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StoreConfigurationReady
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StartStoreConfiguration
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CreateStoreConfigurationInContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CreateStoreConfiguration
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.DeletePreparedQueryToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CreatePreparedQueryToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StopAllQueriesToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StopQueryToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.PauseQueryToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.GetNextBatchToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StartQueryToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.RollbackRequestToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CommitRequestToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CommandToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StoreDataToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StoreEventToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.DeleteStoreStatementToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CreateStoreStatementToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CloseDatabaseToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.OpenDatabaseToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.RequestNamedQueriesToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.RequestDataSourcesToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.RequestDatabasesToContext
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.FlowControl
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CommandAck
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.Command
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StoreStatementAck
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.DeleteStoreStatement
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CreateStoreStatement
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StoreOperationAck
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StoreOperationError
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.RollbackAck
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.RollbackRequest
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CommitAck
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CommitRequest
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StoreData
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StoreEvent
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StopAllQueriesAck
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StopAllQueries
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.QueryDone
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.BatchDone
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.GetNextBatch
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.PauseQuery
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StopQuery
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.ResultEvent
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.ResultSchema
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.QueryStatus
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.StartQuery
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.PreparedQueryAck
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.DeletePreparedQuery
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CreatePreparedQuery
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.NamedQueries
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.NamedQuery
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.ParameterData
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.RequestNamedQueries
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.DataSources
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.DataSource
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.RequestDataSources
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.Databases
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.Database
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.RequestDatabases
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.DatabaseOperationAck
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.CloseDatabase
+2016-09-16 10:04:35.171 INFO  [4272] - Added type com.apama.database.OpenDatabase
+2016-09-16 10:04:35.171 INFO  [4272] - Injected MonitorScript from file C:\SoftwareAG\Apama\adapters\monitors\ADBCAdapterEvents.mon (1214721ba415637747b19f288d8e1c3d), size 39949 bytes, compile time 0.02 seconds
+2016-09-16 10:04:35.202 INFO  [4272] - Added monitor com.apama.database.ADBCAdapterService
+2016-09-16 10:04:35.202 INFO  [4272] - Injected MonitorScript from file C:\SoftwareAG\Apama\adapters\monitors\ADBCAdapterService.mon (ab3b23b2d63a827a93ecbb47ad68ed33), size 33881 bytes, compile time 0.03 seconds
+2016-09-16 10:04:35.202 INFO  [5944] - com.apama.database.ADBCAdapterService [7] Loaded ADBC adapter service
+2016-09-16 10:04:35.265 INFO  [4272] - Added type com.apama.database.Query
+2016-09-16 10:04:35.265 INFO  [4272] - Added type com.apama.database.PreparedQuery
+2016-09-16 10:04:35.265 INFO  [4272] - Added type com.apama.database.Connection
+2016-09-16 10:04:35.265 INFO  [4272] - Added type com.apama.database.Discovery
+2016-09-16 10:04:35.265 INFO  [4272] - Injected MonitorScript from file C:\SoftwareAG\Apama\adapters\monitors\ADBCEvents.mon (443bf37f3708b4b2216d6c134ad9710a), size 73715 bytes, compile time 0.05 seconds
+2016-09-16 10:04:35.280 INFO  [4272] - Added monitor com.apama.database.ADBCStatusManager
+2016-09-16 10:04:35.280 INFO  [4272] - Added type com.apama.database._AdapterStatus
+2016-09-16 10:04:35.280 INFO  [4272] - Added type com.apama.database.ServiceMonitorOnline
+2016-09-16 10:04:35.280 INFO  [4272] - Added type com.apama.database.ServiceMonitorUnloaded
+2016-09-16 10:04:35.280 INFO  [4272] - Injected MonitorScript from file C:\SoftwareAG\Apama\adapters\monitors\ADBCStatusManager.mon (91af2a0bd9f689ef1a37715cf8f71298), size 23924 bytes, compile time 0.01 seconds
+2016-09-16 10:04:35.280 INFO  [5944] - com.apama.database.ADBCStatusManager [8] Loaded ADBCStatusManager
+2016-09-16 10:04:35.312 INFO  [4272] - Added type com.apama.database.DBUtil
+2016-09-16 10:04:35.312 INFO  [4272] - Added type com.apama.database.DBReconnectPolicy
+2016-09-16 10:04:35.312 INFO  [4272] - Added type com.apama.database.DBAcknowledge
+2016-09-16 10:04:35.312 INFO  [4272] - Added type com.apama.database.DBOperation
+2016-09-16 10:04:35.312 INFO  [4272] - Injected MonitorScript from file C:\SoftwareAG\Apama\adapters\monitors\ADBCHelper.mon (f613ea0630edc55a7c9f2e66ccc9db69), size 52349 bytes, compile time 0.03 seconds
+2016-09-16 10:04:35.312 INFO  [5192] - Sender engine_inject (0000000008C52090) (component ID 6330853413172052302/6330571938195341646) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:35.327 INFO  [5944] - com.apama.database.ADBCStatusManager [8] Adapter ADBC-JDBC(NullCodec,ADBC-JDBC) registered for status monitoring.
+2016-09-16 10:04:35.375 INFO  [5232] - Sender engine_inject (0000000004967420) (component ID 6330853413234442574/6330571938257731918) connected from 127.0.0.1:53057
+2016-09-16 10:04:35.390 INFO  [5320] - Plugin library ConnectivityPlugin (C++ API v9.0) loaded OK
+2016-09-16 10:04:35.390 INFO  [5612] - Added type com.softwareag.connectivity.ConnectivityPlugins
+2016-09-16 10:04:35.390 INFO  [5612] - Injected MonitorScript from file C:\SoftwareAG\Apama\monitors\ConnectivityPlugins.mon (4c9592ba09fc79c1eb37a259250074f0), size 1082 bytes, compile time 0.00 seconds
+2016-09-16 10:04:35.390 INFO  [3208] - Sender engine_inject (0000000004967420) (component ID 6330853413234442574/6330571938257731918) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:35.516 INFO  [3604] - Sender engine_inject (0000000004967210) (component ID 6330853413006115150/6330571938029404494) connected from 127.0.0.1:53060
+2016-09-16 10:04:35.530 INFO  [4272] - Added type com.jtech.util.KeyedDataViewHelper
+2016-09-16 10:04:35.530 INFO  [4272] - Added type com.jtech.util.IKeyedDataView
+2016-09-16 10:04:35.530 INFO  [4272] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\utils\DataViewKeyFields.mon (8907418e8f9f3b5684707d82f33e4d1d), size 2511 bytes, compile time 0.01 seconds
+2016-09-16 10:04:35.530 INFO  [5192] - Sender engine_inject (0000000004967210) (component ID 6330853413006115150/6330571938029404494) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:35.641 INFO  [5232] - Sender engine_inject (0000000004967A50) (component ID 6330853412979638606/6330571938002927950) connected from 127.0.0.1:53063
+2016-09-16 10:04:35.655 INFO  [5612] - Added type com.jtech.config.DBRateAlert
+2016-09-16 10:04:35.655 INFO  [5612] - Added type com.jtech.config.DBBoundaryAlert
+2016-09-16 10:04:35.655 INFO  [5612] - Added type com.jtech.config.CreateRateThresholdAlert
+2016-09-16 10:04:35.655 INFO  [5612] - Added type com.jtech.config.CreateLowerBoundaryAlert
+2016-09-16 10:04:35.655 INFO  [5612] - Added type com.jtech.config.CreateUpperBoundaryAlert
+2016-09-16 10:04:35.655 INFO  [5612] - Added type com.jtech.config.DBKey
+2016-09-16 10:04:35.655 INFO  [5612] - Added type com.jtech.config.DBLoaded
+2016-09-16 10:04:35.655 INFO  [5612] - Added type com.jtech.config.DBConfig
+2016-09-16 10:04:35.655 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\configuration\DBDefinition.mon (27a30ab7f59e8998e8df8da17ff407e3), size 2363 bytes, compile time 0.01 seconds
+2016-09-16 10:04:35.655 INFO  [3208] - Sender engine_inject (0000000004967A50) (component ID 6330853412979638606/6330571938002927950) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:35.765 INFO  [3604] - Sender engine_inject (0000000004964F00) (component ID 6330853413257511246/6330571938280800590) connected from 127.0.0.1:53066
+2016-09-16 10:04:35.780 INFO  [4272] - Added type com.jtech.config.ILoader
+2016-09-16 10:04:35.780 INFO  [4272] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\configuration\loaders\ILoader.mon (3ace21601aff0294bf2e10813fea4845), size 937 bytes, compile time 0.00 seconds
+2016-09-16 10:04:35.780 INFO  [4272] - Added type com.jtech.config.BaseLoader
+2016-09-16 10:04:35.780 INFO  [4272] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\configuration\loaders\BaseLoader.mon (eb91a7bfc063bcc8800ab2d02d71d657), size 1344 bytes, compile time 0.00 seconds
+2016-09-16 10:04:35.780 INFO  [4272] - Added type com.jtech.config.BoundaryLoader
+2016-09-16 10:04:35.780 INFO  [4272] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\configuration\loaders\BoundaryLoader.mon (43b6d372a9d79be7492e7fccbdd15578), size 2461 bytes, compile time 0.00 seconds
+2016-09-16 10:04:35.780 INFO  [4272] - Added type com.jtech.config.RateLoader
+2016-09-16 10:04:35.780 INFO  [4272] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\configuration\loaders\RateLoader.mon (65a4446f0f84594d0adbe05d0db03f42), size 1911 bytes, compile time 0.00 seconds
+2016-09-16 10:04:35.780 INFO  [5192] - Sender engine_inject (0000000004964F00) (component ID 6330853413257511246/6330571938280800590) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:35.874 INFO  [5232] - Sender engine_inject (0000000004967A50) (component ID 6330853413259608398/6330571938282897742) connected from 127.0.0.1:53069
+2016-09-16 10:04:35.874 INFO  [5612] - Added type com.jtech.config.DBLoader
+2016-09-16 10:04:35.874 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\configuration\DBLoader.mon (e7d691c721129b71be6ce870959d1c2d), size 2004 bytes, compile time 0.00 seconds
+2016-09-16 10:04:35.874 INFO  [5612] - Added monitor com.jtech.config.DBManager
+2016-09-16 10:04:35.874 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\configuration\DBManager.mon (88a94ad49e3544ee7372d58ddbdc1796), size 2051 bytes, compile time 0.00 seconds
+2016-09-16 10:04:35.874 INFO  [3208] - Sender engine_inject (0000000004967A50) (component ID 6330853413259608398/6330571938282897742) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:35.969 INFO  [3604] - Sender engine_inject (0000000004964F00) (component ID 6330853413252792654/6330571938276081998) connected from 127.0.0.1:53072
+2016-09-16 10:04:35.969 INFO  [4272] - Added type com.jtech.source.StationUpdate
+2016-09-16 10:04:35.969 INFO  [4272] - Added type com.jtech.source.Poll
+2016-09-16 10:04:35.969 INFO  [4272] - Added type com.jtech.source.Stop
+2016-09-16 10:04:35.969 INFO  [4272] - Added type com.jtech.source.Start
+2016-09-16 10:04:35.969 INFO  [4272] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\source\StationDefinition.mon (0f09f5783577c5b24a274a813586fe6f), size 1146 bytes, compile time 0.00 seconds
+2016-09-16 10:04:35.969 INFO  [4272] - Added monitor com.jtech.source.StationManager
+2016-09-16 10:04:35.969 INFO  [4272] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\source\StationManager.mon (57a7d69e14ac233e699661a403c5e2f1), size 1297 bytes, compile time 0.00 seconds
+2016-09-16 10:04:35.969 INFO  [3208] - Sender engine_inject (0000000004964F00) (component ID 6330853413252792654/6330571938276081998) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:36.093 INFO  [5232] - Sender engine_inject (00000000049686B0) (component ID 6330853417199632718/6330571942222922062) connected from 127.0.0.1:53075
+2016-09-16 10:04:36.093 INFO  [5612] - Added type com.jtech.alert.IAlertStrategy
+2016-09-16 10:04:36.093 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\strategy\IAlertStrategy.mon (17d9ab38deee962d374b771070f57826), size 1096 bytes, compile time 0.00 seconds
+2016-09-16 10:04:36.093 INFO  [5612] - Added type com.jtech.alert.IAlertManager
+2016-09-16 10:04:36.093 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\strategy\IAlertManager.mon (e571dfd84cbc8d7fc2766851bb689387), size 985 bytes, compile time 0.00 seconds
+2016-09-16 10:04:36.109 INFO  [5612] - Added type com.jtech.alert.Alert
+2016-09-16 10:04:36.109 INFO  [5612] - Added type com.jtech.alert.RemoveAlert
+2016-09-16 10:04:36.109 INFO  [5612] - Added type com.jtech.alert.RemoveAlerts
+2016-09-16 10:04:36.109 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\strategy\AlertDefinition.mon (a43f87d8967574d2f56ed1fa9b9cce16), size 2624 bytes, compile time 0.00 seconds
+2016-09-16 10:04:36.109 INFO  [5612] - Added type com.jtech.alert.AlertStrategy
+2016-09-16 10:04:36.109 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\strategy\AlertStrategy.mon (3fc187471f205588e5e957de05f0a1ff), size 2437 bytes, compile time 0.00 seconds
+2016-09-16 10:04:36.109 INFO  [5612] - Added type com.jtech.alert.UpperBoundary
+2016-09-16 10:04:36.109 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\strategy\UpperBoundary.mon (6324a255ab0b32e6d542840357c4d0b7), size 1675 bytes, compile time 0.00 seconds
+2016-09-16 10:04:36.109 INFO  [5612] - Added type com.jtech.alert.LowerBoundary
+2016-09-16 10:04:36.109 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\strategy\LowerBoundary.mon (9e761e9d8ec959e45ff71d9c605b89f0), size 1675 bytes, compile time 0.00 seconds
+2016-09-16 10:04:36.124 INFO  [5612] - Added type com.jtech.alert.RateThreshold
+2016-09-16 10:04:36.124 INFO  [5612] - Added type com.jtech.alert.Data
+2016-09-16 10:04:36.124 INFO  [5612] - Added type com.jtech.alert.Result
+2016-09-16 10:04:36.124 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\strategy\RateThreshold.mon (7a528de828b7d07a3156876b0cfe6b88), size 2518 bytes, compile time 0.02 seconds
+2016-09-16 10:04:36.124 INFO  [5612] - Added monitor com.jtech.alert.AlertManager
+2016-09-16 10:04:36.124 INFO  [5612] - Injected MonitorScript from file C:\Users\moray\Development\cycle-monitor\monitors\strategy\AlertManager.mon (62ced633be0c24802fb818bd0304cdf2), size 3496 bytes, compile time 0.00 seconds
+2016-09-16 10:04:36.124 INFO  [5944] - com.apama.dataview.DataViewService_Impl_Dict [4] onload().on_all_DataViewAddDefinition() - "StationAlert" - adding new DataView definition with name: "StationAlert", and exposed externally with scenarioId: "DV_StationAlert"
+2016-09-16 10:04:36.155 INFO  [3208] - Receiver   (0000000008DA37B0) added subscriptions to [DV_StationAlert.Control]
+2016-09-16 10:04:36.155 INFO  [5192] - Sender engine_inject (00000000049686B0) (component ID 6330853417199632718/6330571942222922062) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:36.171 INFO  [3208] - Receiver   (0000000008DA37B0) added subscriptions to [DV_StationAlert.Data,com.apama.scenario.private_3620191172354113665_1474016676155_InstanceDiscovery]
+2016-09-16 10:04:36.250 INFO  [3604] - Sender engine_send (00000000049669D0) (component ID 6330853417560867150/6330571942584156494) connected from 127.0.0.1:53078
+2016-09-16 10:04:36.530 INFO  [5192] - Sender engine_send (00000000049669D0) (component ID 6330853417560867150/6330571942584156494) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:36.546 INFO  [5944] - com.apama.database.ADBCStatusManager [8] ADBC-JDBC connection opened: ADBC_JDBC_1474016672733000 1474016672733000
+2016-09-16 10:04:36.593 INFO  [3408] - com.apama.database.ADBCStatusManager [8] ADBC-JDBC connection closed: ADBC_JDBC_1474016672733000 1474016672733000
+2016-09-16 10:04:36.890 INFO  [3604] - Sender engine_send (0000000004966BE0) (component ID 6330853417340141902/6330571942363431246) connected from 127.0.0.1:53081
+2016-09-16 10:04:37.000 INFO  [5612] - Set time to 1435483110.00
+2016-09-16 10:04:37.000 INFO  [5404] - com.apama.database.ADBCStatusManager [8] ADBC-JDBC adapter is down: Status request timed out
+2016-09-16 10:04:37.000 INFO  [5404] - com.apama.dataview.DataViewService_Impl_Dict [13] addOrUpdateDataViewItem() - "StationAlert:0" - storing Item...
+2016-09-16 10:04:37.000 INFO  [5404] - com.apama.dataview.DataViewService_Impl_Dict [13] addOrUpdateDataViewItem() - "StationAlert:1" - storing Item...
+2016-09-16 10:04:37.000 INFO  [5404] - com.apama.dataview.DataViewService_Impl_Dict [13] deleteDataViewItem() - "StationAlert:0" - removing Item...
+2016-09-16 10:04:37.000 INFO  [5404] - com.apama.database.ADBCStatusManager [8] ADBC-JDBC adapter is up: {"VERSION":"9.10.0.3"} {"VERSION":"9.10.0.3.284318"}
+2016-09-16 10:04:37.078 INFO  [5192] - Sender engine_send (0000000004966BE0) (component ID 6330853417340141902/6330571942363431246) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:37.297 INFO  [3208] - Receiver iaf (iaf -p 21948 adbc.xml) (00000000024E1D80) (component ID 6330853400300519758/6330290458937033038) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:37.297 INFO  [3208] - Sender iaf (iaf -p 21948 adbc.xml) (00000000024E0B60) (component ID 6330853400300519758/6330571929618776398) disconnected cleanly: Other party requested disconnection
+2016-09-16 10:04:38.891 INFO  [5636] - Correlator Status: sm=11 nctx=1 ls=121 rq=0 eq=0 iq=0 oq=0 icq=0 lcn="<none>" lcq=0 lct=0.0 rx=44 tx=180 rt=69 nc=3 vm=98260 pm=67484 runq=0 si=0.4 so=0.0 srn="<none>" srq=0 (no license file)
+2016-09-16 10:04:43.891 INFO  [5636] - Correlator Status: sm=11 nctx=1 ls=121 rq=0 eq=0 iq=0 oq=0 icq=0 lcn="<none>" lcq=0 lct=0.0 rx=44 tx=180 rt=69 nc=3 vm=98260 pm=67492 runq=0 si=0.0 so=0.0 srn="<none>" srq=0 (no license file)
+2016-09-16 10:04:47.390 ##### [5612] - Shutting down correlator in response to client (127.0.0.1:53085) request: Shutdown requested by test
+2016-09-16 10:04:47.406 INFO  [2920] - MessageSenderImpl.Shutdown() - Disconnecting remote receiver 6330853387292410190:6330571912315699534
+2016-09-16 10:04:47.406 INFO  [2920] - MessageSenderImpl.Shutdown() - Disconnecting remote receiver 6330853387450483022:6330571912473772366
+2016-09-16 10:04:47.406 INFO  [2920] - MessageSenderImpl.Shutdown() - Disconnecting remote receiver 14826551157598191489:14826550217000222593
+2016-09-16 10:04:47.421 INFO  [2920] - MessageReceiverImpl.Shutdown() - Disconnecting remote sender 14826551157598191489:14826550217000222593
+2016-09-16 10:04:47.437 INFO  [2920] - Correlator shutdown is complete

@@ -29,9 +29,9 @@
 			<bundle-instance-files>
 			</bundle-instance-files>
 			<static-files>
-				<file name="${APAMA_HOME}/adapters/config/ADBC-application.xml" timestamp="1423846591000"/>
-				<file name="${APAMA_HOME}/adapters/config/ADBC-static.xml" timestamp="1423846233000"/>
-				<file name="${APAMA_HOME}/adapters/config/ADBC-static-codecs.xml" timestamp="1423846233000"/>
+				<file name="${APAMA_HOME}/adapters/config/ADBC-application.xml" timestamp="1472813365017"/>
+				<file name="${APAMA_HOME}/adapters/config/ADBC-static.xml" timestamp="1472813365025"/>
+				<file name="${APAMA_HOME}/adapters/config/ADBC-static-codecs.xml" timestamp="1472813365027"/>
 			</static-files>
 			<dashboard-files>
 			</dashboard-files>
@@ -43,6 +43,20 @@
 			<config-files>
 			</config-files>
 			<bundle-instance-files>
+			</bundle-instance-files>
+			<static-files>
+			</static-files>
+			<dashboard-files>
+			</dashboard-files>
+			<evt-files>
+			</evt-files>
+		</bundle>
+		<bundle file="ConnectivityPlugins.bnd" origin-path="" origin="ADAPTER_CATALOG">
+			<instance name="Connectivity"/>
+			<config-files>
+			</config-files>
+			<bundle-instance-files>
+				<file name="..\..\config/connectivity.yaml" timestamp="1472813365495"/>
 			</bundle-instance-files>
 			<static-files>
 			</static-files>

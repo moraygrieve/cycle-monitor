@@ -13,10 +13,9 @@ class PySysTest(CycleMonitorTest):
 		self.dumpStations(file='city-bikes.json')
 		
 		#start the application
-		self.startCorrelator()
+		self.startCorrelator(url='http://localhost:%d/city-bikes.json'%self.httpPort)
 		self.startScenarioPrinter(self.correlator)
 		self.startADBCAdapter(self.correlator, insert='insert.sql')
-		self.startCityBikesAdapter(self.correlator, 'London', 'http://localhost:%d/city-bikes.json'%self.httpPort, '* * * * *')
 		self.initialiseApplication(self.correlator)
 		
 		#wait for scenario printer

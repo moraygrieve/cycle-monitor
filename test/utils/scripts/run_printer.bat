@@ -1,4 +1,4 @@
-REM Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+REM Cycle Monitor, Copyright (C) 2016  M.B.Grieve
 REM This file is part of the Cycle Monitor example application.
 
 REM Cycle Monitor is free software: you can redistribute it and/or modify

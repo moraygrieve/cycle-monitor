@@ -11,10 +11,9 @@ class PySysTest(CycleMonitorTest):
 		self.dumpStations(file='city-bikes.json')
 
 		#start the application (adapter polls on request only)
-		self.startCorrelator()
+		self.startCorrelator(url='http://localhost:%d/city-bikes.json'%self.httpPort)
 		self.startScenarioPrinter(self.correlator)
 		self.startADBCAdapter(self.correlator, insert='insert.sql')
-		self.startCityBikesAdapter(self.correlator, 'London', 'http://localhost:%d/city-bikes.json'%self.httpPort, 'none')
 		self.initialiseApplication(self.correlator)
 		self.waitForSignal('jython.out', expr='ADDED', condition='==1', timeout=5)
 		

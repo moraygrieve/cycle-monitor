@@ -1,0 +1,43 @@
+2016-09-16 10:03:28,997 INFO  ==============================================================
+2016-09-16 10:03:28,997 INFO  Id   : CycleMonitor_cor_004
+2016-09-16 10:03:28,997 INFO  Title: Check lower boundary alert removal, using json dump and
+2016-09-16 10:03:28,997 INFO         poll and HTTP server
+2016-09-16 10:03:28,997 INFO  ==============================================================
+2016-09-16 10:03:28,997 INFO  Allocating port 34264 for HTTP server
+2016-09-16 10:03:28,997 INFO  Started http-server with process id 3604
+2016-09-16 10:03:29,013 INFO  Allocating port 51738 for correlator
+2016-09-16 10:03:29,013 INFO  Started correlator<localhost:51738> with process id 5192
+2016-09-16 10:03:29,730 INFO  Component correlator<pid 5192 on localhost:51738> is now running
+2016-09-16 10:03:29,730 INFO  Started engine_receive <correlator> [correlator_input.log] with process id 5996
+2016-09-16 10:03:29,809 INFO  Started engine_receive <correlator> [correlator_output.log] with process id 5704
+2016-09-16 10:03:29,950 INFO  Executed manage <correlator> [-r setApplicationLogFile C:\Users\moray\Development\cycle-monitor\test\testcases\CycleMonitor_cor_004\Output\win32\application.log com.jtech], exit status 0
+2016-09-16 10:03:30,013 INFO  Executed manage <correlator> [-r setApplicationLogLevel DEBUG com.jtech], exit status 0
+2016-09-16 10:03:30,028 INFO  Started jython with process id 4596
+2016-09-16 10:03:30,154 INFO  Executed sqlite3, exit status 0
+2016-09-16 10:03:30,842 INFO  Executed sqlite3, exit status 0
+2016-09-16 10:03:30,890 INFO  Started iaf with process id 4248
+2016-09-16 10:03:34,709 INFO  Component iaf<pid 4248 on localhost:40628> is now running
+2016-09-16 10:03:35,099 INFO  Executed engine_inject <correlator> [ScenarioService.mon DataViewService_Interface.mon DataViewService_Impl_Dict.mon], exit status 0
+2016-09-16 10:03:35,226 INFO  Executed engine_inject <correlator> [StatusSupport.mon], exit status 0
+2016-09-16 10:03:35,490 INFO  Executed engine_inject <correlator> [IAFStatusManager.mon ADBCAdapterEvents.mon ADBCAdapterService.mon ADBCEvents.mon ADBCStatusManager.mon ADBCHelper.mon], exit status 0
+2016-09-16 10:03:35,552 INFO  Executed engine_inject <correlator> [ConnectivityPlugins.mon], exit status 0
+2016-09-16 10:03:35,631 INFO  Executed engine_inject <correlator> [DataViewKeyFields.mon], exit status 0
+2016-09-16 10:03:35,756 INFO  Executed engine_inject <correlator> [DBDefinition.mon], exit status 0
+2016-09-16 10:03:35,881 INFO  Executed engine_inject <correlator> [ILoader.mon BaseLoader.mon BoundaryLoader.mon RateLoader.mon], exit status 0
+2016-09-16 10:03:36,006 INFO  Executed engine_inject <correlator> [DBLoader.mon DBManager.mon], exit status 0
+2016-09-16 10:03:36,069 INFO  Executed engine_inject <correlator> [StationDefinition.mon StationManager.mon], exit status 0
+2016-09-16 10:03:36,210 INFO  Executed engine_inject <correlator> [IAlertStrategy.mon IAlertManager.mon AlertDefinition.mon AlertStrategy.mon UpperBoundary.mon LowerBoundary.mon RateThreshold.mon AlertManager.mon], exit status 0
+2016-09-16 10:03:36,584 INFO  Executed engine_send <correlator> [adbc.evt], exit status 0
+2016-09-16 10:03:36,647 INFO  Wait for signal in correlator_output.log completed successfully
+2016-09-16 10:03:36,898 INFO  Wait for signal in jython.out completed successfully
+2016-09-16 10:03:37,039 INFO  Executed engine_inject <correlator> [poll.mon], exit status 0
+2016-09-16 10:03:37,039 INFO  Wait for signal in jython.out completed successfully
+2016-09-16 10:03:37,039 INFO  Ordered grep on input file jython.out ... passed
+2016-09-16 10:03:37,039 INFO  
+2016-09-16 10:03:37,039 INFO  cleanup:
+2016-09-16 10:03:37,117 INFO  Executed shutdown <iaf>, exit status 0
+2016-09-16 10:03:47,819 INFO  Executed shutdown <correlator>, exit status 0
+2016-09-16 10:03:47,881 INFO  
+2016-09-16 10:03:47,881 INFO  Test duration: 18.89 secs
+2016-09-16 10:03:47,881 INFO  Test final outcome:  PASSED
+2016-09-16 10:03:47,881 INFO  

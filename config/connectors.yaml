@@ -1,0 +1,20 @@
+plugins:
+    city-bikes-connector:
+      directory: ${apama.project}/java/lib/
+      classpath: 
+        - city-bikes-connector.jar
+        - cron4j-2.2.5.jar
+        - json-simple-1.1.jar
+      class: com.jtech.plugin.CityBikesConnector
+      
+startChains:
+   city-bikes-chain:
+    - apama.eventMap:
+        defaultEventType: com.jtech.source.StationUpdate
+        allowMissing: true
+        subscribeChannels: CITY-BIKES
+    - city-bikes-connector:
+        city: ${app.city}
+        url: ${app.data.url}
+      
+      

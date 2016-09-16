@@ -1,4 +1,4 @@
-// Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+// Cycle Monitor, Copyright (C) 2016  M.B.Grieve
 // This file is part of the Cycle Monitor example application.
 //
 // Cycle Monitor is free software: you can redistribute it and/or modify
@@ -18,6 +18,17 @@
 
 package com.jtech.ui.scenario;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.apama.services.scenario.IScenarioInstance;
 import com.apama.services.scenario.internal.ScenarioDefinition;
 import com.apama.services.scenario.internal.ScenarioInstance;
@@ -26,16 +37,6 @@ import com.jtech.ui.annotation.Setter;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ScenarioTable<T extends IScenarioEntry> extends IScenarioServiceSubscriber {
     private static final Logger logger = LogManager.getLogger("ScenarioTable");

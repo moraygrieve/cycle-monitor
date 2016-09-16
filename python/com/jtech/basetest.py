@@ -1,4 +1,4 @@
-# Cycle Monitor, Copyright (C) 2015  M.B.Grieve
+# Cycle Monitor, Copyright (C) 2016  M.B.Grieve
 # This file is part of the Cycle Monitor example application.
 #
 # Cycle Monitor is free software: you can redistribute it and/or modify
@@ -34,8 +34,8 @@ class CycleMonitorTest(BaseTest):
 		BaseTest.setup(self)
 		self.stations=[]
 		self.jython_classpath = os.path.join(PROJECT.JYTHON_HOME, 'jython.jar')
-		self.addToJythonClassPath(os.path.join(PROJECT.APAMA_HOME,'lib','engine_client%s.jar'%PROJECT.APAMA_LIBRARY_VERSION))
-		self.addToJythonClassPath(os.path.join(PROJECT.APAMA_HOME,'lib','util%s.jar'%PROJECT.APAMA_LIBRARY_VERSION))
+		self.addToJythonClassPath(os.path.join(PROJECT.APAMA_HOME,'lib','ap-util.jar'))
+		self.addToJythonClassPath(os.path.join(PROJECT.APAMA_HOME,'lib','ap-client.jar'))
 		
 	def addToJythonClassPath(self, path):
 		'''Path builder for for jython. '''
@@ -59,13 +59,22 @@ class CycleMonitorTest(BaseTest):
 			fp.write('monitor Poll { action onload{ emit com.jtech.source.Poll() to "CITY-BIKES"; } }')
 		self.correlator.injectMonitorscript('poll.mon', filedir=self.output)
 
-	def startCorrelator(self, xclock=False):
+	def startCorrelator(self, url=None, city='London', xclock=False):
 		'''Start a correlator and set logging, return correlator object handle. '''
 		self.correlator = CorrelatorHelper(self)
 		self.log.info('Allocating port %s for correlator'%self.correlator.port)
 		
-		arguments = ['--inputLog',os.path.join(self.output,'correlator-input.log')]
+		arguments = []
+		arguments.extend(['--inputLog',os.path.join(self.output,'correlator-input.log')])
+		if not(url is None):
+			replaceDict = {'${apama.project}': PROJECT.root,
+					'${app.city}': city,
+					'${app.data.url}': url}
+			replace(os.path.join(PROJECT.root, 'config', 'connectors.yaml'), os.path.join(self.output, 'connectors.yaml'), replaceDict)
+			arguments.extend(['--connectivityConfig',os.path.join(self.output, 'connectors.yaml')])
+			
 		if xclock: arguments.append('-Xclock')
+	
 		self.correlator.start(logfile='correlator.log', arguments=arguments)
 		self.correlator.receive('correlator_input.log', channels=['com.apama.input'])
 		self.correlator.receive('correlator_output.log')
@@ -77,6 +86,7 @@ class CycleMonitorTest(BaseTest):
 		parser=FileListParser(os.path.join(self.project.root, 'build-filelists.xml'), self.project.root, {'${apama.home}':PROJECT.APAMA_HOME})
 		self.inject(correlator, parser.getFileList('apama.scenarios'))
 		self.inject(correlator, parser.getFileList('apama.adbc'))
+		self.inject(correlator, parser.getFileList('apama.connectivity'))
 		self.inject(correlator, parser.getFileList('utils'))
 		self.inject(correlator, parser.getFileList('configuration'))
 		self.inject(correlator, parser.getFileList('source'))
