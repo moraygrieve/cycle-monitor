@@ -21,6 +21,9 @@ package com.jtech.ui;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.jtech.ui.model.StationAlertEntry;
 import com.jtech.ui.model.StationAlertTable;
 
@@ -36,6 +39,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class TableController {
+    private static final Logger logger = LogManager.getLogger("TableController");
 
 	public TableController(final Controller controller, final MapController mapController, 
 			StationAlertTable stationAlertTable) {
@@ -43,60 +47,70 @@ public class TableController {
 		controller.typeColumn.setCellValueFactory(new PropertyValueFactory<StationAlertEntry, String>("type"));
 		controller.messageColumn.setCellValueFactory(new PropertyValueFactory<StationAlertEntry, String>("message"));	  
 		controller.timestampColumn.setCellValueFactory(new PropertyValueFactory<StationAlertEntry, Double>("timestamp"));
-		controller.stationAlertTable.setItems(stationAlertTable.getDataCache());    
 
 		controller.stationAlertTable.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent event) {
 				if (event.getClickCount() == 2) {
 					StationAlertEntry entry = controller.stationAlertTable.getSelectionModel().getSelectedItem();
-					System.out.println("Selected entry id " + entry.getId());
+					logger.info("Selected entry id " + entry.getId());
 					mapController.showDocumentWindow(entry);
 				}
 			}
 		});
 
+		/**
 		controller.typeColumn.setCellFactory(new Callback<TableColumn<StationAlertEntry, String>, TableCell<StationAlertEntry, String>>() {
 			public TableCell<StationAlertEntry, String> call(TableColumn<StationAlertEntry, String> tradesEntryStringTableColumn) {
 				final TableCell<StationAlertEntry, String> cell = new TableCell<StationAlertEntry, String>() {
 					protected void updateItem(String item, boolean empty) {
 						super.updateItem(item, empty);
-						if (!isEmpty()) {
-							StationAlertEntry entry = (StationAlertEntry) this.getTableRow().getItem();
-							setTextFill(Color.BLACK);
-							setStyle("-fx-background-color: " + entry.getColor()+ "; -fx-opacity: 0.75; ");
-							setText(item);
-						} else {
+						
+						if (empty || item == null) {
 							setText(null);
 							setTextFill(null);
 							setStyle(null);
 							return;
+						}
+						else {
+							StationAlertEntry entry = (StationAlertEntry) this.getTableRow().getItem();	
+							if (entry == null) {
+								setText(null);
+								setTextFill(null);
+								setStyle(null);
+								logger.info("OOOOPPPPPS");
+								return;
+							}
+							setTextFill(Color.BLACK);
+							setStyle("-fx-background-color: " + entry.getColor()+ "; -fx-opacity: 0.75; ");
+							setText(item);
 						}
 					}
 				};
 				return cell;
 			}
 		});
-
+		
 		controller.timestampColumn.setCellFactory(new Callback<TableColumn<StationAlertEntry, Double>, TableCell<StationAlertEntry, Double>>() {
 			public TableCell<StationAlertEntry, Double> call(TableColumn<StationAlertEntry, Double> tradesEntryStringTableColumn) {
 				final TableCell<StationAlertEntry, Double> cell = new TableCell<StationAlertEntry, Double>() {
 					protected void updateItem(Double item, boolean empty) {
 						super.updateItem(item, empty);
-						if (!isEmpty()) {
-							String tstamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date((long) (item*1000L))); 
-							setText(tstamp);
-						} else {
+						if (empty || item == null) {
 							setText(null);
 							setTextFill(null);
 							setStyle(null);
-							return;
 						}
+						else {
+							String tstamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date((long) (item*1000L))); 
+							setText(tstamp);
+						} 
 					}
 				};
 				return cell;
 			}
 		});
-
+		
+		/**
 		controller.messageColumn.setCellFactory(new Callback<TableColumn<StationAlertEntry, String>, TableCell<StationAlertEntry, String>>() {
 			public TableCell<StationAlertEntry, String> call(TableColumn<StationAlertEntry, String> tradesEntryStringTableColumn) {
 				final TableCell<StationAlertEntry, String> cell = new TableCell<StationAlertEntry, String>() {
@@ -116,7 +130,8 @@ public class TableController {
 				return cell;
 			}
 		});
-
+		*/
+		
 		stationAlertTable.getDataCache().addListener(new ListChangeListener<StationAlertEntry>() {
 			public void onChanged(Change<? extends StationAlertEntry> paramChange) {
 				while (paramChange.next()) {
@@ -133,5 +148,8 @@ public class TableController {
 				}
 			}
 		});
+		
+		controller.stationAlertTable.setItems(stationAlertTable.getDataCache());    
+
 	}	
 }

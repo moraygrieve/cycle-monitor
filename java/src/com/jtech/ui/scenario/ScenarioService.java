@@ -36,79 +36,76 @@ import com.apama.services.scenario.ScenarioServiceFactory;
 import com.apama.services.scenario.internal.ScenarioDefinition;
 
 public class ScenarioService {
-    private static final Logger logger = LogManager.getLogger("ScenarioService");
+	private static final Logger logger = LogManager.getLogger("ScenarioService");
 
-    private final int port;
-    private IScenarioService scenarioService;
-    private Map<String, ScenarioDefinition> scenarios;
-    private CopyOnWriteArrayList<IScenarioServiceSubscriber> subscribers = new CopyOnWriteArrayList<IScenarioServiceSubscriber>();
+	private final int port;
+	private IScenarioService scenarioService;
+	private Map<String, ScenarioDefinition> scenarios;
+	private CopyOnWriteArrayList<IScenarioServiceSubscriber> subscribers = new CopyOnWriteArrayList<IScenarioServiceSubscriber>();
 
-    public ScenarioService(int port) {
-        this.port = port;
-    }
+	public ScenarioService(int port) {
+		this.port = port;
+	}
 
-    private void connect(final String host) {
-        try {
-            scenarioService = ScenarioServiceFactory.createScenarioService(host, port, null, null);
+	private void connect(final String host) {
+		try {
+			scenarioService = ScenarioServiceFactory.createScenarioService(host, port, null,
+					new PropertyChangeListener() {
+						public void propertyChange(PropertyChangeEvent evt) {
+							if (IScenarioService.PROPERTY_SCENARIO_DISCOVERY_STATUS == evt.getPropertyName() && evt.getNewValue() == DiscoveryStatusEnum.COMPLETE) {
+								for (IScenarioServiceSubscriber subscriber : subscribers) {
+									logger.info("Notifying subscriber: " + subscriber.getId());
+									subscriber.onDiscoveryComplete();
+								}
+							}
+							else if (IScenarioService.PROPERTY_SCENARIO_ADDED == evt.getPropertyName()){
+								final ScenarioDefinition definition = (ScenarioDefinition) evt.getNewValue();
+								logger.info("Adding scenario to map: " + definition.getId());
+								scenarios.put(definition.getId(), definition);
+							}
+						}
+					});
 
-            scenarioService.addListener(IScenarioService.PROPERTY_SCENARIO_DISCOVERY_STATUS, new PropertyChangeListener() {
-                public void propertyChange(PropertyChangeEvent evt) {
-                    if (scenarioService.getDiscoveryStatus().equals(DiscoveryStatusEnum.COMPLETE)) {
-                        for (IScenarioServiceSubscriber subscriber : subscribers) {
-                            logger.info("Notifying subscriber: " + subscriber.getId());
-                            subscriber.onDiscoveryComplete();
-                        }
-                    }
-                }
-            });
+			scenarioService.getEventService().addPropertyChangeListener(IEventService.PROPERTY_CONNECTED,
+					new PropertyChangeListener() {
+						public void propertyChange(PropertyChangeEvent evt) {
+							if (evt.getNewValue().equals(true)) {
+								logger.info("Scenario service is connected");
+								for (IScenarioServiceSubscriber subscriber : subscribers) subscriber.onConnect();
+							} else {
+								logger.info("Scenario service is disconnected");
+								for (IScenarioServiceSubscriber subscriber : subscribers) subscriber.onDisconnect();
+							}
+						}
+					});
 
-            scenarioService.addListener(IScenarioService.PROPERTY_SCENARIO_ADDED, new PropertyChangeListener() {
-                public void propertyChange(PropertyChangeEvent evt) {
-                    final ScenarioDefinition definition = (ScenarioDefinition) evt.getNewValue();
-                    logger.info("Adding scenario to map: " + definition.getId());
-                    scenarios.put(definition.getId(), definition);
-                }
-            });
+		} catch (Exception e) {
+			logger.error("Exception connecting: ", e);
+		}
+	}
 
-            scenarioService.getEventService().addPropertyChangeListener(IEventService.PROPERTY_CONNECTED, new PropertyChangeListener() {
-                public void propertyChange(PropertyChangeEvent evt) {
-                    if (evt.getNewValue().equals(true)) {
-                        logger.info("Scenario service is connected");
-                        for (IScenarioServiceSubscriber subscriber : subscribers) subscriber.onConnect();
-                    } else {
-                        logger.info("Scenario service is disconnected");
-                        for (IScenarioServiceSubscriber subscriber : subscribers) subscriber.onDisconnect();
-                    }
-                }
-            });
+	public void updateConnection(final String host) {
+		scenarios = new HashMap<String, ScenarioDefinition>();
+		if (scenarioService != null) scenarioService.dispose();
+		for (IScenarioServiceSubscriber subscriber : subscribers) subscriber.onDisconnect();
+		connect(host);
+	}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	public void sendEvent(Event event) {
+		try {
+			if (scenarioService.getEventService().isConnected()) scenarioService.getEventService().sendEvent(event);
+		} catch (EngineException e) {
+			logger.error("Exception sending event: ", e);
+		}
+	}
 
-    public void updateConnection(final String host) {
-        scenarios = new HashMap<String, ScenarioDefinition>();
-        if (scenarioService != null) scenarioService.dispose();
-        for (IScenarioServiceSubscriber subscriber : subscribers) subscriber.onDisconnect();
-        connect(host);
-    }
+	public void register(IScenarioServiceSubscriber subscriber) {
+		logger.info("Registering subscriber for " + subscriber.getId());
+		subscribers.add(subscriber);
+	}
 
-    public void sendEvent(Event event) {
-        try {
-            if (scenarioService.getEventService().isConnected())
-                scenarioService.getEventService().sendEvent(event);
-        } catch (EngineException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void register(IScenarioServiceSubscriber subscriber) {
-        subscribers.add(subscriber);
-    }
-
-    public ScenarioDefinition getScenarioDefinition(String name) {
-        if (scenarios.containsKey(name)) return scenarios.get(name);
-        return null;
-    }
+	public ScenarioDefinition getScenarioDefinition(String name) {
+		if (scenarios.containsKey(name)) return scenarios.get(name);
+		return null;
+	}
 }

@@ -22,6 +22,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.jtech.ui.model.StationAlertEntry;
 import com.jtech.ui.model.StationAlertTable;
 
@@ -34,7 +37,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
 
-public class MapController {
+public class MapController {	
+    private static final Logger logger = LogManager.getLogger("MapController");
+
 	private final WebEngine webEngine;
 	private volatile boolean loaded;
 	private final Map<Long, StationAlertEntry> stations = new HashMap<Long, StationAlertEntry>();
@@ -58,6 +63,7 @@ public class MapController {
 							int index=0;
 							while (index<stationAlertTable.getDataCache().size()) {
 								StationAlertEntry entry = stationAlertTable.getDataCache().get(index);
+								logger.debug("Adding station " + entry.getId() + " to map");
 								stations.put(entry.getId(), entry);
 								drawStation(stationAlertTable.getDataCache().get(index));
 								index++;
@@ -77,12 +83,14 @@ public class MapController {
 					else {
 						for (StationAlertEntry remitem : c.getRemoved()) {
 							if (stations.containsKey(remitem.getId())) {
+								logger.debug("Removing station " + remitem.getId() + " from map");
 								stations.remove(remitem.getId());
 								deleteStation(remitem);
 							}
 						}
 						for (StationAlertEntry additem : c.getAddedSubList()) {
 							if (!stations.containsKey(additem.getId())) {
+								logger.debug("Adding station " + additem.getId() + " to map");
 								stations.put(additem.getId(), additem);
 								drawStation(additem);
 							}

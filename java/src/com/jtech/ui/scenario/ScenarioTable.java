@@ -29,6 +29,7 @@ import java.util.Map;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.apama.services.scenario.DiscoveryStatusEnum;
 import com.apama.services.scenario.IScenarioInstance;
 import com.apama.services.scenario.internal.ScenarioDefinition;
 import com.apama.services.scenario.internal.ScenarioInstance;
@@ -39,161 +40,175 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ScenarioTable<T extends IScenarioEntry> extends IScenarioServiceSubscriber {
-    private static final Logger logger = LogManager.getLogger("ScenarioTable");
+	private static final Logger logger = LogManager.getLogger("ScenarioTable");
 
-    private final String name;
-    private final Class dataClazz;
-    private final ObservableList<T> dataCache;
-    private final ScenarioService scenarioService;
-    private final Map<String, Method> methodTable;
+	private final String name;
+	private final Class dataClazz;
+	private final ObservableList<T> dataCache;
+	private final ScenarioService scenarioService;
+	private final Map<String, Method> methodTable;
 
-    protected ScenarioTable(String name, ScenarioService scenarioService, Class clazz)
-            throws ClassNotFoundException {
-        this.name = name;
-        this.dataClazz = clazz;
-        this.dataCache = FXCollections.observableArrayList();
-        this.scenarioService = scenarioService;
-        this.methodTable = new HashMap<String, Method>();
-        scenarioService.register(this);
-        createMethodTable();
-    }
+	protected ScenarioTable(String name, ScenarioService scenarioService, Class clazz) throws ClassNotFoundException {
+		this.name = name;
+		this.dataClazz = clazz;
+		this.dataCache = FXCollections.observableArrayList();
+		this.scenarioService = scenarioService;
+		this.methodTable = new HashMap<String, Method>();
+		scenarioService.register(this);
+		createMethodTable();
+	}
 
-    public ObservableList<T> getDataCache() {
-        return dataCache;
-    }
+	public ObservableList<T> getDataCache() {
+		return dataCache;
+	}
 
-    @Override
-    public String getId() {
-        return name;
-    }
+	@Override
+	public String getId() {
+		return name;
+	}
 
-    @Override
-    public void onDisconnect() {
-        Platform.runLater(new Runnable() {
-            public void run() {
-                dataCache.clear();
-            }
-        });
-    }
+	@Override
+	public void onDisconnect() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				dataCache.clear();
+			}
+		});
+	}
 
-    @Override
-    public void onConnect() {
-    }
+	@Override
+	public void onConnect() {
+	}
 
-    @Override
-    public void onDiscoveryComplete() {
-        final ScenarioDefinition definition = scenarioService.getScenarioDefinition(name);
-        if (definition == null) return;
+	@Override
+	public void onDiscoveryComplete() {
+		final ScenarioDefinition definition = scenarioService.getScenarioDefinition(name);
+		if (definition == null) return;
 
-        definition.addListener(ScenarioDefinition.PROPERTY_INSTANCE_ADDED, new PropertyChangeListener() {
-            public void propertyChange(final PropertyChangeEvent evt) {
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        addInstance((ScenarioInstance) evt.getNewValue());
-                    }
-                });
-            }
-        });
+		definition.addListener(ScenarioDefinition.PROPERTY_INSTANCE_DISCOVERY_STATUS, new PropertyChangeListener() {
+			public void propertyChange(final PropertyChangeEvent evt) {
+				if (definition.getDiscoveryStatus().equals(DiscoveryStatusEnum.COMPLETE)) {
+					logger.info("Instance discovery is complete for " + getId());
 
-        definition.addListener(ScenarioDefinition.PROPERTY_INSTANCE_UPDATED, new PropertyChangeListener() {
-            public void propertyChange(final PropertyChangeEvent evt) {
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        editInstance((ScenarioInstance) evt.getNewValue());
-                    }
-                });
-            }
-        });
+					Platform.runLater(new Runnable() {
+						public void run() {
+							for (final IScenarioInstance instance : definition.getInstances()) {
+								addInstance(instance);
+							}
+						}
+					});
 
-        definition.addListener(ScenarioDefinition.PROPERTY_INSTANCE_REMOVED, new PropertyChangeListener() {
-            public void propertyChange(final PropertyChangeEvent evt) {
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        removeInstance((ScenarioInstance) evt.getNewValue());
-                    }
-                });
-            }
-        });
+					onInstanceDiscoveryComplete(definition);
+				}
+			}
+		});
+	}
 
-        for (final IScenarioInstance instance : definition.getInstances()) {
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    addInstance(instance);
-                }
-            });
-        }
-    }
+	private void onInstanceDiscoveryComplete(ScenarioDefinition definition) {
+		definition.addListener(ScenarioDefinition.PROPERTY_INSTANCE_ADDED, new PropertyChangeListener() {
+			public void propertyChange(final PropertyChangeEvent evt) {
+				Platform.runLater(new Runnable() {
+					public void run() {
+						logger.info("Property change on " + getId() + " for PROPERTY_INSTANCE_ADDED");
+						addInstance((ScenarioInstance) evt.getNewValue());
+					}
+				});
+			}
+		});
 
-    private void createMethodTable() {
-        for (Method method : this.dataClazz.getMethods()) {
-            Annotation[] annotations = method.getAnnotations();
-            for (Annotation annotation : annotations) {
-                if (annotation instanceof Setter) {
-                    logger.info("Setter for " + ((Setter) annotation).name() + " is " + method.getName());
-                    methodTable.put(((Setter) annotation).name(), method);
-                }
-            }
-        }
-    }
+		definition.addListener(ScenarioDefinition.PROPERTY_INSTANCE_UPDATED, new PropertyChangeListener() {
+			public void propertyChange(final PropertyChangeEvent evt) {
+				Platform.runLater(new Runnable() {
+					public void run() {
+						logger.info("Property change on " + getId() + " for PROPERTY_INSTANCE_UPDATED");
+						editInstance((ScenarioInstance) evt.getNewValue());
+					}
+				});
+			}
+		});
 
-    private void addInstance(IScenarioInstance instance) {
-        try {
-            T data = (T) this.dataClazz.getDeclaredConstructor(String.class, Long.class).
-                    newInstance(instance.getScenarioDefinition().getId(), instance.getId());
+		definition.addListener(ScenarioDefinition.PROPERTY_INSTANCE_REMOVED, new PropertyChangeListener() {
+			public void propertyChange(final PropertyChangeEvent evt) {
+				Platform.runLater(new Runnable() {
+					public void run() {
+						logger.info("Property change on " + getId() + " for PROPERTY_INSTANCE_REMOVED");
+						removeInstance((ScenarioInstance) evt.getNewValue());
+					}
+				});
+			}
+		});
+	}
 
-            for (String key : instance.getScenarioDefinition().getOutputParameterNames()) {
-                if (methodTable.containsKey(key)) {
-                    try {
-                        methodTable.get(key).setAccessible(true);
-                        methodTable.get(key).invoke(data, instance.getValue(key));
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            logger.debug("Adding instance to data cache: " + data);
-            dataCache.add(data);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	private void createMethodTable() {
+		for (Method method : this.dataClazz.getMethods()) {
+			Annotation[] annotations = method.getAnnotations();
+			for (Annotation annotation : annotations) {
+				if (annotation instanceof Setter) {
+					logger.info("Setter for " + ((Setter) annotation).name() + " is " + method.getName());
+					methodTable.put(((Setter) annotation).name(), method);
+				}
+			}
+		}
+	}
 
-    private void editInstance(IScenarioInstance instance) {
-        try {
-            T data = (T) this.dataClazz.getDeclaredConstructor(String.class, Long.class).
-                    newInstance(instance.getScenarioDefinition().getId(), instance.getId());
+	private void addInstance(IScenarioInstance instance) {
+		try {
+			T data = (T) this.dataClazz.getDeclaredConstructor(String.class, Long.class)
+					.newInstance(instance.getScenarioDefinition().getId(), instance.getId());
 
-            int index = dataCache.indexOf(data);
-            if (index != -1) {
-                for (String key : instance.getScenarioDefinition().getOutputParameterNames()) {
-                    if (methodTable.containsKey(key)) {
-                        try {
-                            methodTable.get(key).setAccessible(true);
-                            methodTable.get(key).invoke(data, instance.getValue(key));
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-            logger.debug("Updating instance in data cache: " + data);
-            dataCache.set(index, data);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			for (String key : instance.getScenarioDefinition().getOutputParameterNames()) {
+				if (methodTable.containsKey(key)) {
+					try {
+						methodTable.get(key).setAccessible(true);
+						methodTable.get(key).invoke(data, instance.getValue(key));
+					} catch (InvocationTargetException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			logger.info("Adding instance to data cache: " + data.getId());
+			dataCache.add(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    private void removeInstance(IScenarioInstance instance) {
-        try {
-            T data = (T) this.dataClazz.getDeclaredConstructor(String.class, Long.class).
-                    newInstance(instance.getScenarioDefinition().getId(), instance.getId());
+	private void editInstance(IScenarioInstance instance) {
+		try {
+			T data = (T) this.dataClazz.getDeclaredConstructor(String.class, Long.class)
+					.newInstance(instance.getScenarioDefinition().getId(), instance.getId());
 
-            if (dataCache.indexOf(data) != -1) {
-                logger.debug("Removing instance from data cache: " + data);
-                dataCache.remove(data);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			int index = dataCache.indexOf(data);
+			if (index != -1) {
+				for (String key : instance.getScenarioDefinition().getOutputParameterNames()) {
+					if (methodTable.containsKey(key)) {
+						try {
+							methodTable.get(key).setAccessible(true);
+							methodTable.get(key).invoke(data, instance.getValue(key));
+						} catch (InvocationTargetException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+			logger.info("Updating instance in data cache: " + data.getId());
+			dataCache.set(index, data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void removeInstance(IScenarioInstance instance) {
+		try {
+			T data = (T) this.dataClazz.getDeclaredConstructor(String.class, Long.class)
+					.newInstance(instance.getScenarioDefinition().getId(), instance.getId());
+
+			if (dataCache.indexOf(data) != -1) {
+				logger.info("Removing instance from data cache: " + data.getId());
+				dataCache.remove(data);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
