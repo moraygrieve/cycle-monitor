@@ -59,7 +59,7 @@ class CycleMonitorTest(BaseTest):
 			fp.write('monitor Poll { action onload{ send com.jtech.source.Poll() to "CITY-BIKES"; } }')
 		self.correlator.injectMonitorscript('poll.mon', filedir=self.output)
 
-	def startCorrelator(self, url=None, city='London', xclock=False):
+	def startCorrelator(self, url=None, city='London', xclock=True):
 		'''Start a correlator and set logging, return correlator object handle. '''
 		self.correlator = CorrelatorHelper(self)
 		self.log.info('Allocating port %s for correlator'%self.correlator.port)

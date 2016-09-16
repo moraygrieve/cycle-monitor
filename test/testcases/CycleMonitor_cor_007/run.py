@@ -5,7 +5,7 @@ from com.jtech.basetest import CycleMonitorTest
 class PySysTest(CycleMonitorTest):
 	def execute(self):
 		#start the application
-		self.startCorrelator(xclock=True)
+		self.startCorrelator()
 		self.startScenarioPrinter(self.correlator, fields=['id','type'])
 		self.startADBCAdapter(self.correlator, insert='insert.sql')
 		self.initialiseApplication(self.correlator)
