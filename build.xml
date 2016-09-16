@@ -67,6 +67,7 @@
 		<engine-inject>
 			<filelist refid="apama.scenarios"/>
 			<filelist refid="apama.adbc"/>
+			<filelist refid="apama.connectivity"/>
 			<filelist refid="utils"/>
 			<filelist refid="configuration"/>
 			<filelist refid="source"/>

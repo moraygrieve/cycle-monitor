@@ -31,7 +31,12 @@ monitor StationManager {
 			(new ConnectivityPlugins).onApplicationInitialized();
 			
 			log "Requesting city bikes connector to start";
-			emit Start() to "CITY-BIKES";
+			send Start() to "CITY-BIKES";
+			
+			on all at(*,*,*,*,*) {
+				log "Requesting city bikes connector to poll for updates";
+				send Poll() to "CITY-BIKES";	
+			}
 		}
 	}
 }

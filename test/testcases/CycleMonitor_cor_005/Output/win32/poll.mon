@@ -1,1 +1,0 @@
-monitor Poll { action onload{ emit com.jtech.source.Poll() to "CITY-BIKES"; } }

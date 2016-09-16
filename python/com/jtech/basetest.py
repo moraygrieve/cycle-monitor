@@ -56,7 +56,7 @@ class CycleMonitorTest(BaseTest):
 		'''Write the current list of stations to file in JSON, and force a poll on the adapter through the correlator. '''
 		self.dumpStations(file)
 		with open(os.path.join(self.output, 'poll.mon'),'w') as fp:
-			fp.write('monitor Poll { action onload{ emit com.jtech.source.Poll() to "CITY-BIKES"; } }')
+			fp.write('monitor Poll { action onload{ send com.jtech.source.Poll() to "CITY-BIKES"; } }')
 		self.correlator.injectMonitorscript('poll.mon', filedir=self.output)
 
 	def startCorrelator(self, url=None, city='London', xclock=False):
@@ -121,19 +121,6 @@ class CycleMonitorTest(BaseTest):
 		return self.adbcAdapter.start(configdir=os.path.join(PROJECT.root, 'config'), configname='adbc.xml', 
 		logfile='adbc_adapter.log', replace=replaceDict)
 	
-	def startCityBikesAdapter(self, correlator, city, data_url, schedule):
-		'''Start IAF running the City Bikes adapter, return process handle. '''
-		self.cityBikesAdapter = IAFHelper(self)
-		replaceDict = {'${basedir}':'%s' % PROJECT.root,
-					'${apama.home}':'%s' % PROJECT.APAMA_HOME,
-					'${correlator.port}':'%d' % correlator.port,
-					'${city-name}': city,
-					'${data-url}': data_url,
-					'${polling-schedule}': schedule}
-
-		return self.cityBikesAdapter.start(configdir=os.path.join(PROJECT.root, 'config'), configname='city-bikes.xml', 
-		logfile='city-bikes_adapter.log', replace=replaceDict)
-		
 	def startHTTPServer(self, dir=None):
 		'''Start HTTP server serving files from output directory, setting port as self.httpPort. '''
 		command = sys.executable

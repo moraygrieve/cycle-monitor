@@ -1,1 +1,0 @@
-com.jtech.config.DBConfig("com.apama.adbc.JDBC","jdbc:sqlite:C:\\Users\\moray\\Development\\cycle-monitor\\test\\testcases\\CycleMonitor_cor_008\\Output\\win32\\store.db","","")

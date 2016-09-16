@@ -5,7 +5,6 @@
 	<classpathentry kind="src" path="java/src"/>
 	<classpathentry kind="var" path="APAMA_HOME"/>
 	<classpathentry kind="lib" path="java/lib/com.mysql.jdbc_5.1.5.jar"/>
-	<classpathentry kind="lib" path="java/lib/cron4j-2.2.5.jar"/>
 	<classpathentry kind="lib" path="java/lib/jfxrt.jar"/>
 	<classpathentry kind="lib" path="java/lib/json-simple-1.1.jar"/>
 	<classpathentry kind="lib" path="java/lib/log4j-1.2.16.jar"/>

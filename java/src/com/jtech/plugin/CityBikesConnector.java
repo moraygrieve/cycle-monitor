@@ -38,7 +38,7 @@ public class CityBikesConnector extends AbstractTransport {
 
 	@Override
 	public void sendBatchTowardsTransport(List<Message> messages) {
-		LOGGER.info("Received upstream event from the host ..." + messages.size());
+		LOGGER.info("Received upstream event from the host");
 		
 		for (Message msg : messages) {
 			String type = msg.getMetadata().get("sag.type");
