@@ -58,32 +58,25 @@ public class TableController {
 			}
 		});
 
-		/**
 		controller.typeColumn.setCellFactory(new Callback<TableColumn<StationAlertEntry, String>, TableCell<StationAlertEntry, String>>() {
 			public TableCell<StationAlertEntry, String> call(TableColumn<StationAlertEntry, String> tradesEntryStringTableColumn) {
 				final TableCell<StationAlertEntry, String> cell = new TableCell<StationAlertEntry, String>() {
 					protected void updateItem(String item, boolean empty) {
 						super.updateItem(item, empty);
-						
-						if (empty || item == null) {
-							setText(null);
-							setTextFill(null);
-							setStyle(null);
+
+						if (item == null) {
+							setText("");
 							return;
 						}
-						else {
-							StationAlertEntry entry = (StationAlertEntry) this.getTableRow().getItem();	
-							if (entry == null) {
-								setText(null);
-								setTextFill(null);
-								setStyle(null);
-								logger.info("OOOOPPPPPS");
-								return;
-							}
-							setTextFill(Color.BLACK);
-							setStyle("-fx-background-color: " + entry.getColor()+ "; -fx-opacity: 0.75; ");
-							setText(item);
+						
+						StationAlertEntry entry = (StationAlertEntry) this.getTableRow().getItem();
+						if (entry == null) {
+							setText(null);
+							return;
 						}
+						setTextFill(Color.BLACK);
+						setStyle("-fx-background-color: " + entry.getColor()+ "; -fx-opacity: 0.75; ");
+						setText(item);	
 					}
 				};
 				return cell;
@@ -95,43 +88,37 @@ public class TableController {
 				final TableCell<StationAlertEntry, Double> cell = new TableCell<StationAlertEntry, Double>() {
 					protected void updateItem(Double item, boolean empty) {
 						super.updateItem(item, empty);
-						if (empty || item == null) {
-							setText(null);
-							setTextFill(null);
-							setStyle(null);
+						
+						if (item == null) {
+							setText("");
+							return;
 						}
-						else {
-							String tstamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date((long) (item*1000L))); 
-							setText(tstamp);
-						} 
+						String tstamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date((long) (item*1000L))); 
+						setText(tstamp);
 					}
 				};
 				return cell;
 			}
 		});
 		
-		/**
 		controller.messageColumn.setCellFactory(new Callback<TableColumn<StationAlertEntry, String>, TableCell<StationAlertEntry, String>>() {
 			public TableCell<StationAlertEntry, String> call(TableColumn<StationAlertEntry, String> tradesEntryStringTableColumn) {
 				final TableCell<StationAlertEntry, String> cell = new TableCell<StationAlertEntry, String>() {
 					protected void updateItem(String item, boolean empty) {
 						super.updateItem(item, empty);
-						if (!isEmpty()) {
-							setTooltip(new Tooltip(item));
-							setText(item);
-						} else {
-							setText(null);
-							setTextFill(null);
-							setStyle(null);
+
+						if (item == null) {
+							setText("");
 							return;
 						}
+						setTooltip(new Tooltip(item));
+						setText(item);
 					}
 				};
 				return cell;
 			}
 		});
-		*/
-		
+
 		stationAlertTable.getDataCache().addListener(new ListChangeListener<StationAlertEntry>() {
 			public void onChanged(Change<? extends StationAlertEntry> paramChange) {
 				while (paramChange.next()) {
@@ -148,8 +135,7 @@ public class TableController {
 				}
 			}
 		});
-		
-		controller.stationAlertTable.setItems(stationAlertTable.getDataCache());    
 
+		controller.stationAlertTable.setItems(stationAlertTable.getDataCache());    
 	}	
 }
