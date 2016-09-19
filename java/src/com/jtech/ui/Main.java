@@ -52,7 +52,7 @@ public class Main extends Application {
 			stage.setScene(scene);
 			stage.show();
 
-			MapController mapController = new MapController(controller, stationUpdateTable);
+			MapController mapController = new MapController(controller, "DV_StationAlert", sService, stationUpdateTable);
 			new TableController(controller, mapController, stationUpdateTable);
 	
 			logger.info("Calling update connection");

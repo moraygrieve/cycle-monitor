@@ -18,16 +18,25 @@
 
 package com.jtech.ui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.apama.services.scenario.DiscoveryStatusEnum;
+import com.apama.services.scenario.IScenarioInstance;
+import com.apama.services.scenario.internal.ScenarioDefinition;
 import com.jtech.ui.model.StationAlertEntry;
 import com.jtech.ui.model.StationAlertTable;
+import com.jtech.ui.scenario.IScenarioServiceSubscriber;
+import com.jtech.ui.scenario.ScenarioService;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -37,14 +46,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
 
-public class MapController {	
+public class MapController extends IScenarioServiceSubscriber {	
     private static final Logger logger = LogManager.getLogger("MapController");
 
+    private final String scenarioName;
+    private final ScenarioService scenarioService;
+    private final StationAlertTable stationAlertTable;
 	private final WebEngine webEngine;
-	private volatile boolean loaded;
+	private AtomicBoolean instancesLoaded = new AtomicBoolean(false);
+	private AtomicBoolean mapLoaded = new AtomicBoolean(false);
+	private AtomicBoolean loaded = new AtomicBoolean(false);
+	
 	private final Map<Long, StationAlertEntry> stations = new HashMap<Long, StationAlertEntry>();
 
-	public MapController(Controller controller, final StationAlertTable stationAlertTable) {
+	public MapController(Controller controller, String scenarioName, ScenarioService scenarioService, StationAlertTable stationAlertTable) {
+		this.scenarioName = scenarioName;
+		this.scenarioService = scenarioService;
+		this.stationAlertTable = stationAlertTable;
+		scenarioService.register(this);
+		
 		final URL urlGoogleMaps = getClass().getClassLoader().getResource("googlemap.html");
 		webEngine = controller.webViewPanel.getEngine();
 
@@ -58,17 +78,9 @@ public class MapController {
 				new ChangeListener<Worker.State>() {
 					public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
 						if (newState == Worker.State.SUCCEEDED) {
-							JSObject window = (JSObject) webEngine.executeScript("window");
-
-							int index=0;
-							while (index<stationAlertTable.getDataCache().size()) {
-								StationAlertEntry entry = stationAlertTable.getDataCache().get(index);
-								logger.debug("Adding station " + entry.getId() + " to map");
-								stations.put(entry.getId(), entry);
-								drawStation(stationAlertTable.getDataCache().get(index));
-								index++;
-							}
-							loaded=true;
+							mapLoaded.set(true);
+							logger.info("Map is loaded");
+							if (instancesLoaded.get()) drawInitial();
 						}
 					}
 				});
@@ -77,20 +89,20 @@ public class MapController {
 		stationAlertTable.getDataCache().addListener(new ListChangeListener<StationAlertEntry>(){
 			@Override
 			public void onChanged(javafx.collections.ListChangeListener.Change<? extends StationAlertEntry> c) {
-				while (loaded && c.next()) {
+				while (loaded.get() && c.next()) {
 					if (c.wasPermutated()) { } 
 					else if (c.wasUpdated()) { } 
 					else {
 						for (StationAlertEntry remitem : c.getRemoved()) {
 							if (stations.containsKey(remitem.getId())) {
-								logger.debug("Removing station " + remitem.getId() + " from map");
+								logger.info("Removing station " + remitem.getId() + " from map");
 								stations.remove(remitem.getId());
 								deleteStation(remitem);
 							}
 						}
 						for (StationAlertEntry additem : c.getAddedSubList()) {
 							if (!stations.containsKey(additem.getId())) {
-								logger.debug("Adding station " + additem.getId() + " to map");
+								logger.info("Adding station " + additem.getId() + " to map");
 								stations.put(additem.getId(), additem);
 								drawStation(additem);
 							}
@@ -99,6 +111,47 @@ public class MapController {
 				}
 			}
 		});
+	}
+	
+	@Override
+	public String getId() {
+		return scenarioName;
+	}
+
+	@Override
+	public void onDisconnect() {
+	}
+
+	@Override
+	public void onConnect() {
+	}
+
+	@Override
+	public void onDiscoveryComplete() {
+		final ScenarioDefinition definition = scenarioService.getScenarioDefinition(scenarioName);
+		if (definition == null) return;
+
+		definition.addListener(ScenarioDefinition.PROPERTY_INSTANCE_DISCOVERY_STATUS, new PropertyChangeListener() {
+			public void propertyChange(final PropertyChangeEvent evt) {
+				if (definition.getDiscoveryStatus().equals(DiscoveryStatusEnum.COMPLETE)) {
+					logger.info("Scenario instances are loaded");
+					instancesLoaded.set(true);
+					if (mapLoaded.get()) drawInitial();
+				}
+			}
+		});
+	}
+	
+	private void drawInitial() {
+		int index=0;
+		while (index<stationAlertTable.getDataCache().size()) {
+			StationAlertEntry entry = stationAlertTable.getDataCache().get(index);
+			logger.info("Adding station " + entry.getId() + " to map");
+			stations.put(entry.getId(), entry);
+			drawStation(stationAlertTable.getDataCache().get(index));
+			index++;
+		}
+		loaded.set(true);
 	}
 	
 	public void showDocumentWindow(StationAlertEntry entry) {
